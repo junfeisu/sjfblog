@@ -1,5 +1,5 @@
 <template>
-	<div class="detail" v-bind:='details'></div>
+	<div class="detail" v-cloak>{{detail}}</div>
 </template>
 
 <script>

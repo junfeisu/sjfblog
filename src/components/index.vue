@@ -1,6 +1,6 @@
 <template>
 	<div id="blog_list">
-		<div class="list" v-for="list in lists" :='list.value'></div>
+		<div class="list" v-for="list in lists" v-cloak>{{list.value}}</div>
 	</div>
 </template>
 
@@ -8,7 +8,7 @@
 	export default({
 		data(){
 			return {
-				lists:  [{
+				lists:[{
 					value:'first blog'
 				},{
 					value:'second blog'
@@ -16,7 +16,7 @@
 					value:'last blog'
 				}]
 			}
-		}
+		} 	
 	})
 </script>
 

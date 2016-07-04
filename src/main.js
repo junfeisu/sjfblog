@@ -6,6 +6,11 @@ Vue.use(VueRouter);
 const router = new VueRouter();
 
 router.map({
+  '/': {
+    component: function(resolve) {
+      require(['./components/index.vue'], resolve)
+    }
+  },
   '/login': {
     component: function(resolve) {
       require(['./components/login.vue'], resolve)
@@ -14,11 +19,6 @@ router.map({
   '/signup': {
     component: function(resolve) {
       require(['./components/signup.vue'], resolve)
-    }
-  },
-  '/index': {
-    component: function(resolve) {
-      require(['./components/index.vue'], resolve)
     }
   },
   '/about': {
@@ -34,7 +34,7 @@ router.map({
 });
 
 router.redirect({
-  '*': '/index'
+  '*': '/'
 })
 
 router.start(App, 'body');
