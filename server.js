@@ -3,11 +3,10 @@ var http = require('http'),
   port = "8888";
 
 function start(route) {
-  function onRequest(request, response) {
+  http.createServer(function(request, response) {
     var pathName = url.parse(request.url).pathname;
     route(pathname, request, response);
-  }
-  http.createServer(onRequest).listen(port);
+  }).listen(port);
   console.log("Server has started at http:127.0.0.1:8888")
 }
 

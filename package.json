@@ -1,0 +1,14 @@
+{
+  "name": "sjfblog",
+  "version": "1.0.0",
+  "description": "a simple personal blog",
+  "author": "sujunfei",
+  "private": true,
+  "scripts": {
+  },
+  "dependencies": {
+    "art-template": "^3.0.3"
+  },
+  "devDependencies": {
+  }
+}
