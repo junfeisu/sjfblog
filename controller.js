@@ -40,7 +40,9 @@ var fs = require("fs"),
             contentType = self.contentType;
 
           self.isExit(pathname, function() {
+            //basename(pathname) is to get the name of file
             var baseName = path.basename(pathname, '.html')
+              //to check the path is correct or not
             hasFile = fs.existsSync(__dirname + "/routes/" + baseName + ".js"),
               routeJs = hasFile ? "./routes/" + baseName + ".js" : "",
               pageData = routeJs ? require(routeJs).data : {},
@@ -60,6 +62,7 @@ var fs = require("fs"),
             response = self.res,
             contentType = self.contentType;
           self.isExit(pathname, function() {
+            // the data of 2 scale
             fs.readFile("." + pathname, "binary", function(err, data) {
               if (err) {
                 response.writeHead(500, {
@@ -121,4 +124,4 @@ var fs = require("fs"),
     return Controller;
   })();
 
-  module.exports=Controller;
+module.exports = Controller;
