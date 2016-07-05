@@ -1,5 +1,4 @@
 var mongoose = require('mongoose'),
-  mongoose.connect('mongodb://localhost/test'),
   Schema = mongoose.Schema,
   mongoMethod = require('./mongo').mongoUse,
   peopleSchema = new Schema({
@@ -8,6 +7,7 @@ var mongoose = require('mongoose'),
     girlFriend: String
   })
 People = mongoose.model('People', peopleSchema);
+mongoose.connect('mongodb://localhost/test');
 sujunfei = new People({
   name: 'sujunfei',
   age: 19,
@@ -16,8 +16,8 @@ sujunfei = new People({
 
 mongoMethod.add(sujunfei);
 
-mongoMethod.update({ age: 19 }, { $set: { age: 20 }});
+mongoMethod.update({ age: 19 }, { $set: { age: 20 } }, sujunfei);
 
-mongoMethod.search({ name: 'sujunfei' })
+mongoMethod.search({ name: 'sujunfei' }, sujunfei)
 
-mongoMethod.remove({ name: 'sujunfei' })
+mongoMethod.remove({ name: 'sujunfei' }, sujunfei)
