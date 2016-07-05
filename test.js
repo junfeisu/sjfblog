@@ -16,7 +16,7 @@ sujunfei = new People({
 
 mongoMethod.add(sujunfei);
 
-mongoMethod.update({ age: 19 }, { $set: { age: 20 }, false, true });
+mongoMethod.update({ age: 19 }, { $set: { age: 20 }});
 
 mongoMethod.search({ name: 'sujunfei' })
 
