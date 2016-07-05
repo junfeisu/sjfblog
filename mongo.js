@@ -8,8 +8,8 @@ exports.mongoUse = {
       console.log('meow');
     })
   },
-  update: function(message) {
-    entity.update(message, function(err) {
+  update: function(findMes, updateMes, entity) {
+    entity.update(findMes, updateMes, , function(err) {
       if (err) {
         console.log('update failed');
         return;
@@ -17,7 +17,7 @@ exports.mongoUse = {
       consoel.log('update successed');
     })
   },
-  remove: function(message) {
+  remove: function(message, entity) {
     entity.remove(message, function(err) {
       if (err) {
         console.log('delete failed');
@@ -26,9 +26,7 @@ exports.mongoUse = {
       console.log('delete successed');
     })
   },
-  search: function(model,message,cb) {
-  	return model.find(message,cb)
+  search: function(model, message, cb) {
+    return model.find(message, cb)
   }
 }
-
-
