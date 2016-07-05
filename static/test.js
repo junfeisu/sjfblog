@@ -16,8 +16,10 @@ sujunfei = new People({
 
 mongoMethod.add(sujunfei);
 
-mongoMethod.update({ age: 19 }, { $set: { age: 20 } }, sujunfei);
+mongoMethod.update({ age: 19 }, { $set: { age: 20 } }, People);
 
-mongoMethod.search({ name: 'sujunfei' }, sujunfei)
+mongoMethod.search(People, { name: 'sujunfei' }, function(err, people) {
+  console.log(people);
+})
 
-mongoMethod.remove({ name: 'sujunfei' }, sujunfei)
+mongoMethod.remove({ name: 'sujunfei' }, People);
