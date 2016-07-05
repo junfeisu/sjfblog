@@ -1,5 +1,4 @@
 var mongoose = require('mongoose'),
-  mongoose.connect('mongodb://localhost/test'),
   Schema = mongoose.Schema,
   mongoMethod = require('./mongo').mongoUse,
   peopleSchema = new Schema({
@@ -16,7 +15,7 @@ sujunfei = new People({
 
 mongoMethod.add(sujunfei);
 
-mongoMethod.update({ age: 19 }, { $set: { age: 20 }});
+mongoMethod.update({ age: 19 }, { $set: { age: 20 }, false, true });
 
 mongoMethod.search({ name: 'sujunfei' })
 

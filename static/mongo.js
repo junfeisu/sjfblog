@@ -1,6 +1,3 @@
-var mongoose = require('mongoose'),
-mongoose.connect('mongodb://localhost/test');
-
 exports.mongoUse = {
   add: function(entity) {
     entity.save(function(err) {
