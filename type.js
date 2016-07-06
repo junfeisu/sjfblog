@@ -1,4 +1,4 @@
-export.types = {
+exports.types = {
   "css": "text/css",
   "html": "text/html",
   "gif": "image/gif",

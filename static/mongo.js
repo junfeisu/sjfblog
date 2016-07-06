@@ -1,3 +1,4 @@
+//the operation of mongodb
 exports.mongoUse = {
   add: function(entity) {
     entity.save(function(err) {

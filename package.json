@@ -5,6 +5,7 @@
   "author": "sujunfei",
   "private": true,
   "scripts": {
+    "start": "node app"
   },
   "dependencies": {
     "art-template": "^3.0.3"

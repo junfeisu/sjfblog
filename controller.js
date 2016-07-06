@@ -4,14 +4,14 @@ var fs = require("fs"),
   util = require("util"),
   queryString = require("querystring"),
   types = require("./type").types,
-  template = require("art-template"),
+  template = require("./static/node_modules/art-template"),
   ajaxTo = require("./ajax/ajaxto"),
-  controller = (function() {
+  Controller = (function() {
     var handle_404 = function(pathname, request, response) {
         response.writeHead(404, {
-          "Content-type": type.text
+          "Content-type": types.text
         });
-        response.write("This request url " + pathname + "was not found on this server.");
+        response.write("This request url " + pathname + " was not found on this server.");
         response.end();
       },
       Controller = function(config) {
@@ -23,7 +23,7 @@ var fs = require("fs"),
       send = {
         isExit: function(pathname, cb) {
           var self = this;
-          fs.exists("." + pathname.function(exists) {
+          fs.exists("." + pathname, function(exists) {
             if (!exists) {
               console.log("file is not found");
               handle_404(pathname, self.req, self.res);
@@ -33,18 +33,17 @@ var fs = require("fs"),
           })
         },
         render: function() {
+          console.log(this);
           var self = this,
             pathname = self.pathname,
-            request = self.request,
-            response = self.response,
+            request = self.req,
+            response = self.res,
             contentType = self.contentType;
-
           self.isExit(pathname, function() {
             //basename(pathname) is to get the name of file
-            var baseName = path.basename(pathname, '.html')
-              //to check the path is correct or not
-            hasFile = fs.existsSync(__dirname + "/routes/" + baseName + ".js"),
-              routeJs = hasFile ? "./routes/" + baseName + ".js" : "",
+            var baseName = path.basename(pathname, '.html'),
+              hasFile = fs.existsSync("/route/" + baseName + ".js"), //to check the path is correct or not
+              routeJs = hasFile ? "./route/" + baseName + ".js" : "",
               pageData = routeJs ? require(routeJs).data : {},
               html = template.renderFile("." + pathname.replace(/\.html$/, ""), pageData);
             response.writeHead(200, {
@@ -107,7 +106,7 @@ var fs = require("fs"),
             request.on("data", function(chunk) {
               postData += chunk;
             });
-            request.on("end".function() {
+            request.on("end", function() {
               var formatUrl = url.parse(request.url, true);
               postData = querystring.parse(postData);
               formatUrl._postdata = postData;

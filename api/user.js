@@ -1,7 +1,7 @@
 var util = require("util");
 
 exports.getuserinfo = function(req, res, formaturl) {
-  var name = formaturl.query..name || "hello";
+  var name = formaturl.query.name || "hello";
   //to transfer the object to string
   res.write(util.inspect(_postdata));
   res.end();
