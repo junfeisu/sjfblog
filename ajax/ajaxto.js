@@ -1,4 +1,4 @@
-var User=require("../api/user"),
+var User=require("../api/user").User,
 		routes={
 			"/api/getuserinfo": User.getuserinfo,
 			"/api/login": User.login,
