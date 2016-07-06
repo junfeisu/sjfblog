@@ -3,7 +3,7 @@ var mongoose=require('mongoose'),
 
 exports.schemas={
 	blogSchema:new Schmea({
-    title: String
+    title: String,
     date: String,
     content: String,
     comment: String,
