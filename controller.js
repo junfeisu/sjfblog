@@ -33,7 +33,6 @@ var fs = require("fs"),
           })
         },
         render: function() {
-          console.log(this);
           var self = this,
             pathname = self.pathname,
             request = self.req,
@@ -99,19 +98,22 @@ var fs = require("fs"),
           });
 
           if (request.method.toUpperCase() === "GET") {
+            //set the second para to true is to use the querystring module to query 
             var formatUrl = url.parse(request.url, true);
-            ajaxTo(request, response.formatUrl);
+            ajaxTo(request, response, formatUrl);
           } else if (request.method.toUpperCase() === "POST") {
             var postData = "";
+            request.setEncoding='utf8';
             request.on("data", function(chunk) {
               postData += chunk;
             });
             request.on("end", function() {
+              console.log("数据拼接成功");
               var formatUrl = url.parse(request.url, true);
-              postData = querystring.parse(postData);
-              formatUrl._postdata = postData;
+              postData=JSON.parse(postData);
+              formatUrl._postData=JSON.stringify(postData);
               ajaxTo(request, response, formatUrl);
-
+              console.log('数据发送成功')
             })
           }
         }
