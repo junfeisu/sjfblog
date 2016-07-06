@@ -3,28 +3,25 @@ exports.mongoUse = {
   add: function(entity) {
     entity.save(function(err) {
       if (err) {
-        console.log('storage failed');
-        return;
+        return 0;
       }
-      console.log('meow');
+      return 1;
     })
   },
   update: function(message) {
     entity.update(message, function(err) {
       if (err) {
-        console.log('update failed');
-        return;
+        return 0;
       }
-      consoel.log('update successed');
+      return 1;
     })
   },
   remove: function(message) {
     entity.remove(message, function(err) {
       if (err) {
-        console.log('delete failed');
-        return;
+        return 0;
       }
-      console.log('delete successed');
+     return 1;
     })
   },
   search: function(model,message,cb) {
