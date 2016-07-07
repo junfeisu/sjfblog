@@ -2,7 +2,7 @@ var mongoose=require('mongoose'),
 	Schema=mongoose.Schema;
 
 exports.schemas={
-	blogSchema:new Schmea({
+	blogSchema:new Schema({
     title: String,
     date: String,
     content: String,

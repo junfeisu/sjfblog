@@ -7,8 +7,5 @@ xhr.onreadystatechange=function(){
 	console.log(JSON.parse(xhr.responseText))
 }
 
-xhr.open('POST','/api/register');
-xhr.send(JSON.stringify({
-	username: 'sujunfei',
-	password: '123456'
-}));
+xhr.open('GET','/api/getuserinfo?username=sujunfei');
+xhr.send();

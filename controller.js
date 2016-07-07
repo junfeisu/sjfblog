@@ -103,17 +103,15 @@ var fs = require("fs"),
             ajaxTo(request, response, formatUrl);
           } else if (request.method.toUpperCase() === "POST") {
             var postData = "";
-            request.setEncoding='utf8';
+            request.setEncoding = 'utf8';
             request.on("data", function(chunk) {
               postData += chunk;
             });
             request.on("end", function() {
-              console.log("数据拼接成功");
               var formatUrl = url.parse(request.url, true);
-              postData=JSON.parse(postData);
-              formatUrl._postData=JSON.stringify(postData);
+              postData = JSON.parse(postData);
+              formatUrl._postData = JSON.stringify(postData);
               ajaxTo(request, response, formatUrl);
-              console.log('数据发送成功')
             })
           }
         }
