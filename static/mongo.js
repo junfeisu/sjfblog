@@ -1,12 +1,7 @@
 //the operation of mongodb
 exports.mongoUse = {
-  add: function(entity) {
-    entity.save(function(err) {
-      if (err) {
-        return 0;
-      }
-      return 1;
-    })
+  add: function(entity,cb) {
+    entity.save(cb)
   },
   update: function(message) {
     entity.update(message, function(err) {

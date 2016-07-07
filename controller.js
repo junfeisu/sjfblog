@@ -105,6 +105,7 @@ var fs = require("fs"),
             var postData = "";
             request.setEncoding = 'utf8';
             request.on("data", function(chunk) {
+              console.log('chunk is ' + chunk);
               postData += chunk;
             });
             request.on("end", function() {
