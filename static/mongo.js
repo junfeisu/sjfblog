@@ -25,7 +25,7 @@ exports.mongoUse = {
     })
   },
   search: function(model,message,cb) {
-  	return model.find(message,cb)
+    return model.find(message,cb)
   }
 }
 
