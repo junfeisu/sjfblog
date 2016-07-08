@@ -5,13 +5,12 @@ var schema = require('../model/schema'),
     if (arguments[1] === 'ERROR') {
       newResult = {
           msg: 'fail',
-          data: 'There is some wrong with mongodb operate'
+          data: arguments[2]
         },
         arguments[0].writeHead(500, {
           'Content-type': 'text/plain'
         });
     } else {
-      console.log(arguments[1])
       newResult = {
         msg: 'success',
         data: arguments[1]
@@ -32,7 +31,7 @@ exports.User = {
   getuserinfo: function(req, res, formaturl) {
     var findMes = JSON.parse(formaturl).query;
     operate.search(User, findMes, function(err, result) {
-      err ? deal(res, 'ERROR') : deal(res, result);
+      err ? deal(res, 'ERROR', err) : deal(res, result);
     });
   },
   login: function(req, res, formaturl) {
@@ -45,7 +44,7 @@ exports.User = {
       res.end();
     } else {
       operate.search(User, data, function(err, result) {
-        err ? deal(res, 'ERROR') : deal(res, result);
+        err ? deal(res, 'ERROR', err) : deal(res, result);
       })
     }
   },
@@ -60,8 +59,8 @@ exports.User = {
     } else {
       var person = new User(data);
       operate.add(person, function(err) {
-        err ? deal(res, 'ERROR') : operate.search(User, data, function(err, result) {
-          err ? deal(res, 'ERROR') : deal(res, result)
+        err ? deal(res, 'ERROR', err) : operate.search(User, data, function(err, result) {
+          err ? deal(res, 'ERROR', err) : deal(res, result)
         })
       });
     }
