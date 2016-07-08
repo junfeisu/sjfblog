@@ -1,9 +1,7 @@
-var util = require("util"),
-  schema = require('../static/schema'),
-  operate = require('../static/mongo').mongoUse,
-  User = schema.models['User'],
+var schema = require('../model/schema'),
+  operate = require('../model/mongo').mongoUse,
   deal = function() {
-    var newResult;
+    var newResult = {};
     if (arguments[1] === 'ERROR') {
       newResult = {
           msg: 'fail',
@@ -13,6 +11,7 @@ var util = require("util"),
           'Content-type': 'text/plain'
         });
     } else {
+      console.log(arguments[1])
       newResult = {
         msg: 'success',
         data: arguments[1]
@@ -24,7 +23,11 @@ var util = require("util"),
     console.log(newResult);
     arguments[0].write(JSON.stringify(newResult), 'utf8');
     arguments[0].end();
-  };
+  },
+  User = schema.models['User'],
+  person = new User(),
+  error;
+
 exports.User = {
   getuserinfo: function(req, res, formaturl) {
     var findMes = JSON.parse(formaturl).query;
