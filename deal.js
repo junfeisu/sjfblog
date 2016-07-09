@@ -5,7 +5,7 @@ var operate = require('./model/mongo').mongoUse,
     if (check === 'ERROR') {
       newResult = {
         flag: false,
-        err: 'There is some wrong with mongodb operate'
+        err: errMsg
       }
       res.writeHead(500, {
         'Content-type': 'application/json'

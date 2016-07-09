@@ -1,6 +1,6 @@
 var User = require("../api/user").User,
   Blog = require('../api/blog').Blog,
-  validate = require('../check/validate'),
+  validate = require('./validate'),
   dealError = function(res, msg) {
     res.writeHead(403, {
       'Content-type': 'text/plain'
@@ -15,7 +15,8 @@ routes = {
     "/api/getbloglist": Blog.getbloglist,
     "/api/getblogbyid": Blog.getblogbyid,
     "/api/delblog": Blog.delblog,
-    "/api/uploadblog": Blog.uploadblog
+    "/api/uploadblog": Blog.uploadblog,
+    "/api/updateblog": Blog.updateblog
   },
   ajaxto = function(req, res, formaturl) {
     if (!validate.isLack(formaturl).status) {

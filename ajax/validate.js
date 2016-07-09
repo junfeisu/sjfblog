@@ -5,7 +5,8 @@ var route = {
     '/api/uploadblog': { title: 'string', content: 'string', tag: 'object' },
     '/api/getbloglist': { user_id: 'string' },
     '/api/getblogbyid': { blog_id: 'string' },
-    '/api/delblog': { blog_id: 'string' }
+    '/api/delblog': { blog_id: 'string' },
+    '/api/updateblog': { blog_id: 'string'}
   },
   getPropertyName = function(obj) {
     var property = [],
