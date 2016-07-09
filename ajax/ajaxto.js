@@ -1,6 +1,14 @@
 var User = require("../api/user").User,
-	Blog=require('../api/blog').Blog,
-  routes = {
+  Blog = require('../api/blog').Blog,
+  validate = require('../check/validate'),
+  dealError = function(res, msg) {
+    res.writeHead(403, {
+      'Content-type': 'text/plain'
+    });
+    res.write(msg, 'utf8');
+    res.end();
+  }
+routes = {
     "/api/getuserinfo": User.getuserinfo,
     "/api/login": User.login,
     "/api/register": User.signup,
@@ -10,7 +18,19 @@ var User = require("../api/user").User,
     "/api/uploadblog": Blog.uploadblog
   },
   ajaxto = function(req, res, formaturl) {
-    routes[formaturl.pathname](req, res, JSON.stringify(formaturl));
+    if (!validate.isLack(formaturl).status) {
+      if (!validate.isNull(formaturl).status) {
+        if (!validate.isTypeError(formaturl).status) {
+          routes[formaturl.pathname](req, res, JSON.stringify(formaturl));
+        } else {
+          dealError(res, validate.isTypeError(formaturl).msg)
+        }
+      } else {
+        dealError(res, validate.isNull(formaturl).msg)
+      }
+    } else {
+      dealError(res, validate.isLack(formaturl).msg)
+    }
   };
 
 module.exports = ajaxto;
