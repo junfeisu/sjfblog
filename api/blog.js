@@ -1,4 +1,4 @@
-var deal = require('../deal').deal;
+var deal = require('../model/deal').deal;
 
 exports.Blog = {
   uploadblog: function(req, res, formaturl) {

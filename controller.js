@@ -3,13 +3,12 @@ var fs = require("fs"),
   url = require("url"),
   util = require("util"),
   queryString = require("querystring"),
-  types = require("./type").types,
   template = require('./node_modules/art-template'),
   ajaxTo = require("./ajax/ajaxto"),
   Controller = (function() {
     var handle_404 = function(pathname, request, response) {
         response.writeHead(404, {
-          "Content-type": types.text
+          "Content-type": 'text/plain'
         });
         response.write("This request url " + pathname + " was not found on this server.");
         response.end();

@@ -1,6 +1,6 @@
 var schema = require('../model/schema'),
   operate = require('../model/mongo').mongoUse,
-  deal = require('../deal').deal;
+  deal = require('../model/deal').deal;
   deal = function() {
     var newResult = {};
     if (arguments[1] === 'ERROR') {

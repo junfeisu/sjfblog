@@ -1,5 +1,5 @@
 var path = require("path"),
-  types = require("../type").types;
+  types = require("../model/type").types;
 const TYPE_HTML = "html";
 const UNKNOWN = "unknown";
 
