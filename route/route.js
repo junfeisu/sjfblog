@@ -5,7 +5,7 @@ const UNKNOWN = "unknown";
 
 function route(pathname, request, response) {
   if (pathname === '/'){
-    pathname = '/static/index.html';
+    pathname = '/src/index.html';
   }
 
   function onResponse(pathname, request, response) {

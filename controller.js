@@ -4,7 +4,7 @@ var fs = require("fs"),
   util = require("util"),
   queryString = require("querystring"),
   types = require("./type").types,
-  template = require('./static/node_modules/art-template'),
+  template = require('./node_modules/art-template'),
   ajaxTo = require("./ajax/ajaxto"),
   Controller = (function() {
     var handle_404 = function(pathname, request, response) {
@@ -41,11 +41,7 @@ var fs = require("fs"),
           self.isExit(pathname, function() {
             //basename(pathname) is to get the name of file
             var baseName = path.basename(pathname, '.html'),
-              // hasFile = fs.existsSync("./static/src/components/" + baseName + ".vue"), //to check the path is correct or not
-              // routeJs = hasFile ? "./static/src/components/" + baseName + ".vue" : "",
-              // pageData = routeJs ? require(routeJs).data : {},
-              html = template.renderFile('.' + '/static/dist/index.html'.replace(/\.html$/, ''), {});
-            console.log(typeof(html));
+              html = template.renderFile('.' + '/src/index.html'.replace(/\.html$/, ''), {});
             response.writeHead(200, {
               "Content-Type": contentType
             });

@@ -1,4 +1,4 @@
-var mongoose = require('../static/node_modules/mongoose'),
+var mongoose = require('../node_modules/mongoose'),
   db = mongoose.connection,
   ObjectId=mongoose.Schema.Types.ObjectId,
   Schema = mongoose.Schema;

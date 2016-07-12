@@ -1,4 +1,4 @@
-var markdown = require('../static/node_modules/markdown').markdown,
+var markdown = require('../node_modules/markdown').markdown,
 	util=require('util'),
   fs = require('fs');
 
