@@ -1,8 +1,11 @@
 'use strict';
 var webpack = require('webpack');
+var path = require('path');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 var autoprefixer = require('autoprefixer-core');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var TransferWebpackPlugin = require('transfer-webpack-plugin');
 
 module.exports = function makeWebpackConfig(options) {
   var BUILD = !!options.BUILD;
@@ -43,12 +46,18 @@ module.exports = function makeWebpackConfig(options) {
   config.module = {
     preLoaders: [],
     loaders: [{
+      test: /\.css$/,
+      loader: 'style-loader!css-loader!sass-loader'
+    }, {
       test: /\.js$/,
       loader: 'babel?optional=runtime',
       exclude: /node_modules/
     }, {
       test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
       loader: 'file'
+    }, {
+      test: /\.scss$/,
+      loader: 'style-loader!css-loader!sass-loader'
     }, {
       test: /\.html$/,
       loader: 'raw'
@@ -67,22 +76,6 @@ module.exports = function makeWebpackConfig(options) {
       loader: 'isparta-instrumenter'
     })
   }
-  // Postprocess your css with PostCSS plugins
-  var cssLoader = {
-    test: /\.css$/,
-    loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass')
-  };
-  // Skip loading css in test mode
-  if (TEST) {
-    // Return an empty module
-    cssLoader.loader = 'null'
-  }
-  // Add cssLoader to the loader list
-  config.module.loaders.push(cssLoader);
-  /**
-   * PostCSS
-   * Add vendor prefixes to your css
-   */
   config.sass = [
     autoprefixer({
       browsers: ['last 2 version']
@@ -113,15 +106,21 @@ module.exports = function makeWebpackConfig(options) {
   if (BUILD) {
     config.plugins.push(
       // Only emit files when there are no errors
+      new CleanWebpackPlugin(['build'],{
+        root: __dirname,
+        verbose: true,
+        dry: false
+      }),
       new webpack.NoErrorsPlugin(),
-      // Dedupe modules in the output
       new webpack.optimize.DedupePlugin(),
-      // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.UglifyJsPlugin(),
+      new TransferWebpackPlugin([
+        { from: 'component/common', to: 'common' }
+      ], path.resolve(__dirname, 'src/'))
     )
   }
   config.devServer = {
-    contentBase: './dist',
+    contentBase: './build',
     stats: {
       modules: false,
       cached: false,

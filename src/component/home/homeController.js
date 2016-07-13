@@ -1,8 +1,10 @@
-import request from '../../service/service';
-
 export default class homeController {
-  constructor(request, $scope) {
-    request.getData({
+  constructor(request) {
+    this.request = request;
+  }
+
+  getData() {
+    this.request.getData({
       path: '/api/getbloglist',
       way: 'POST',
       parm: '',
@@ -10,5 +12,8 @@ export default class homeController {
         console.log(data)
       }
     })
+
   }
 }
+
+homeController.$inject = ['request'];

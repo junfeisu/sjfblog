@@ -59,6 +59,7 @@
     "autoprefixer-core": "^6.0.1",
     "babel-runtime": "^6.9.2",
     "classnames": "^2.2.0",
+    "clean-webpack-plugin": "^0.1.9",
     "es6-utils": "^1.2.12",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
@@ -68,6 +69,7 @@
     "loaders.css": "^0.1.1",
     "normalize.css": "^3.0.3",
     "raw-loader": "^0.5.1",
+    "transfer-webpack-plugin": "^0.1.4",
     "webpack-dev-server": "^1.14.1"
   }
 }

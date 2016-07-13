@@ -1,4 +1,5 @@
 'use strict'
+import './component/common/style/index.scss';
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import routing from './app.config';

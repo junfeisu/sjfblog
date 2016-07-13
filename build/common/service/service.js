@@ -1,6 +1,7 @@
 import toastr from 'toastr';
+import angular from 'angular';
 
-export default class requestFactory {
+class request {
   contrustor($http) {
     this.$http = $http;
   }
@@ -18,3 +19,8 @@ export default class requestFactory {
 	  promise(para);
   }
 }
+
+export default angular.module('service.request',[])
+  .service('request',request)
+  .name
+
