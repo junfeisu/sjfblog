@@ -1,5 +1,5 @@
-var operate = require('./model/mongo').mongoUse,
-  schema = require('./model/schema'),
+var operate = require('./mongo').mongoUse,
+  schema = require('./schema'),
   dealCall = function(res, check, errMsg) {
     var newResult = {};
     if (check === 'ERROR') {

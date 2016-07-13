@@ -6,7 +6,7 @@ export default class homeController {
       path: '/api/getbloglist',
       way: 'POST',
       parm: '',
-      cb: (data) => {
+      cb: data => {
         console.log(data)
       }
     })

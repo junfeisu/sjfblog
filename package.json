@@ -5,9 +5,10 @@
   "main": "main.js",
   "scripts": {
     "start": "node app",
-    "server": "node front-server",
-    "watch": "webpack --progress --colors --watch",
-    "build": "webpack --config webpack.config.js -w"
+    "build": "webpack --config webpack.build.js --bail -p",
+    "dev": "node node_modules/.bin/webpack-dev-server --history-api-fallback --hot --inline --progress",
+    "test": "karma start",
+    "test:live": "karma start --auto-watch --no-single-run"
   },
   "keywords": [
     "blog",
@@ -31,10 +32,16 @@
     "eslint-loader": "^1.1.0",
     "eslint-plugin-react": "^3.6.3",
     "extract-text-webpack-plugin": "^0.9.0",
-    "html-loader": "^0.3.0",
     "husky": "^0.10.1",
     "jest-cli": "^0.6.1",
     "json-mock-kuitos": "^1.0.3",
+    "karma": "^1.1.1",
+    "karma-coverage": "^0.4.2",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-sourcemap-loader": "^0.3.5",
+    "karma-spec-reporter": "0.0.19",
+    "karma-webpack": "^1.5.1",
     "mongoose": "^4.5.4",
     "node-sass": "^3.4.1",
     "sass-loader": "^3.1.1",
@@ -48,13 +55,19 @@
     "angular": "^1.5.7",
     "angular-ui-router": "^0.3.1",
     "art-template": "^3.0.3",
+    "autoprefixer": "^6.3.7",
+    "autoprefixer-core": "^6.0.1",
+    "babel-runtime": "^6.9.2",
     "classnames": "^2.2.0",
     "es6-utils": "^1.2.12",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.22.0",
     "immutable": "^3.7.5",
     "jquery": "^3.1.0",
     "keymirror": "^0.1.1",
     "loaders.css": "^0.1.1",
     "normalize.css": "^3.0.3",
+    "raw-loader": "^0.5.1",
     "webpack-dev-server": "^1.14.1"
   }
 }
