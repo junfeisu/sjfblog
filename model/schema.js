@@ -1,5 +1,4 @@
 var mongoose = require('../node_modules/mongoose'),
-  db = mongoose.connection,
   ObjectId=mongoose.Schema.Types.ObjectId,
   Schema = mongoose.Schema;
 mongoose.connect('mongodb://localhost/test');

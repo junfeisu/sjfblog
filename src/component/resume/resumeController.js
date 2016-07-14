@@ -1,11 +1,12 @@
 export default class resumeController {
   constructor(request) {
     this.request = request;
+    this.getData();
   }
 
   getData() {
     this.request.getData({
-      url: '/api/resume',
+      path: '/api/resume',
       para: 'user_id',
       cb: data => {
         console.log(data)

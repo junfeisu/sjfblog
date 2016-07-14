@@ -7,7 +7,7 @@ import resumeController from './resumeController';
 import route from './resume.route';
 import request from '../common/service/service';
 
-export default angular.module('app.resume',[uiroute,request])
-	.config(route)
-	.controller('resuneController',resumeController)
-	.name
+export default angular.module('app.resume', [uiroute, request])
+  .config(route)
+  .controller('resumeController', resumeController)
+  .name

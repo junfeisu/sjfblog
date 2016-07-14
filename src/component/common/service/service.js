@@ -1,24 +1,24 @@
 import toastr from 'toastr';
 import angular from 'angular';
 
+
 class request {
-  contrustor($http) {
+  constructor($http) {
     this.$http = $http;
   }
-  getData(para) {
-    let promise = ({ path, way = 'GET', parm, headers = { 'Content-type': 'application/json' },cb } = {}) => {
-      $http({
+  getData({ path, way = 'GET', parm, headers = { 'Content-type': 'application/json' },cb } = {}) {
+    let promise = this.$http({
         url: path,
         method: way,
         data: parm,
         header: headers
       });
-      promise.success(data => para.cb(data));
-      promise.error(err => toastr.info(JSON.stringify(err)));
-    }
-	  promise(para);
+    promise.success(data => cb(data));
+    promise.error(err => toastr.info(JSON.stringify(err)));
   }
 }
+
+request.$inject=['$http'];
 
 export default angular.module('service.request',[])
   .service('request',request)

@@ -1,37 +1,67 @@
-// var express=require('express'),
-//   path=require('path'),
-//   body_parser=require('body-parser'),
-//   config=require('./config'),
-//   route=require('./routes/index'),
-//   favivon=require('serve-favicon'),
-//   app=express();
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var proxy = require('http-proxy-middleware');
+var routes = require('./route/route');
 
-// var static_dir=path.join(__dirname,'static/dist'),
-//   url_info=require('url').parse('localhost'),
-//   config.hostname=urlinfo.hostname||config.host;
-// app.use('/static/dist',express.static());
-// app.use('views/', path.join(__dirname, 'views'));
-// app.use('view engine','html');
+var app = express();
 
-// app.get('/',function(req,res){
-//   res.send();
-// })
+var options = {
+  target: '115.159.224.128',
+  changeOrigin: true,
+  ws: true,
+  proxyTable: {
+    'dev.localhost:3000': 'http://localhost:8080'
+  }
+}
 
-// app.listen(9999,function(){
-//   console.log('The blog is listening on port 9999');
-// });
+var proxyOption = proxy(options);
 
-var server = require('./server'),
-  route = require('./route/route'),
-  init = (function() {
-    return function() {
-      var data = {
-        data: null,
-        err: ''
-      }
-      return data
-    }
-  })
-global.Controller = require('./controller');
-global.initData = init();
-server.start(route);
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.use('/build',proxyOption) 
+app.use('/', routes);
+
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// development error handler
+// will print stacktrace
+if(app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
+});
+
+app.listen(3000, function(){
+  console.log('Server start at 127.0.0.1:3000');
+})
+
+
+module.exports = app;

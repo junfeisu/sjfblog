@@ -1,6 +1,7 @@
 export default class detailController {
   constructor(request) {
     this.request = request;
+    this.abc='abc';
   }
 
   getData() {
