@@ -13,3 +13,5 @@ route.get('/me', function(res, req, next){
 		err ?	console.log(err) : res.send(JSON.stringify(result))
 	})
 })
+
+module.exports=route;

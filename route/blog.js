@@ -1,7 +1,7 @@
 var express = require('express');
 var route = express.Router();
 var mongo = require('../model/mongo');
-var validate = reuqire('../model/validate');
+var validate = require('../model/validate');
 var model = require('../model/schema').models;
 
 route.get('/', function(req, res){
@@ -27,3 +27,6 @@ route.post('/getblogbytag', function(req, res) {
     err ? console.log(err) : res.send(JSON.stringify(blog))
   })
 })
+
+module.exports=route;
+

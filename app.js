@@ -5,15 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var proxy = require('http-proxy-middleware');
-var routes = require('./route/route');
+var blog = require('./route/blog');
+var user = require('./route/user');
 
 var app = express();
 
 var options = {
-  target: '115.159.224.128',
+  target: 'http:localhost',
   changeOrigin: true,
   ws: true,
-  proxyTable: {
+  router: {
     'dev.localhost:3000': 'http://localhost:8080'
   }
 }
@@ -28,8 +29,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.use('/build',proxyOption) 
-app.use('/', routes);
+app.use('/build',proxyOption);
+app.use('/', blog);
+app.use('/user',user);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
