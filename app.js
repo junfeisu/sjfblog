@@ -7,32 +7,25 @@ var bodyParser = require('body-parser');
 var proxy = require('http-proxy-middleware');
 var blog = require('./route/blog');
 var user = require('./route/user');
+var ejs = require('ejs');
 
 var app = express();
-
-var options = {
-  target: 'http:localhost',
-  changeOrigin: true,
-  ws: true,
-  router: {
-    'dev.localhost:3000': 'http://localhost:8080'
-  }
-}
-
-var proxyOption = proxy(options);
-
+var option = proxy('/build', { target: 'http://localhost:8080' });
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'build')));
-
-app.use('/build',proxyOption);
+// app.use(formidable);
+app.use(option);
 app.use('/', blog);
-app.use('/user',user);
+app.use('/user', user);
 
+// app.engine('html',ejs.__express);
+// app.set('views', __dirname + '/build');
+// app.set('view engine', 'html');
+app.use(express.static(path.join(__dirname, 'build/')));
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -41,7 +34,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if(app.get('env') === 'development') {
+if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -61,7 +54,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(3000, function(){
+app.listen(3000, function() {
   console.log('Server start at 127.0.0.1:3000');
 })
 

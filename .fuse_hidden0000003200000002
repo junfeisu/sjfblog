@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>xailacaidan</title>
+</head>
+<body>
+ <input type="file" name="upload" id='file' value="" placeholder="">
+ <button id="upload">上传</button>
+ <script type="text/javascript">
+ 		var upload=document.getElementById('upload');
+ 		var file=document.getElementById('file');
+ 		var formData=new FormData();
+ 		file.onchange=function(){
+ 			var file = this.files[0];
+ 			console.log(file);
+ 			formData.append('filename',file);
+ 		}
+ 		upload.onclick=function(){
+ 			var xhr=new XMLHttpRequest();
+ 			xhr.open('POST','/uploadmd');
+ 			xhr.send(formData)
+ 		}
+ </script>
+</body>
+</html>
