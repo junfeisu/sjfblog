@@ -9,6 +9,7 @@ route.get('/', function(req, res) {
 })
 
 route.get('/getbloglist', function(req, res) {
+  res.set('Access-Control-Allow-Origin', '*')
   mongo.search(model.Blog, {}, function(err, result) {
     err ? res.send(err) : res.send(JSON.stringify(result))
   })

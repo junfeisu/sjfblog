@@ -7,14 +7,13 @@ export default class homeController {
 
   getData() {
     this.request.getData({
-      path: '/api/getbloglist',
-      way: 'POST',
+      path: '/api/blog',
+      way: 'GET',
       parm: '',
       cb: data => {
         console.log(data)
       }
     })
-
   }
 }
 

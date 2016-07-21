@@ -5,7 +5,8 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 var autoprefixer = require('autoprefixer-core');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var TransferWebpackPlugin = require('transfer-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var fs =require('fs')
 
 module.exports = function makeWebpackConfig(options) {
   var BUILD = !!options.BUILD;
@@ -60,7 +61,7 @@ module.exports = function makeWebpackConfig(options) {
       loader: 'style-loader!css-loader!sass-loader'
     }, {
       test: /\.html$/,
-      loader: 'raw'
+      loader: 'html-loader'
     }]
   };
   // ISPARTA LOADER
@@ -91,17 +92,16 @@ module.exports = function makeWebpackConfig(options) {
       disable: !BUILD || TEST
     })
   ];
-  // Skip rendering index.html in test mode
-  if (!TEST) {
-    // Render index.html
-    config.plugins.push(
-      new HtmlWebpackPlugin({
-        template: './src/index.html',
-        inject: 'body',
-        minify: BUILD
-      })
-    )
-  }
+  // if (!TEST) {
+  //   // Render index.html
+  //   config.plugins.push(
+  //     new HtmlWebpackPlugin({
+  //       template: './src/index.html',
+  //       inject: 'body',
+  //       minify: BUILD
+  //     })
+  //   )
+  // }
   // Add build specific plugins
   if (BUILD) {
     config.plugins.push(
@@ -114,9 +114,22 @@ module.exports = function makeWebpackConfig(options) {
       new webpack.NoErrorsPlugin(),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin(),
-      new TransferWebpackPlugin([
-        { from: 'component/common', to: 'common' }
-      ], path.resolve(__dirname, 'src/'))
+      new CopyWebpackPlugin([
+        { from: 'src/component/common', to: 'common' },
+        { from: 'src/index.html', to: 'index.html'}
+      ]),
+      function () {
+        this.plugin('done', function(stats){
+          var hash = stats.hash;
+          if(stats.hash) {
+            const htmlFile = './build/index.html'
+            var html = fs.readFileSync(path.join(__dirname, htmlFile), 'utf-8')
+            var newHtmlpath = 'http://localhost:8080/app.bundle.js'
+            var newHtml = html.replace('./app.js',newHtmlpath)
+            fs.writeFileSync(path.join(__dirname, htmlFile), newHtml)
+          }
+        })
+      }
     )
   }
   config.devServer = {

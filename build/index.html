@@ -1,46 +1,30 @@
-Html Webpack Plugin:
-<pre>
-  TypeError: Cannot use 'in' operator to search for 'html5' in true
-  
-  - htmlminifier.js:610 
-    [sjfblog]/[html-webpack-plugin]/[html-minifier]/src/htmlminifier.js:610:18
-  
-  - Array.forEach
-  
-  - htmlminifier.js:609 processOptions
-    [sjfblog]/[html-webpack-plugin]/[html-minifier]/src/htmlminifier.js:609:41
-  
-  - htmlminifier.js:819 minify
-    [sjfblog]/[html-webpack-plugin]/[html-minifier]/src/htmlminifier.js:819:3
-  
-  - htmlminifier.js:1294 exports.minify
-    [sjfblog]/[html-webpack-plugin]/[html-minifier]/src/htmlminifier.js:1294:10
-  
-  - index.js:287 
-    [sjfblog]/[html-webpack-plugin]/index.js:287:16
-  
-  - util.js:16 tryCatcher
-    [sjfblog]/[html-webpack-plugin]/[bluebird]/js/release/util.js:16:23
-  
-  - promise.js:504 Promise._settlePromiseFromHandler
-    [sjfblog]/[html-webpack-plugin]/[bluebird]/js/release/promise.js:504:31
-  
-  - promise.js:561 Promise._settlePromise
-    [sjfblog]/[html-webpack-plugin]/[bluebird]/js/release/promise.js:561:18
-  
-  - promise.js:606 Promise._settlePromise0
-    [sjfblog]/[html-webpack-plugin]/[bluebird]/js/release/promise.js:606:10
-  
-  - promise.js:685 Promise._settlePromises
-    [sjfblog]/[html-webpack-plugin]/[bluebird]/js/release/promise.js:685:18
-  
-  - async.js:138 Async._drainQueue
-    [sjfblog]/[html-webpack-plugin]/[bluebird]/js/release/async.js:138:16
-  
-  - async.js:148 Async._drainQueues
-    [sjfblog]/[html-webpack-plugin]/[bluebird]/js/release/async.js:148:10
-  
-  - async.js:17 Immediate.Async.drainQueues [as _onImmediate]
-    [sjfblog]/[html-webpack-plugin]/[bluebird]/js/release/async.js:17:14
-  
-</pre>
+<!DOCTYPE html>
+<html lang='ch-Z'>
+
+<head>
+  <base href="/" >
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>sjfblog</title>
+</head>
+
+<body ng-app="app">
+  <div class="top">
+    <div ng-include src="'/common/views/top.html'"></div>
+  </div>
+  <div class="content" init-height>
+    <div class="left">
+      <div ng-include src="'/common/views/left.html'"></div>
+    </div>
+    <div class="main">
+      <div ui-view></div>
+    </div>
+    <div class="right">
+      <div ng-include src="'/common/views/right.html'"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <script type="text/javascript" src="http://localhost:8080/app.bundle.js"></script>
+</body>
+
+</html>

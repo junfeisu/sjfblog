@@ -7,10 +7,9 @@ var bodyParser = require('body-parser');
 var proxy = require('http-proxy-middleware');
 var blog = require('./route/blog');
 var user = require('./route/user');
-var ejs = require('ejs');
+var cons = require('consolidate');
 
 var app = express();
-var option = proxy('/build', { target: 'http://localhost:8080' });
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -18,14 +17,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(formidable);
-app.use(option);
-app.use('/', blog);
-app.use('/user', user);
+app.use('/api/blog', blog);
+app.use('/api/user', user);
 
-// app.engine('html',ejs.__express);
-// app.set('views', __dirname + '/build');
+// app.engine('html',cons.swig);
+// app.set('views', path.join(__dirname + 'build'));
 // app.set('view engine', 'html');
-app.use(express.static(path.join(__dirname, 'build/')));
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

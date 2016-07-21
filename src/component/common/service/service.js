@@ -1,7 +1,6 @@
 import toastr from 'toastr';
 import angular from 'angular';
 
-
 class request {
   constructor($http) {
     this.$http = $http;
@@ -23,4 +22,3 @@ request.$inject=['$http'];
 export default angular.module('service.request',[])
   .service('request',request)
   .name
-

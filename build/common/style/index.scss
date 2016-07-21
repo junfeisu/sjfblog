@@ -59,16 +59,6 @@ $largeSize: 18px;
   min-width: 1080px;
   height: 100%;
  
-  .left {
-    width: 20%;
-    float: left;
-    height: 100%;
-    .left_main {
-      img {
-        width: 100%;
-      }
-    }
-  }
   .main {
     width: 60%;
     float: left;
@@ -89,7 +79,8 @@ $largeSize: 18px;
         a {
           text-decoration: none;
           cursor: pointer;
-          font-size: $largeSize
+          font-size: $largeSize;
+          color: #e0c8c8
         }
         p {
           display: -webkit-box;
