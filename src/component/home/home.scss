@@ -4,13 +4,14 @@
   position: relative;
   overflow: hidden;
   height: 400px;
+  z-index: 1;
+  display: none;
   .container {
     width: 400%;
     height: 400px;
     margin: 0px;
     padding: 0px;
     position: absolute;
-    left: 0px;
     top: 0px;
     li {
       width: 25%;
@@ -35,31 +36,34 @@
       }
     }
   }
-  a{
-  	position: absolute;
-  	color: #000;
-  	top: 42.5%;
-  	background: #ccc;
-  	opacity: 0.3;
-  	height: 60px;
-  	width: 60px;
-  	line-height: 60px;
-  	text-align: center;
-  	font-size: 60px;
-  	cursor: pointer;
-  	display: none;
-  	&:hover {
-  		opacity: 0.6
-  	}
+  a {
+    position: absolute;
+    color: #000;
+    top: 42.5%;
+    background: #ccc;
+    display: block;
+    opacity: 0.3;
+    height: 60px;
+    width: 60px;
+    border-radius: 30px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 50px;
+    cursor: pointer;
+    display: none;
+    z-index: 2;
+    &:hover {
+      opacity: 0.6
+    }
   }
   #prev {
-  	left: 10%;
+    left: 10%;
   }
   #next {
-  	right: 10%;
+    right: 10%;
   }
   &:hover > a {
-  	display: block;
+    display: block;
   }
 }
 
@@ -145,5 +149,32 @@
 
 .right {
   width: 25%;
-  float: right
+  float: right;
+  .tag_class {
+    width: 96%;
+    margin: 0 auto;
+    h3 {
+      text-align: center;
+    }
+    .tags {
+      width: 90%;
+      margin: 0 auto;
+      span {
+        float: left;
+        display: block;
+        margin-bottom: 10px;
+        width: 46%;
+        height: 25px;
+        line-height: 25px;
+        padding: 0px 3px;
+        background: #d9534f;
+        border-radius: 2px;
+        cursor: pointer;
+        &:nth-child(odd) {
+          background: #15a287;
+          margin-right: 3%;
+        }
+      }
+    }
+  }
 }

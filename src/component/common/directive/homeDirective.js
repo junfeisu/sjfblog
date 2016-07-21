@@ -6,7 +6,12 @@ class prevBlog {
 
 	link(scope, ele, attrs) {
 		ele.on('click', () => {
-			console.log('prev')
+			let wrapper = document.getElementById('wrapper')
+			let container = document.getElementsByClassName('container')
+			container[0].style.left = parseInt(container[0].style.left) + wrapper.offsetWidth + 'px'
+			if(parseInt(container[0].style.left) > 0) {
+				container[0].style.left = -3 * wrapper.offsetWidth + 'px'
+			}
 		})
 	}
 }
@@ -18,8 +23,12 @@ class nextBlog {
 
 	link(scope,ele,atts) {
 		ele.on('click', () => {
+			let wrapper = document.getElementById('wrapper');
 			let container = document.getElementsByClassName('container');
-			console.log(container[0]);
+			container[0].style.left = parseInt(container[0].style.left) - wrapper.offsetWidth + 'px'
+			if(parseInt(container[0].style.left) <= wrapper.offsetWidth * -4 ) {
+				container[0].style.left = -wrapper.offsetWidth + 'px'
+			}
 		})
 	}
 }

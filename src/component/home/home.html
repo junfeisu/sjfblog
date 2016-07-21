@@ -1,5 +1,8 @@
 <div id="wrapper">
-  <ul class="container">
+  <ul class="container" style="left:0px">
+    <li><img src="/common/image/fourth.png" alt="">
+      <p>This is picture4</p>
+    </li>
     <li><img src="/common/image/sixth.png" alt="">
       <p>This is picture1</p>
     </li>
@@ -12,10 +15,13 @@
     <li><img src="/common/image/fourth.png" alt="">
       <p>This is picture4</p>
     </li>
+    <li><img src="/common/image/sixth.png" alt="">
+      <p>This is picture1</p>
+    </li>
     <div class="clear"></div>
   </ul>
-  <a class="arrow" id="prev" prev-blog>&lt;</a>
-  <a class="arrow" id="next" next-blog>&gt;</a>
+  <a class="arrow" href='/' id="prev" prev-blog>&lt;</a>
+  <a class="arrow" href='/' id="next" next-blog>&gt;</a>
 </div>
 <div class="main">
   <div ui-view>
@@ -42,6 +48,15 @@
   </div>
 </div>
 <div class="right">
-  <div ng-include src="'/common/views/right.html'"></div>
+  <div class="tag_class">
+    <h3>文章标签</h3>
+    <div class="tags">
+      <span>Node(22)</span>
+      <span>Javascript(55)</span>
+      <span>Angular(4)</span>
+      <span>Vue(3)</span>
+      <span>Webpack(1)</span>
+    </div>
+  </div>
 </div>
 <div class="clear"></div>
