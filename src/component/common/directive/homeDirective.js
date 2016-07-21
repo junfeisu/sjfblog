@@ -1,17 +1,30 @@
 import angular from 'angular';
-function initHeight(){
-	return {
-		 scope: {
-		 	name: '='
-		 },
-		 compile: (scope,ele,attrs) => {
-		 	let content=document.getElementsByClassName('content')[0];
-		 	console.log(content);
-		 	content.style.height= document.body.clientHeight-document.getElementsByClassName('top')[0].offsetHeight + 'px';
-		 }
+class prevBlog {
+	constructor() {
+
+	}
+
+	link(scope, ele, attrs) {
+		ele.on('click', () => {
+			console.log('prev')
+		})
 	}
 }
 
-export default angular.module('homeDirective',[])
-	.directive('homeDirective',initHeight)
-	.name;
+class nextBlog {
+	constructor() {
+
+	}
+
+	link(scope,ele,atts) {
+		ele.on('click', () => {
+			let container = document.getElementsByClassName('container');
+			console.log(container[0]);
+		})
+	}
+}
+
+export default angular.module('homeDirective', [])
+  .directive('prevBlog', () => new prevBlog())
+  .directive('nextBlog', () => new nextBlog())
+  .name;

@@ -1,10 +1,4 @@
 @charset 'UTF-8';
-$strongColor: #000000;
-$color: #6d6d6d;
-$lightColor: #b0b0b0;
-$smallSize: 14px;
-$middleSize: 16px;
-$largeSize: 18px;
 @import 'normalize.scss';
 @import 'mixin.scss';
 .top {
@@ -15,25 +9,39 @@ $largeSize: 18px;
   background: $strongColor;
   position: relative;
   top: 0px;
-  .logo {
-    background: #fff;
+  .show_logo {
     position: absolute;
-    width: 48px;
-    height: 48px;
-    background-image: url('../image/seven-sisters-1462388__340.jpg');
-    background-size: 48px 48px;
-    border-radius: 24px;
     left: 20px;
     top: 16px;
-    @include transition($time: 2s);
-    &:hover {
-      border-radius: 0px
+    .logo {
+      float: left;
+      background: #fff;
+      width: 48px;
+      height: 48px;
+      background-image: url('../image/sixth.png');
+      background-size: 48px 48px;
+      border-radius: 24px;
+      @include transition($time: 2s);
+      &:hover {
+        border-radius: 0px
+      }
+    }
+    h3{
+      color: #fff;
+      display: block;
+      float:right;
+      margin: 0px;
+      margin-left: 5px;
+      height: 48px;
+      line-height: 48px;
+      font-weight: bloder;
+      font-size: 22px
     }
   }
   .top_main {
     width: 60%;
     margin: 0 auto;
-    color: #ffffff;
+    color: #fff;
     font-size: $largeSize;
     #nav {
       width: 90%;
@@ -47,8 +55,9 @@ $largeSize: 18px;
         float: left;
         cursor: pointer;
         text-align: center;
-        &:hover{
-          margin-bottom: 3px;
+        @include transition;
+        &:hover {
+          margin-top: 5px;
         }
         a {
           text-decoration: none;
@@ -64,91 +73,6 @@ $largeSize: 18px;
   min-width: 1080px;
   min-height: 598px;
   height: 100%;
-  background: url('../image/seven-sisters-1462388__340.jpg');
-  background-size: 100%;
-  background-repeat: none;
-  .main {
-    width: 65%;
-    float: left;
-    margin: 0px 0px;
-    .blog_list {
-      width: 75%;
-      float: right;
-      margin: 10px auto;
-      .blog_specifc {
-        background: #fff;
-        border: 1px solid $lightColor;
-        border-radius: 5px;
-        padding: 5px 2%;
-        margin-top: 20px;
-        opacity: 0.7;
-        transition: 0.8s;
-        .blog_top {
-          margin-bottom: 30px;
-          a {
-            text-decoration: none;
-            cursor: pointer;
-            font-size: $largeSize;
-            @include transition($time: .8s);
-            color: #111;
-            &:hover{
-              margin-left: 5px
-            }
-          }
-        }
-        p {
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 3;
-          overflow: hidden;
-          margin-bottom: 30px
-        }
-        span {
-          display: block;
-          float: left;
-          margin-right: 20px;
-          height: 20px;
-          line-height: 20px;
-          font-size: $middleSize;
-          color: #0a0a0a;
-          &:hover{
-            margin-top: 2px;
-            color: $color;
-            cursor: pointer
-          };
-          &:first-child{
-            margin-right: 2px;
-            cursor: default;
-            &:hover{
-              margin-top: 0px;
-              color: #0a0a0a;
-              cursor: default
-            }
-          }
-        }
-        .tag {
-        	padding: 0 4px;
-          .tag_left {
-            float: left;
-          }
-          .time {
-            float: right;
-            color: $strongColor
-          }
-        }
-        &:first-child {
-          margin-top: 0px
-        }
-        &:hover {
-          opacity: 1;
-        }
-      }
-    }
-  }
-  .right {
-    width: 25%;
-    float: right
-  }
 }
 
 .clear {

@@ -4,7 +4,7 @@ export default function route($stateProvider){
 	$stateProvider
 		.state('about',{
 			url: '/about',
-			template: require('./aboutme.html'),
+			template: require('./about.html'),
 			controller: 'aboutController',
 			controllerAs: 'about'
 		})

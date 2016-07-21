@@ -12,17 +12,8 @@
   <div class="top">
     <div ng-include src="'/common/views/top.html'"></div>
   </div>
-  <div class="content" init-height>
-    <div class="left">
-      <div ng-include src="'/common/views/left.html'"></div>
-    </div>
-    <div class="main">
-      <div ui-view></div>
-    </div>
-    <div class="right">
-      <div ng-include src="'/common/views/right.html'"></div>
-    </div>
-    <div class="clear"></div>
+  <div class="content" init-height ui-view>
+    
   </div>
   <script type="text/javascript" src="./app.js"></script>
 </body>

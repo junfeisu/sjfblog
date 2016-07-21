@@ -1,71 +1,47 @@
-<div class="blog_list">
-  <div class="blog_specifc">
-    <div class="blog_top">
-      <a ui-sref='detail'>{{home.name}} ></a>
-      <div class="clear"></div>
-    </div>
-    <div class="blog_content">
-      <p>这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的</p>
-      <div class="tag">
-        <div class="tag_left">
-          <span>Tags:</span>
-          <span>前端</span>
-          <span>Angular</span>
+<div id="wrapper">
+  <ul class="container">
+    <li><img src="/common/image/sixth.png" alt="">
+      <p>This is picture1</p>
+    </li>
+    <li><img src="/common/image/second.png" alt="">
+      <p>This is picture2</p>
+    </li>
+    <li><img src="/common/image/thrid.png" alt="">
+      <p>This is picture3</p>
+    </li>
+    <li><img src="/common/image/fourth.png" alt="">
+      <p>This is picture4</p>
+    </li>
+    <div class="clear"></div>
+  </ul>
+  <a class="arrow" id="prev" prev-blog>&lt;</a>
+  <a class="arrow" id="next" next-blog>&gt;</a>
+</div>
+<div class="main">
+  <div ui-view>
+    <div class="blog_list">
+      <div class="blog_specifc">
+        <div class="blog_top">
+          <a ui-sref='detail'>{{home.name}}</a>
+          <div class="clear"></div>
         </div>
-        <div class="time">2016-7-12</div>
-        <div class="clear"></div>
-      </div>
-    </div>
-  </div><div class="blog_specifc">
-    <div class="blog_top">
-      <a ui-sref='detail'>{{home.name}} ></a>
-      <div class="clear"></div>
-    </div>
-    <div class="blog_content">
-      <p>这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的</p>
-      <div class="tag">
-        <div class="tag_left">
-          <span>Tags:</span>
-          <span>前端</span>
-          <span>Angular</span>
+        <div class="blog_content">
+          <p>这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的</p>
+          <div class="tag">
+            <div class="tag_left">
+              <span>Tags:</span>
+              <span>前端</span>
+              <span>Angular</span>
+            </div>
+            <div class="time">2016-7-12</div>
+            <div class="clear"></div>
+          </div>
         </div>
-        <div class="time">2016-7-12</div>
-        <div class="clear"></div>
-      </div>
-    </div>
-  </div><div class="blog_specifc">
-    <div class="blog_top">
-      <a ui-sref='detail'>{{home.name}} ></a>
-      <div class="clear"></div>
-    </div>
-    <div class="blog_content">
-      <p>这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的</p>
-      <div class="tag">
-        <div class="tag_left">
-          <span>Tags:</span>
-          <span>前端</span>
-          <span>Angular</span>
-        </div>
-        <div class="time">2016-7-12</div>
-        <div class="clear"></div>
-      </div>
-    </div>
-  </div><div class="blog_specifc">
-    <div class="blog_top">
-	    <a ui-sref='detail'>{{home.name}} ></a>
-      <div class="clear"></div>
-    </div>
-    <div class="blog_content">
-      <p>这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的</p>
-      <div class="tag">
-        <div class="tag_left">
-        	<span>Tags:</span>
-          <span>前端</span>
-          <span>Angular</span>
-        </div>
-        <div class="time">2016-7-12</div>
-        <div class="clear"></div>
       </div>
     </div>
   </div>
 </div>
+<div class="right">
+  <div ng-include src="'/common/views/right.html'"></div>
+</div>
+<div class="clear"></div>
