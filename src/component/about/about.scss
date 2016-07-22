@@ -48,10 +48,10 @@
 			margin: 5px auto;
 			text-align: center;
 			.specifc {
-				width: 100px;
-				margin-left: 5%;
-				height: 100px;
-				line-height: 100px;
+				width: 20%;
+				margin-left: 13%;
+				height: 140px;
+				line-height: 140px;
 				position: relative;
 				float: left;
 				.track {
@@ -74,6 +74,29 @@
 					@include position;
 					border-color: #6fec6f;
 				}
+				span {
+					position: absolute;
+					left: 15%;
+					top: 26%;
+					height: 30px;
+					line-height: 30px;
+					&:last-child {
+						left: 0%;
+						top: 72%;
+					}
+				}
+			}
+		}
+	}
+	#contact {
+		.contact_way {
+			text-align: left;
+			width: 40%;
+			margin: 5px auto;
+			margin-left: 40%;
+			a {
+				text-decoration: none;
+				color: #555;
 			}
 		}
 	}
