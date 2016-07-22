@@ -5,9 +5,27 @@ $smallSize: 14px;
 $middleSize: 16px;
 $largeSize: 18px;
 @mixin transition($time: 0.5s) {
-	transition: $time;
-	-webkit-transition: $time;
-	-o-transition: $time;
-	-moz-transition: $time;
-	-ms-transition: $time;
+  transition: $time;
+  -webkit-transition: $time;
+  -o-transition: $time;
+  -moz-transition: $time;
+  -ms-transition: $time;
+}
+
+@mixin archiveSpan {
+  float: left;
+  display: block;
+  margin-bottom: 10px;
+  width: 46%;
+  height: 25px;
+  line-height: 25px;
+  color: #fff;
+  padding: 0px 3px;
+  background: #d9534f;
+  border-radius: 2px;
+  cursor: pointer;
+  &:nth-child(odd) {
+    background: #15a287;
+    margin-right: 3%;
+  }
 }

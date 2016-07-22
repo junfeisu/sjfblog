@@ -34,6 +34,8 @@
       margin-left: 5px;
       height: 48px;
       line-height: 48px;
+      font-weight: bloder;
+      font-size: 22px
     }
   }
   .top_main {
@@ -71,9 +73,9 @@
   min-width: 1080px;
   min-height: 598px;
   height: 100%;
-  background: url('../image/sixth.png');
-  background-size: 100%;
-  background-repeat: none;
+  background: url('../image/bg_body.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat
 }
 
 .clear {

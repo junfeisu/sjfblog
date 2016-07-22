@@ -92,7 +92,7 @@
           @include transition($time: .8s);
           color: #111;
           &:hover {
-            margin-left: 5px
+            margin-left: 10px
           }
         }
       }
@@ -160,20 +160,22 @@
       width: 90%;
       margin: 0 auto;
       span {
-        float: left;
-        display: block;
-        margin-bottom: 10px;
-        width: 46%;
-        height: 25px;
-        line-height: 25px;
-        padding: 0px 3px;
-        background: #d9534f;
-        border-radius: 2px;
-        cursor: pointer;
-        &:nth-child(odd) {
-          background: #15a287;
-          margin-right: 3%;
-        }
+        @include archiveSpan
+      }
+    }
+  }
+  .time_class {
+    width: 96%;
+    margin: 0 auto;
+    margin-top: 40px;
+    h3 {
+      text-align: center
+    }
+    .times {
+      width: 90%;
+      margin: 0 auto;
+      span {
+        @include archiveSpan;
       }
     }
   }

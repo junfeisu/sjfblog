@@ -20,10 +20,10 @@ app.use(cookieParser());
 app.use('/api/blog', blog);
 app.use('/api/user', user);
 
-// app.engine('html',cons.swig);
-// app.set('views', path.join(__dirname + 'build'));
-// app.set('view engine', 'html');
-app.use(express.static(path.join(__dirname, 'build')));
+app.engine('html',cons.swig);
+app.set('views', path.join(__dirname + '/build'));
+app.set('view engine', 'html');
+app.use(express.static(path.join(__dirname, '/build')));
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
