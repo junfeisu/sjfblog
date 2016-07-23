@@ -92,16 +92,6 @@ module.exports = function makeWebpackConfig(options) {
       disable: !BUILD || TEST
     })
   ];
-  // if (!TEST) {
-  //   // Render index.html
-  //   config.plugins.push(
-  //     new HtmlWebpackPlugin({
-  //       template: './src/index.html',
-  //       inject: 'body',
-  //       minify: BUILD
-  //     })
-  //   )
-  // }
   // Add build specific plugins
   if (BUILD) {
     config.plugins.push(
@@ -132,14 +122,14 @@ module.exports = function makeWebpackConfig(options) {
       }
     )
   }
-  config.devServer = {
-    contentBase: './build',
-    stats: {
-      modules: false,
-      cached: false,
-      colors: true,
-      chunk: false
-    }
-  };
+  // config.devServer = {
+  //   contentBase: './build',
+  //   stats: {
+  //     modules: false,
+  //     cached: false,
+  //     colors: true,
+  //     chunk: false
+  //   }
+  // };
   return config;
 };

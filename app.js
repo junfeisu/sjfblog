@@ -56,5 +56,4 @@ app.listen(3000, function() {
   console.log('Server start at 127.0.0.1:3000');
 })
 
-
 module.exports = app;

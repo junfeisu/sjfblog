@@ -9,9 +9,8 @@ route.get('/', function(req,res,next){
 
 route.get('/me', function(req, res, next){
 	var url=req.url;
-	console.log(url+ 'is sb');
 	mongo.search(model.User, {}, function(err, result){
-		err ?	console.log(err) : res.send(JSON.stringify(result))
+		err ?	console.log(err) : res.json(result)
 	})
 })
 

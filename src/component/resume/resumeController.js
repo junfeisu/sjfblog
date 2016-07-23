@@ -1,7 +1,7 @@
 export default class resumeController {
   constructor(request) {
     this.request = request;
-    this.getData();
+    // this.getData();
   }
 
   getData() {

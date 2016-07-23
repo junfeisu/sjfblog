@@ -1,4 +1,3 @@
-import { RouteLink, RouterParams } from './detail.route'
 export default class detailController {
   constructor(request, $stateParams) {
     this.request = request
