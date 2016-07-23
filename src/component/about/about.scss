@@ -22,7 +22,7 @@
 		margin-left: -4px;
 	}
 	#description {
-		margin-top: 10px;
+		margin: 20px 0px;
 		.user {
 			width: 30%;
 			margin: 0 auto;
@@ -42,7 +42,8 @@
 		}
 	}
 	#skill {
-		margin-top: 10px;
+		margin: 10px 0px;
+		padding-bottom: 20px;
 		.skill_list {
 			width: 90%;
 			margin: 5px auto;
@@ -89,6 +90,8 @@
 		}
 	}
 	#contact {
+		margin: 20px 0px;
+		padding-bottom: 20px;
 		.contact_way {
 			text-align: left;
 			width: 40%;

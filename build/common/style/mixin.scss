@@ -4,12 +4,12 @@ $lightColor: #b0b0b0;
 $smallSize: 14px;
 $middleSize: 16px;
 $largeSize: 18px;
-@mixin transition($time: 0.5s) {
-  transition: $time;
-  -webkit-transition: $time;
-  -o-transition: $time;
-  -moz-transition: $time;
-  -ms-transition: $time;
+@mixin transition($time: 0.5s, $way: ease-in-out) {
+  transition: all $time $way;
+  -webkit-transition: all $time $way;
+  -o-transition: all $time $way;
+  -moz-transition: all $time $way;
+  -ms-transition: all $time $way;
 }
 
 @mixin archiveSpan {
@@ -28,4 +28,25 @@ $largeSize: 18px;
     background: #15a287;
     margin-right: 3%;
   }
+}
+
+@mixin transform ($angel: 180deg) {
+  transform: rotate($angel);
+  -webkit-transform: rotate($angel);
+  -moz-transform: rotate($angel);
+  -o-transform: rotate($angel);
+  -ms-transform: rotate($angel);
+}
+
+@mixin position {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: 50%;
+  border: 10px solid #e7e7e7;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
