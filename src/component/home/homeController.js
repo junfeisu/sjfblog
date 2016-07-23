@@ -1,8 +1,9 @@
 export default class homeController {
   constructor(request) {
     this.request = request;
-    this.name='1234';
-    this.getData();
+    this.name = '1234';
+    this.blogId = 11;
+      this.getData();
   }
 
   getData() {

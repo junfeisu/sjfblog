@@ -1,3 +1,66 @@
-.resume{
-	color: #545;
+@import '../common/style/mixin.scss';
+.resume {
+  position: absolute;
+  left: 5%;
+  top: 0px;
+  width: 90%;
+  background: #fff;
+  margin: 10px 0px;
+  border-radius: 3px;
+  .resume_top {
+    width: 100%;
+    margin: 0 auto;
+    height: 200px;
+    line-height: 200px;
+    background: #000;
+    color: #fff;
+    .resume_contact {
+      width: 30%;
+      float: left;
+      margin-left: 5%;
+      margin-top: 37.5px;
+      .way {
+        position: relative;
+        float: right;
+        .code {
+          position: absolute;
+          left: -140px;
+          top: 0px;
+        }
+        div {
+          height: 25px;
+          img {
+            float: left;
+          }
+          span {
+            display: iblock;
+            float: left;
+            height: 25px;
+            line-height: 25px;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+    .resume_user {
+      width: 30%;
+      float: right;
+      text-align: center;
+      margin-top: 37.5px;
+      h1 {
+        height: 80px;
+        line-height: 80px;
+        margin: 0px;
+        font-size: 60px;
+      }
+      h3 {
+        height: 30px;
+        margin: 0px;
+        line-height: 30px;
+      }
+    }
+  }
+  .resume_content {
+    padding: 10px;
+  }
 }

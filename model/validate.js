@@ -1,6 +1,6 @@
 var route = {
-    '/blog/getblogbyid': { blog_id: 'number' },
-    '/blog/getblogbytag': { tag: 'string' }
+    '/api/blog/getblogbyid': { blog_id: 'number' },
+    '/api/blog/getblogbytag': { tag: 'string' }
   },
   getPropertyName = function(obj) {
     var property = [],
