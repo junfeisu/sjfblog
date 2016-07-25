@@ -50,9 +50,8 @@ var getFile = {
           md.push(val[i].attribs.href.split('source/')[1]);
         }
         for (var j = 0; j < md.length; j++) {
-          if (/^[\u4e00-\u9fa5\w]+\.md$/.test(decodeURI(md[j].split('.md')[0])+'.md')) {
-            console.log(date.getFullYear())
-            console.log(date.getMonth() + 1)
+          md[j] = decodeURI(md[j])
+          if (/^[\u4e00-\u9fa5\w]+\.md$/.test(md[j]) {
             var exist = fs.existsSync('./' + date.getFullYear + '-' + date.getMonth() + 1 + '/' + md[j])
             if (exist) {
               console.log('the file is exist already')
@@ -73,18 +72,32 @@ var getFile = {
           console.log('err is ' + error)
         }
         var slice = result.text.split('---')
-        var blogMes = {}
+        var blogMes = {
+          tags: []
+        }
         var date = new Date()
+        var month = date.getMonth() + 1;
         var message = slice[1].replace(/\n/g, '')
-        console.log(message)
-        blogMes.tags = (message.split('titles: ')[1]).split('tags: ')[1]
-        blogMes.title = (message.split('titles: ')[1]).split('tags: ')[0]
+        var tags = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[0]
+        blogMes.title = (message.split('title: ')[1]).split('tags: ')[0]
+        tags.split(' ').forEach(function(value) {
+          blogMes.tags.push(value)
+        })
+        blogMes.date_create = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[1]
         blogMes.content = markdown.toHTML(slice[2])
-        fs.writeFileSync('./' + date.getFullYear + '-' + date.getMonth() + 1 + '/' + md, result.text, 'utf-8')
+        fs.writeFileSync('./' + date.getFullYear() + '-' + month + '/' + md, result.text, 'utf-8')
+        mongo.add(new model['Blog']({
+          title: blogMes.title,
+          content: blogMes.content,
+          tags: blogMes.tags,
+          date_create: blogMes.date_create
+        }), function(err, result){
+          err ? console.log('add err is ' + err) : console.log('result is ' + result)
+        })
       })
   }
 }
 
-// new cron('* */10 8-23  * * *', function() {
+new cron('* */10 8-23  * * *', function() {
   getFile.auth()
-// }, null, true, 'Asia/Shanghai');
+}, null, true, 'Asia/Shanghai');

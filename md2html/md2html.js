@@ -8,12 +8,17 @@ var fs = require('fs')
 //   tags:
 // })
 
-var content = fs.readFileSync('./source/苏俊飞.md', 'utf8');
-var a = content.split('---')[1].replace(/\n/g, '');
+var content = fs.readFileSync('./source/jjj.md', 'utf8');
 var slice = content.split('---');
-var message = slice[1].replace('/\n/g', '');
-var title = message.split('titles: ')[1].split('tags: ')[0];
-var tags = message.split('titles: ')[1].split('tags: ')[1];
+var message = slice[1].replace(/\n/g, '');
+var title = (message.split('title: ')[1]).split('tags: ')[0];
+var tags = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[0];
+var date_create = message.split('title: ')[1].split('tags: ')[1].split('date: ')[1];
 var blogContent = markdown.toHTML(slice[2]);
 
+tags.split(' ').forEach(function(value) {
+	console.log(value)
+})
 // mongo.add()
+console.log(title)
+console.log(date_create)
