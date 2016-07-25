@@ -51,7 +51,7 @@ var getFile = {
         }
         for (var j = 0; j < md.length; j++) {
           md[j] = decodeURI(md[j])
-          if (/^[\u4e00-\u9fa5\w]+\.md$/.test(md[j]) {
+          if (/^[\u4e00-\u9fa5\w]+\.md$/.test(md[j])) {
             var exist = fs.existsSync('./' + date.getFullYear + '-' + date.getMonth() + 1 + '/' + md[j])
             if (exist) {
               console.log('the file is exist already')
@@ -86,11 +86,12 @@ var getFile = {
         blogMes.date_create = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[1]
         blogMes.content = markdown.toHTML(slice[2])
         fs.writeFileSync('./' + date.getFullYear() + '-' + month + '/' + md, result.text, 'utf-8')
+        console.log(blogMes)
         mongo.add(new model['Blog']({
           title: blogMes.title,
           content: blogMes.content,
           tags: blogMes.tags,
-          date_create: blogMes.date_create
+          create_date: blogMes.date_create
         }), function(err, result){
           err ? console.log('add err is ' + err) : console.log('result is ' + result)
         })
