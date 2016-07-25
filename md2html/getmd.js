@@ -4,7 +4,7 @@ var cheerio = require('cheerio');
 var path = 'https://github.com'
 var fs = require('fs')
 
-new cron('* *30 12-23 * * * *', function() {
+new cron('* */10 8-23  * * *', function() {
   superagent.get(path + '/login')
     .end(function(err, res) {
       if (err)
@@ -29,12 +29,13 @@ new cron('* *30 12-23 * * * *', function() {
               var md = []
               var $ = cheerio.load(res.text);
               var val = $('.js-navigation-open')
+              var date = new Date()
               for (var i = 2; i < val.length; i++) {
                 md.push(val[i].attribs.href.split('md2html/')[1])
               }
               for (var j = 0; j < md.length; j++) {
                 if (/^[a-z]+\.md$/.test(md[j])) {
-                  var exist = fs.existsSync('./2016-7/' + md[j])
+                  var exist = fs.existsSync('./' + date.getFullYear() + '-' + date.getMonth() + 1 + '/' + md[j])
                   var filename = md[j]
                   if (exist) {
                     console.log('the file is exist already')
@@ -46,9 +47,11 @@ new cron('* *30 12-23 * * * *', function() {
                         console.log('err is ' + err)
                       }
                       fs.writeFileSync('./2016-7/' + filename, res.text, 'utf-8')
+                      return 
                     })
                 }
               }
+              console.log('There is no new md')
             })
         })
     })

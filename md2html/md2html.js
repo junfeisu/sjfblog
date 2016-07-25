@@ -1,22 +1,8 @@
-var markdown = require('../node_modules/markdown').markdown,
-	util=require('util'),
-  fs = require('fs');
+var mongo = require('../model/mongo.js').mongoUse
+var markdown = require('../node_modules/markdown').markdown
+var model = require('../model/schema').models
+var util = require('util')
+var fs = require('fs')
 
+var content = fs.readFileSync('./2016-7/test.md', 'utf8');
 
-// exports.md2html = function(content) {
-//   // var date = new Date(),
-//   // 	today=date.getFullYear() + '-' + (date.getMonth() + 1) ;
-//   //   fs.mkdir(today);
-//   //   fs.open('./' + today + '/' + title + '.md', 'w', 0644, function(e, fd) {
-//   //     if (e)
-//   //       throw e;
-//   //     fs.write(fd, content, function(e) {
-//   //       if (e)
-//   //         throw e;
-//   //       fs.closeSync(fd)
-//   //     })
-//   //   })
-//  	return markdown.toHTML(content);
-// }
-var content= fs.readFileSync('../test.md','utf8');
-console.log(markdown.toHTML(content));
