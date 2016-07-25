@@ -26,10 +26,10 @@
         border-radius: 0px
       }
     }
-    h3{
+    h3 {
       color: #fff;
       display: block;
-      float:right;
+      float: right;
       margin-left: 5px;
       height: 48px;
       line-height: 48px;
@@ -76,7 +76,26 @@
   background-repeat: no-repeat;
   position: absolute;
   top: 80px;
-  left: 0px
+  left: 0px;
+  .right {
+    float: right;
+    width: 25%;
+    background: #fff;
+    .tag_class {
+      width: 96%;
+      margin: 0 auto;
+      h3 {
+        text-align: center;
+      }
+      .tags {
+        width: 90%;
+        margin: 0 auto;
+        span {
+          @include archiveSpan
+        }
+      }
+    }
+  }
 }
 
 .clear {

@@ -67,14 +67,17 @@
   }
 }
 
-.main {
-  width: 65%;
+.home {
+  width: 90%;
+  margin: 0 auto;
+  .main {
+  width: 60%;
   float: left;
   margin: 0px 0px;
   .blog_list {
     width: 75%;
     float: right;
-    margin: 10px auto;
+    margin: 0px auto;
     .blog_specifc {
       background: #fff;
       border: 1px solid $lightColor;
@@ -146,37 +149,4 @@
     }
   }
 }
-
-.right {
-  width: 25%;
-  float: right;
-  .tag_class {
-    width: 96%;
-    margin: 0 auto;
-    h3 {
-      text-align: center;
-    }
-    .tags {
-      width: 90%;
-      margin: 0 auto;
-      span {
-        @include archiveSpan
-      }
-    }
-  }
-  .time_class {
-    width: 96%;
-    margin: 0 auto;
-    margin-top: 40px;
-    h3 {
-      text-align: center
-    }
-    .times {
-      width: 90%;
-      margin: 0 auto;
-      span {
-        @include archiveSpan;
-      }
-    }
-  }
 }

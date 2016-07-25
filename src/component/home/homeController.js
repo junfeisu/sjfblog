@@ -12,6 +12,9 @@ export default class homeController {
       parm: '',
       cb: data => {
         this.blogs = data
+        data.forEach(function(value) {
+          value.create_date = value.create_date.split('T')[0]
+        })
         this.$timeout(function() {
           let blogBody = document.getElementsByClassName('blog_body')
           data.forEach(function(value, index) {

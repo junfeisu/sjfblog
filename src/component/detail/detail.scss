@@ -1,84 +1,50 @@
 @import '../common/style/mixin.scss';
-.detail{
-	position: absolute;
-	top: 0px;
-	left: 5%;
-	width: 90%;
-	margin: 10px auto;
-	.detail_main {
-		width: 65%;
-		float: left;
-		padding: 10px;
-		background: #fff;
-		border-radius: 3px;
-		article {
-			width: 90%;
-			margin: 0 auto;
-			h2 {
-				float: left;
-				width: 50%;
-				margin: 0px;
-				height: 40px;
-			}
-			.time {
-				width: 20%;
-				float: right;
-				text-align: right;
-				height: 40px;
-				line-height: 40px;
-				font-style: italic;
-				color: #555;
-				h2 {
-					float: none;
-					height: 25px;
-					width: 90%;
-					line-height: 25px;
-					color: #1ba1e2
-				}
-				span {
-					display: block;
-					height: 10px;
-					line-height: 10px;
-					font-size: $smallSize;
-				}
-			}
-			.article_content {
-				margin-top: 10px;
-			}
-		}
-	}
-	.detail_right {
-		float: right;
-		width: 25%;
-		background: #fff;
-		.tag_class {
-    width: 96%;
-    margin: 0 auto;
-    h3 {
-      text-align: center;
-    }
-    .tags {
+.detail {
+  position: absolute;
+  top: 0px;
+  left: 5%;
+  width: 90%;
+  margin: 10px auto;
+  .detail_main {
+    width: 65%;
+    float: left;
+    padding: 10px;
+    background: #fff;
+    border-radius: 3px;
+    article {
       width: 90%;
       margin: 0 auto;
-      span {
-        @include archiveSpan
+      h2 {
+        float: left;
+        width: 50%;
+        margin: 0px;
+        height: 40px;
+      }
+      .time {
+        width: 20%;
+        float: right;
+        text-align: right;
+        height: 40px;
+        line-height: 40px;
+        font-style: italic;
+        color: #555;
+        h2 {
+          float: none;
+          height: 25px;
+          width: 90%;
+          line-height: 25px;
+          color: #1ba1e2
+        }
+        span {
+          display: block;
+          height: 10px;
+          line-height: 10px;
+          font-size: $smallSize;
+        }
+      }
+      .article_content {
+        margin-top: 10px;
       }
     }
   }
-  .time_class {
-    width: 96%;
-    margin: 0 auto;
-    margin-top: 40px;
-    h3 {
-      text-align: center
-    }
-    .times {
-      width: 90%;
-      margin: 0 auto;
-      span {
-        @include archiveSpan;
-      }
-    }
-  }
-	}
 }
