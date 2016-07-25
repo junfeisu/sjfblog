@@ -1,62 +1,56 @@
 var route = {
-    '/api/blog/getblogbyid': { blog_id: 'number' },
-    '/api/blog/getblogbytag': { tag: 'string' }
-  },
-  getPropertyName = function(obj) {
-    var property = [],
-      pro = Object.keys(obj);
-    property.push(pro);
-    return property;
-  },
-  getPropertyVal = function(obj) {
-    var val = [],
-      pro = Object.keys(obj);
-    val.push(obj[pro]);
-    return val
-  },
-  check = function(check) {
-    var pathname = check.pathname,
-      data = check.data,
-      checkName = getPropertyName(route[pathname]),
-      checkVal = getPropertyVal(check.data);
-    var checkDeal = {
-      Lack: {
-        run: function() {
-          for (var i = 0, len = checkName.length; i < len; i++) {
-            if (data[checkName[i]] === '' || data[checkName][i] === null) {
-              return { status: true, msg: 'The val of ' + checkName[i] + ' can not be null' }
-              break;
-            }
-          }
-          checkDeal['Null'].run.call(checkDeal);
-        }
-      },
-      Null: {
-        run: function() {
-          for (var i = 0, len = checkName.length; i < len; i++) {
-            if (data[checkName[i]] === '' || data[checkName][i] === null) {
-              return { status: true, msg: 'The val of ' + checkName[i] + ' can not be null' }
-              break;
-            }
-          }
-          checkDeal['Type'].run.call(checkDeal);
-        }
-      },
-      Type: {
-        run: function() {
-          for (var i = 0, len = checkName.length; i < len; i++) {
-            if (typeof(data[checkName[i]]) !== checkVal[i]) {
-              return { status: true, msg: 'The ' + checkName[i] + ' val should be ' + checkVal[i] };
-              break;
-            }
-          }
-          return { status: false, msg: '' }
+  '/getblogbyid': { _id: 'string' },
+  '/getblogbytag': { tag: 'string' }
+}
+var getPropertyName = function(obj) {
+  return Object.keys(obj)
+}
+var getPropertyVal = function(obj) {
+  var val = [],
+    pro = Object.keys(obj);
+  pro.forEach(function(value) {
+    val.push(obj[value])
+  })
+  return val
+}
+var checkMes = function(check) {
+  var checkName = getPropertyName(route[check.pathname])
+  var checkVal = getPropertyVal(route[check.pathname])
+  var result = ''
+  var checkDeal = {
+    Lack: function() {
+      for (var i = 0, len = checkName.length; i < len; i++) {
+        if (!check.data.hasOwnProperty(checkName[i])) {
+          result = { status: true, msg: 'The property of ' + checkName[i] + ' can not be lack' }
+          break;
         }
       }
+      checkDeal['Null']();
+    },
+    Null: function() {
+      for (var i = 0, len = checkName.length; i < len; i++) {
+        if (check.data[checkName[i]] === '' || check.data[checkName][i] === null) {
+          result = { status: true, msg: 'The val of ' + checkName[i] + ' can not be null' }
+          break;
+        }
+      }
+      checkDeal['Type']();
+    },
+    Type: function() {
+      for (var i = 0, len = checkName.length; i < len; i++) {
+        if (typeof(check.data[checkName[i]]) !== checkVal[i]) {
+          result = { status: true, msg: 'The ' + checkName[i] + ' val should be ' + checkVal[i] };
+          break;
+        }
+      }
+      result = { status: false, msg: '' }
     }
-  };
+  }
+  checkDeal['Lack']()
+  return result
+};
 
 exports.checkResult = function(req) {
-  var result=check({ pathname: req.url, data: req.body, type: 1 });
+  var result = checkMes({ pathname: req.url, data: req.body });
   return result;
 }

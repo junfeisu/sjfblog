@@ -16,14 +16,14 @@ route.get('/getbloglist', function(req, res) {
 
 route.post('/getblogbyid', function(req, res) {
   var result = validate.checkResult(req);
-  !result.status ? res.status(403).send(result.msg) : mongo.search(model.Blog, req.body, function(err, blog) {
+  result.status ? res.status(403).send(result.msg) : mongo.search(model.Blog, req.body, function(err, blog) {
     err ? res.json(err) : res.json(blog)
   })
 })
 
 route.post('/getblogbytag', function(req, res) {
   var result = validate.checkResult(req);
-  !result.status ? res.status(403).send(result.msg) : mongo.search(model.Blog, req.body, function(err, blog) {
+  result.status ? res.status(403).send(result.msg) : mongo.search(model.Blog, req.body, function(err, blog) {
     err ? res.json(err) : res.json(blog)
   })
 })

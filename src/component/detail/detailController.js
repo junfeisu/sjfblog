@@ -8,10 +8,10 @@ export default class detailController {
 
   getData() {
     this.request.getData({
-      path: '/api/getblogbyid',
+      path: '/api/blog/getblogbyid',
       way: 'POST',
       parm: {
-        blog_id: this.params.blogId
+        _id: this.params.blogId
       },
       cb: data => {
         console.log(data)

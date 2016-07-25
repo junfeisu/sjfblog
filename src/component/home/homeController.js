@@ -1,9 +1,8 @@
 export default class homeController {
-  constructor(request) {
+  constructor(request, $timeout) {
     this.request = request
-    this.name = '1234'
-    this.blogId = 11
     this.getData()
+    this.$timeout = $timeout
   }
 
   getData() {
@@ -12,10 +11,16 @@ export default class homeController {
       way: 'GET',
       parm: '',
       cb: data => {
-        console.log(data)
+        this.blogs = data
+        this.$timeout(function() {
+          let blogBody = document.getElementsByClassName('blog_body')
+          data.forEach(function(value, index) {
+            blogBody[index].innerHTML = value.content
+          })
+        })
       }
     })
   }
 }
 
-homeController.$inject = ['request']
+homeController.$inject = ['request', '$timeout']

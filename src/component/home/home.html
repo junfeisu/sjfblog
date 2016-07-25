@@ -25,53 +25,18 @@
 </div> -->
 <div class="main">
   <div class="blog_list">
-    <div class="blog_specifc">
+    <div class="blog_specifc" ng-repeat="blog in home.blogs">
       <div class="blog_top">
-        <a ui-sref='detail({blogId: {{home.blogId}}})' ng-bind="home.name"></a>
+        <a ui-sref='detail({blogId: blog._id})' ng-bind="blog.title"></a>
       </div>
       <div class="blog_content">
-        <p>这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的</p>
+        <p class="blog_body"></p>
         <div class="tag">
           <div class="tag_left">
             <span>Tags:</span>
-            <span>前端</span>
-            <span>Angular</span>
+            <span ng-repeat="tag in blog.tags" ng-bind="tag"></span>
           </div>
-          <div class="time">2016-7-12</div>
-          <div class="clear"></div>
-        </div>
-      </div>
-    </div>
-    <div class="blog_specifc">
-      <div class="blog_top">
-        <a ui-sref='detail'>{{home.name}}</a>
-      </div>
-      <div class="blog_content">
-        <p>这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的</p>
-        <div class="tag">
-          <div class="tag_left">
-            <span>Tags:</span>
-            <span>前端</span>
-            <span>Angular</span>
-          </div>
-          <div class="time">2016-7-12</div>
-          <div class="clear"></div>
-        </div>
-      </div>
-    </div>
-    <div class="blog_specifc">
-      <div class="blog_top">
-        <a ui-sref='detail'>{{home.name}}</a>
-      </div>
-      <div class="blog_content">
-        <p>这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的,这是用来测试的</p>
-        <div class="tag">
-          <div class="tag_left">
-            <span>Tags:</span>
-            <span>前端</span>
-            <span>Angular</span>
-          </div>
-          <div class="time">2016-7-12</div>
+          <div class="time" ng-bind="blog.create_date"></div>
           <div class="clear"></div>
         </div>
       </div>
