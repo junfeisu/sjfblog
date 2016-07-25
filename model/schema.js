@@ -5,8 +5,7 @@ mongoose.connect('mongodb://localhost/test');
 var schemas = {
   blogSchema: new Schema({
     title: { type: String, required: true },
-    create_date: { type: Date, default: Date.now },
-    update_date: { type: Date, default: Date.now },
+    create_date: { type: Date, required: true },
     content: { type: String, required: true },
     author: String,
     tags: { type: [String], required: true },

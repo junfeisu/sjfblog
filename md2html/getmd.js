@@ -3,6 +3,25 @@ var superagent = require('superagent');
 var cheerio = require('cheerio');
 var path = 'https://github.com'
 var fs = require('fs')
+var mongo = require('../model/mongo.js').mongoUse
+var markdown = require('../node_modules/markdown').markdown
+var model = require('../model/schema').models
+  // var blog = new model['Blog']({
+  //   title: title,
+  //   content: blogContent,
+  //   tags:
+  // })
+
+
+var content = fs.readFileSync('./source/苏俊飞.md', 'utf8');
+var a = content.split('---')[1].replace(/\n/g, '');
+var slice = content.split('---');
+var message = slice[1].replace('/\n/g', '');
+var title = message.split('titles: ')[1].split('tags: ')[0];
+var tags = message.split('titles: ')[1].split('tags: ')[1];
+var blogContent = markdown.toHTML(slice[2]);
+
+mongo.add()
 
 new cron('* */10 8-23  * * *', function() {
   superagent.get(path + '/login')
@@ -24,7 +43,7 @@ new cron('* */10 8-23  * * *', function() {
           'authenticity_token': auth_key
         })
         .end(function(err, res) {
-          superagent.get(path + '/junfeisu/sjfblog/tree/master/md2html')
+          superagent.get(path + '/junfeisu/sjfblog/tree/master/md2html/source')
             .end(function(err, res) {
               var md = []
               var $ = cheerio.load(res.text);
@@ -41,13 +60,22 @@ new cron('* */10 8-23  * * *', function() {
                     console.log('the file is exist already')
                     return
                   }
-                  superagent.get('https://raw.githubusercontent.com/junfeisu/sjfblog/master/md2html/' + md[j])
+                  superagent.get('https://raw.githubusercontent.com/junfeisu/sjfblog/master/md2html/source' + md[j])
                     .end(function(err, res) {
                       if (err) {
-                        console.log('err is ' + err)
+                        console.log('err is ' + err);
                       }
+                      var a = res.text.split('---')[1].replace(/\n/g, '');
+                      var slice = res.text.split('---');
+                      var message = slice[1].replace('/\n/g', '');
+                      var title = message.split('titles: ')[1].split('tags: ')[0];
+                      var tags = message.split('titles: ')[1].split('tags: ')[1];
+                      var blogContent = markdown.toHTML(slice[2]);
                       fs.writeFileSync('./2016-7/' + filename, res.text, 'utf-8')
-                      return 
+                      console.log('title is ' + title)
+                      console.log('tags is ' + tags)
+                      console.log('blogContent is ' + blogContent)
+                      return
                     })
                 }
               }
