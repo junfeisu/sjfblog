@@ -67,18 +67,18 @@ var getFile = {
   },
   // get the content of md file
   getContent: function(md) {
-    console.log('213')
     superagent.get(rawPath + "/junfeisu/sjfblog/master/md2html/source/" + md)
       .end(function(error, result) {
-        if (err) {
+        if (error) {
           console.log('err is ' + error)
         }
         var slice = result.text.split('---')
         var blogMes = {}
         var date = new Date()
         var message = slice[1].replace(/\n/g, '')
-        blogMes.tags = message.split('titles: ')[1].split('tags: ')[1]
-        blogMes.title = message.split('titles: ')[1].split('tags: ')[0]
+        console.log(message)
+        blogMes.tags = (message.split('titles: ')[1]).split('tags: ')[1]
+        blogMes.title = (message.split('titles: ')[1]).split('tags: ')[0]
         blogMes.content = markdown.toHTML(slice[2])
         fs.writeFileSync('./' + date.getFullYear + '-' + date.getMonth() + 1 + '/' + md, result.text, 'utf-8')
       })
