@@ -18,7 +18,6 @@ export default class detailController {
         this.blog = data[0]
         var content = document.getElementsByClassName('article_content')[0]
         content.innerHTML = data[0].content
-
       }
     })
   }

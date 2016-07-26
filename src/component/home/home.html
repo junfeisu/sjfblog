@@ -35,7 +35,7 @@
           <div class="tag">
             <div class="tag_left">
               <span>Tags:</span>
-              <span ng-repeat="tag in blog.tags" ng-bind="tag"></span>
+              <span ng-repeat="tag in blog.tags" ng-click='home.blogByTag($event)' ng-bind="tag"></span>
             </div>
             <div class="time" ng-bind="blog.create_date"></div>
             <div class="clear"></div>

@@ -5,6 +5,15 @@ class request {
   constructor($http) {
     this.$http = $http;
   }
+
+  set(data) {
+    this.data = data
+  }
+
+  get() {
+    return this.data
+  }
+
   getData({ path, way = 'GET', parm, headers = { 'Content-type': 'application/json' },cb } = {}) {
     let promise = this.$http({
         url: path,
@@ -12,7 +21,10 @@ class request {
         data: parm,
         header: headers
       });
-    promise.success(data => cb(data));
+    promise.success(data => {
+      this.set(data)
+      cb(this.get())
+    });
     promise.error(err => toastr.info(JSON.stringify(err)));
   }
 }
