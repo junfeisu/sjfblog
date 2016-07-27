@@ -58,7 +58,7 @@ var getFile = {
             } else {
               getFile.getContent(md[j])
             }
-          }else {
+          } else {
             console.log('there is no new md')
           }
         }
@@ -83,16 +83,16 @@ var getFile = {
         tags.split(' ').forEach(function(value) {
           blogMes.tags.push(value)
         })
+        mongo.set(blogMes.tags)
         blogMes.date_create = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[1]
         blogMes.content = markdown.toHTML(slice[2])
         fs.writeFileSync('./' + date.getFullYear() + '-' + month + '/' + md, result.text, 'utf-8')
-        console.log(blogMes)
         mongo.add(new model['Blog']({
           title: blogMes.title,
           content: blogMes.content,
           tags: blogMes.tags,
           create_date: blogMes.date_create
-        }), function(err, result){
+        }), function(err, result) {
           err ? console.log('add err is ' + err) : console.log('result is ' + result)
         })
       })

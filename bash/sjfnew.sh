@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 path=~/Desktop/sjfblog/md2html/source
 current=$0

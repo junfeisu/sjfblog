@@ -11,5 +11,8 @@ exports.mongoUse = {
   },
   search: function(model, message, cb) {
     return model.find(message, cb)
+  },
+  aggregrate: function(model, message, cb) {
+    return model.aggregrate.group(message, cb)
   }
 }
