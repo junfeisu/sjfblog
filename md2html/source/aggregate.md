@@ -1,11 +1,11 @@
 ---
-title: mongoose aggregate(聚合函数)
-tags: mongoose aggregate 
+title: mongdb aggregate(聚合函数)
+tags: mongodb aggregate 
 date: 2016-07-26
 ---
-# mongoose aggregate方法详解
+# mongoodb aggregate方法详解
 ### $project()
-#####  这个方法就是对要输出的的Schemas里面的信息进行自定义,可以定义只显示某几个信息,可以对信息进行重命名,进行重命名,甚至一个信息拆分为多个信息字段,但是不会改变数据库里面的Schema结构
+#####  这个方法就是对要输出的每个document里面的字段进行自定义,可以定义要显示的字段,可以对字段进行重命名,进行重命名,甚至一个字段拆分为多个字段,但是不会改变数据库里面的document结构
     MySchema = {
         title: 'slj',
         content: 'slj forever',
@@ -60,7 +60,7 @@ date: 2016-07-26
         ],
         "ok" : 1
     }
-#####首先那个通过查找的属性名一定要是_id,就是唯一标识符,然后后面的可以直接写$加分组的条目名,当然也可以进行重命名,如:
+#####首先那个通过查找的属性名一定要是_id,就是唯一标识符,然后后面的可以直接写$加分组的字段名,当然也可以进行重命名,如:
      db.tests.aggregate({$group: {_id: {rename: "$tags"}}})
             "_id" : {
                 "rename" : [
@@ -77,7 +77,7 @@ date: 2016-07-26
     * db.tests.aggregate({$sort: {content: -1,time: -1}})这俩个时冲突的就会按照content进行降序排序
     * db.tests.aggregate({$sort: {time: -1,content: -1}})就会按照time进行降序排序
 ### $unwind()
-##### 这个函数就是对对应的属性进行拆分然后插入到document,就是说如果对上面的tags:["Love","Baby"]进行unwind就会发生这个document会被拆分成俩个docuemnt,一个包含tags: "Love",一个包含"Baby",其他条目的内容都是一样的,eg: 
+##### 这个函数就是对对应的属性进行拆分然后插入到document,就是说如果对上面的tags:["Love","Baby"]进行unwind就会发生这个document会被拆分成俩个docuemnt,一个包含tags: "Love",一个包含"Baby",其他字段的内容都是一样的,eg: 
     > db.blogs.aggregate({$project:{tags: 1}},{$unwind: "$tags"})
     {
         "result" : [
@@ -106,8 +106,33 @@ date: 2016-07-26
 ##### $limit()就是限制要查询的文档数量
     db.tests.aggregate({$limit: 5})
 ##### 从tests这个collections开始忽略五个document
-#### 这些管道函数是可以联合使用的,但是在前面的管道函数是最后执行的,就是后进先出的意思,有点栈的感觉,但又不全是这样,下面看看$sort(),$limit(),$skip()的联合使用是怎样的
-##### $skip()和$limit() ,如果顺序是这样的话
-    {$limit: 5}, {$skip: 5}
-##### 实际上的执行顺序是这样的
-    {$limit: 10} , {$skip(5s)}
+### $skip()和$limit()的执行顺序问题
+#### 首先看下俩个执行后的结果,$limit在$skip前面
+    > db.tests.aggregate({$limit: 3},{$skip: 3},{$match: {order: {$gte: 4}}})
+    { "result" : [ ], "ok" : 1 }
+##### $limit()在$skip()的后面
+    > db.tests.aggregate({$skip: 3},{$limit: 3},{$match: {order: {$gte: 4}}})
+    {
+        "result" : [
+            {
+                "_id" : ObjectId("5798a05d2d634aa2878ce7e4"),
+                "order" : 4,
+                "time" : "7-4"
+            },
+            {
+                "_id" : ObjectId("5798a0622d634aa2878ce7e5"),
+                "order" : 5,
+                "time" : "7-5"
+            },
+            {
+                "_id" : ObjectId("5798a0692d634aa2878ce7e6"),
+                "order" : 6,
+                "time" : "7-6"
+            }
+        ],
+        "ok" : 1
+    }
+##### 通过上面的结果我们可以自己总结一下,$limit() 可以这样理解,$limit()限制的就是可以提供给后面的管道函数操作的document数目,就是说如果$limit:4也就是说执行了$limit()函数之后后面的管道函数能够操作的就是这4个document.
+##### 在这个基础上我们再来看$limit和$skip的执行顺序问题,$limit()和$skip()在一起.无论如何,$limit()都会在$skip()的前面执行,如果$limit()就在$skip()前面的话,按照上面的理解就很容易理解第一个执行的result =[];$limit()在$skip()后面的话,会被提前到$skip()前面执行,但是:
+**$skip的参数会被加到$limit上面,这一个机制就导致了上面俩个操作的不同的结果,所以第二个操作实际执行的是{$limit; 6},{$skip: 3},这样就简洁明了了**
+
