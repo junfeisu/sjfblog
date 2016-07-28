@@ -80,10 +80,6 @@ var getFile = {
         var message = slice[1].replace(/\n/g, '')
         var tags = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[0]
         blogMes.title = (message.split('title: ')[1]).split('tags: ')[0]
-        tags.split(' ').forEach(function(value) {
-          blogMes.tags.push(value)
-        })
-        mongo.set(blogMes.tags)
         blogMes.date_create = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[1]
         blogMes.content = markdown.toHTML(slice[2])
         fs.writeFileSync('./' + date.getFullYear() + '-' + month + '/' + md, result.text, 'utf-8')
@@ -93,7 +89,8 @@ var getFile = {
           tags: blogMes.tags,
           create_date: blogMes.date_create
         }), function(err, result) {
-          err ? console.log('add err is ' + err) : console.log('result is ' + result)
+          err ? console.log('add err is ' + err) :
+            console.log('result is ' + result)
         })
       })
   }

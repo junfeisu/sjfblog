@@ -1,6 +1,7 @@
 var route = {
   '/getblogbyid': { _id: 'string' },
-  '/getblogbytag': { tags: 'string' }
+  '/getblogbytag': { tags: 'string', pagesize: 'string' },
+  '/getbloglist': {pagesize: 'string'}
 }
 var getPropertyName = function(obj) {
   return Object.keys(obj)
@@ -14,7 +15,7 @@ var getPropertyVal = function(obj) {
   return val
 }
 var checkMes = function(check) {
-  console.log('check')
+  check.pathname = '/' + check.pathname.split('/')[1]
   var checkName = getPropertyName(route[check.pathname])
   var checkVal = getPropertyVal(route[check.pathname])
   var result = ''
@@ -56,7 +57,7 @@ var checkMes = function(check) {
 
 exports.checkResult = function(req) {
   console.log('checkResult')
-  var result = checkMes({ pathname: req.url, data: req.body });
-  console.log(result)
+  var result = checkMes({ pathname: req.url, data: req.params });
+  console.log('result is ' + result)
   return result;
 }

@@ -7,7 +7,7 @@ export default class homeController {
 
   getData() {
     this.request.getData({
-      path: '/api/blog/getbloglist',
+      path: '/api/blog/getbloglist/1',
       way: 'GET',
       parm: '',
       cb: data => {
@@ -20,8 +20,8 @@ export default class homeController {
   blogByTag(event) {
     let html = event.target.innerHTML
     this.request.getData({
-      path: '/api/blog/getblogbytag',
-      way: 'POST',
+      path: '/api/blog/getblogbytag?pagesize=1',
+      way: 'GET',
       parm: {
         tags: html
       },
