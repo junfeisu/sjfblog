@@ -41,9 +41,10 @@ route.get('/getlistbytag/:cursor/:tags', function(req, res) {
   var result = validate.checkResult(req)
   var message = ([
     { $sort: { create_date: -1 } },
-    { $limit: 10 }
+    { $limit: 10 },
+    { $match: { tags: req.params.tags } }
   ])
-  result.status ? res.status(403).json(result.msg) : 
+  result.status ? res.status(403).json(result.msg) :
     mongo.aggregate(model.Blog, message, function(err, blog) {
       console.log(JSON.stringify(err))
       console.log(JSON.stringify(blog))
@@ -60,7 +61,7 @@ route.delete('/delblog', function(req, res) {
 })
 
 route.get('/getnewcursor', function(req, res) {
-  mongo.aggregate(model.Blog, ([{$sort: {_id: -1}},{$limit: 1}]), function(err, cursor) {
+  mongo.aggregate(model.Blog, ([{ $sort: { _id: -1 } }, { $limit: 1 }]), function(err, cursor) {
     err ? res.status(500).json(err) : res.json(cursor)
   })
 })
