@@ -1,7 +1,7 @@
 var route = {
   '/getblogbyid': { _id: 'string' },
-  '/getblogbytag': { tags: 'string', pagesize: 'string' },
-  '/getbloglist': {pagesize: 'string'}
+  '/getlistbytag': { tags: 'string', cursor: 'string' },
+  '/getbloglist': {cursor: 'string'}
 }
 var getPropertyName = function(obj) {
   return Object.keys(obj)
@@ -32,8 +32,12 @@ var checkMes = function(check) {
     },
     Null: function() {
       console.log('null is run')
+      console.log(checkName.length)
       for (var i = 0, len = checkName.length; i < len; i++) {
+        console.log('checkName[' + i + '] is ' + checkName[i])
+        console.log('check.data[checkName[' + i + ']] is ' + check.data[checkName[i]])
         if (check.data[checkName[i]] === '' || check.data[checkName][i] === null) {
+          console.log('213')
           result = { status: true, msg: 'The val of ' + checkName[i] + ' can not be null' }
           break;
         }
@@ -56,8 +60,8 @@ var checkMes = function(check) {
 };
 
 exports.checkResult = function(req) {
-  console.log('checkResult')
+  console.log('req.params is ' + JSON.stringify(req.params))
   var result = checkMes({ pathname: req.url, data: req.params });
-  console.log('result is ' + result)
+  console.log('result is ' + JSON.stringify(result))
   return result;
 }

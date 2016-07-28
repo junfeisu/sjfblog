@@ -1,7 +1,7 @@
 ---
 title: mongdb aggregate(聚合函数)
-tags: mongodb aggregate 
-date: 2016-07-26
+tags: mongodb aggregate
+date: 2016-07-26:14:20
 ---
 # mongoodb aggregate方法详解
 ### $project()

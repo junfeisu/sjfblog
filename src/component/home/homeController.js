@@ -2,13 +2,23 @@ export default class homeController {
   constructor(request, $timeout) {
     this.request = request
     this.$timeout = $timeout
-    this.getData()
+    this.getCursor()
+  }
+  // get the latest blog create_date
+  getCursor() {
+    this.request.getData({
+      path: '/api/blog/getnewcursor',
+      parm: '',
+      cb: data => {
+        this.cursor = data[0].create_date
+        this.getData()
+      }
+    })
   }
 
   getData() {
     this.request.getData({
-      path: '/api/blog/getbloglist/1',
-      way: 'GET',
+      path: '/api/blog/getbloglist/' + this.cursor,
       parm: '',
       cb: data => {
         this.dealData(data)
@@ -20,11 +30,9 @@ export default class homeController {
   blogByTag(event) {
     let html = event.target.innerHTML
     this.request.getData({
-      path: '/api/blog/getblogbytag?pagesize=1',
+      path: '/api/blog/getlistbytag/' + this.cursor + '/' + html,
       way: 'GET',
-      parm: {
-        tags: html
-      },
+      parm: '',
       cb: data => {
         this.dealData(data)
         this.blogs = data
@@ -33,12 +41,12 @@ export default class homeController {
   }
 
   dealData(data) {
-    data.forEach(function(value) {
-      value.create_date = value.create_date.split('T')[0]
-    })
     this.$timeout(function() {
       let blogBody = document.getElementsByClassName('blog_body')
       data.forEach(function(value, index) {
+        if(index === 0) {
+          this.cursor = value.create_date
+        }
         blogBody[index].innerHTML = value.content
       })
     })

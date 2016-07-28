@@ -1,12 +1,12 @@
 var cron = require('cron').CronJob
 var superagent = require('superagent')
 var cheerio = require('cheerio')
-var path = 'https://github.com'
-var rawPath = 'https://raw.githubusercontent.com'
 var fs = require('fs')
 var mongo = require('../model/mongo.js').mongoUse
 var markdown = require('../node_modules/markdown').markdown
 var model = require('../model/schema').models
+var path = 'https://github.com'
+var rawPath = 'https://raw.githubusercontent.com'
 
 var getFile = {
   // get the auth-key and cookie_id
@@ -81,6 +81,9 @@ var getFile = {
         var tags = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[0]
         blogMes.title = (message.split('title: ')[1]).split('tags: ')[0]
         blogMes.date_create = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[1]
+        tags.split(' ').forEach(function(value) {
+          blogMes.tags.push(value)
+        })
         blogMes.content = markdown.toHTML(slice[2])
         fs.writeFileSync('./' + date.getFullYear() + '-' + month + '/' + md, result.text, 'utf-8')
         mongo.add(new model['Blog']({
