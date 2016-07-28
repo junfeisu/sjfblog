@@ -60,6 +60,10 @@ route.delete('/delblog', function(req, res) {
     })
 })
 
+route.get('/getblogtag', function(req, res) {
+  mongo.aggregate(model.Blog, ([{$unwind: "$tags"}]))
+})
+
 route.get('/getnewcursor', function(req, res) {
   mongo.aggregate(model.Blog, ([{ $sort: { _id: -1 } }, { $limit: 1 }]), function(err, cursor) {
     err ? res.status(500).json(err) : res.json(cursor)

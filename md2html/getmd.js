@@ -53,6 +53,7 @@ var getFile = {
           md[j] = decodeURI(md[j])
           if (/^[\u4e00-\u9fa5\w]+\.md$/.test(md[j])) {
             var exist = fs.existsSync('./' + date.getFullYear + '-' + date.getMonth() + 1 + '/' + md[j])
+            console.log('exist is ' + exist)
             if (exist) {
               console.log('the file is exist already')
             } else {
@@ -93,7 +94,7 @@ var getFile = {
           create_date: blogMes.date_create
         }), function(err, result) {
           err ? console.log('add err is ' + err) :
-            console.log('result is ' + result)
+            console.log('fetch success')
         })
       })
   }
