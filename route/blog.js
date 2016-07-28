@@ -41,8 +41,7 @@ route.get('/getlistbytag/:cursor/:tags', function(req, res) {
   var result = validate.checkResult(req)
   var message = ([
     { $sort: { create_date: -1 } },
-    { $limit: 10 },
-    { $match: { create_date: { $gte: req.params.cursor } } }
+    { $limit: 10 }
   ])
   result.status ? res.status(403).json(result.msg) : 
     mongo.aggregate(model.Blog, message, function(err, blog) {

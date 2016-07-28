@@ -32,12 +32,8 @@ var checkMes = function(check) {
     },
     Null: function() {
       console.log('null is run')
-      console.log(checkName.length)
       for (var i = 0, len = checkName.length; i < len; i++) {
-        console.log('checkName[' + i + '] is ' + checkName[i])
-        console.log('check.data[checkName[' + i + ']] is ' + check.data[checkName[i]])
-        if (check.data[checkName[i]] === '' || check.data[checkName][i] === null) {
-          console.log('213')
+        if (check.data[checkName[i]] === '' || check.data[checkName[i]] === null) {
           result = { status: true, msg: 'The val of ' + checkName[i] + ' can not be null' }
           break;
         }

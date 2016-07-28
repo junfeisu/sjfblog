@@ -2,6 +2,7 @@ export default class homeController {
   constructor(request, $timeout) {
     this.request = request
     this.$timeout = $timeout
+    this.cursor = ''
     this.getCursor()
   }
   // get the latest blog create_date
@@ -44,8 +45,9 @@ export default class homeController {
     this.$timeout(function() {
       let blogBody = document.getElementsByClassName('blog_body')
       data.forEach(function(value, index) {
+        console.log(this)
         if(index === 0) {
-          this.cursor = value.create_date
+          self.cursor = value.create_date
         }
         blogBody[index].innerHTML = value.content
       })
