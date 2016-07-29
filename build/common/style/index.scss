@@ -1,5 +1,4 @@
 @charset 'UTF-8';
-@import 'normalize.scss';
 @import 'mixin.scss';
 .top {
   width: 100%;
@@ -77,13 +76,16 @@
   position: absolute;
   top: 80px;
   left: 0px;
+  padding: 10px 0px;
   .right {
     float: right;
     width: 25%;
     background: #fff;
+    border-radius: 3px;
     .tag_class {
       width: 96%;
       margin: 0 auto;
+      margin-top: 10px;
       h3 {
         text-align: center;
       }
@@ -92,6 +94,21 @@
         margin: 0 auto;
         span {
           @include archiveSpan
+        }
+      }
+    }
+    .time_class {
+      width: 96%;
+      margin: 0 auto;
+      margin-top: 40px;
+      h3 {
+        text-align: center
+      }
+      .times {
+        width: 90%;
+        margin: 0 auto;
+        span {
+          @include archiveSpan;
         }
       }
     }

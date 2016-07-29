@@ -46,13 +46,15 @@ var getFile = {
         var $ = cheerio.load(res.text)
         var val = $('.js-navigation-open')
         var date = new Date()
+        var month = date.getMonth() + 1
         for (var i = 2; i < val.length; i++) {
           md.push(val[i].attribs.href.split('source/')[1]);
         }
         for (var j = 0; j < md.length; j++) {
           md[j] = decodeURI(md[j])
           if (/^[\u4e00-\u9fa5\w]+\.md$/.test(md[j])) {
-            var exist = fs.existsSync('./' + date.getFullYear + '-' + date.getMonth() + 1 + '/' + md[j])
+            var exist = fs.existsSync('./' + date.getFullYear() + '-' + month + '/' + md[j])
+            console.log('./' + date.getFullYear() + '-' + month + '/' + md[j])
             console.log('exist is ' + exist)
             if (exist) {
               console.log('the file is exist already')

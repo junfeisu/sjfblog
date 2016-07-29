@@ -5,10 +5,12 @@
   <base href="/" >
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" type="text/css" href="./common/style/normalize.css">
   <title>sjfblog</title>
+  <script src="./common/prettify/google-code-prettify/run_prettify.js?lang=lua&lang=yaml&skin=sons-of-obsidian"></script>
 </head>
 
-<body ng-app="app">
+<body ng-app="app" onload="prettyPrint()">
   <div class="top">
     <div ng-include src="'/common/views/top.html'"></div>
   </div>

@@ -91,5 +91,4 @@ export default angular.module('homeDirective', [])
   .directive('prevBlog', () => new prevBlog())
   .directive('nextBlog', () => new nextBlog())
   .directive('initHeight', () => new initHeight())
-  // .directive('tagDirective', tagDirective.directiveFactory)
   .name

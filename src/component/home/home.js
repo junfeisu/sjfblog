@@ -5,10 +5,10 @@ import uirouter from 'angular-ui-router'
 
 import routing from './home.route.js'
 import homeController from './homeController'
-import homeDirective from './homeDirective'
+// import homeDirective from './homeDirective'
 import request from '../common/service/service'
 
-export default angular.module('app.home', [uirouter, request, homeDirective])
+export default angular.module('app.home', [uirouter, request])
   .config(routing)
   .controller('homeController', homeController)
   .name
