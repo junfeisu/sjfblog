@@ -34,8 +34,8 @@ export default class homeController {
       path: '/api/blog/getblogtype',
       parm: '',
       cb: data => {
-        this.tags = data.tags[0]._id
-        this.times = data.times[0]._id
+        this.tags = data.tags
+        this.times = data.times
       }
     }) 
   }
@@ -57,7 +57,6 @@ export default class homeController {
     this.$timeout(function() {
       let blogBody = document.getElementsByClassName('blog_body')
       data.forEach(function(value, index) {
-        console.log(this)
         if(index === 0) {
           self.cursor = value.create_date
         }

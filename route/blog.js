@@ -59,31 +59,45 @@ route.delete('/delblog', function(req, res) {
 })
 
 route.get('/getblogtype', function(req, res) {
+  var tag = {}
   var result = {}
-  mongo.aggregate(model.Blog, ([
-      { $group: { _id: "$tags" } },
-      { $unwind: "$_id" }
-    ]),
-    function(err, tag) {
-      if (err) {
-        res.status(500).json(err)
-      } else {
-        result.tags = tag
-        mongo.aggregate(model.Blog, ([
-            { $group: { _id: "$create_date" } } ,
-            { $unwind: "$_id"}
-          ]),
-          function(err, time) {
-            if(err) {
-              res.status(500).json(err)
-            } else {
-              result.times = time
-              console.log('type result is ' + result)
-              res.json(result)
-            }
-          })
-      }
-    })
+  var time = {}
+  tag.map = function() {
+    if (!this.tags) {
+      return
+    }
+    for (index in this.tags) {
+      emit(this.tags[index], 1)
+    }
+  }
+  tag.reduce = function(key, values) {
+    var count = 0
+    for (index in values) {
+      count += values[index]
+    }
+    return count
+  }
+  time.map = function() {
+    emit(this.create_date, 1)
+  }
+  time.reduce = function(key, values) {
+    return Array.sum(values)
+  }
+  mongo.mapreduce(model.Blog, tag, function(err, tags) {
+    if (err) {
+      res.status(500).json(err)
+    } else {
+      result.tags = tags
+      mongo.mapreduce(model.Blog, time, function(err, times) {
+        if (err) {
+          res.status(500).json(err)
+        } else {
+          result.times = times
+          res.json(result)
+        }
+      })
+    }
+  })
 })
 
 route.get('/getnewcursor', function(req, res) {

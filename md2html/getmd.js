@@ -102,6 +102,6 @@ var getFile = {
   }
 }
 
-new cron('* */10 8-23  * * *', function() {
+// new cron('* */10 8-23  * * *', function() {
   getFile.auth()
-}, null, true, 'Asia/Shanghai');
+// }, null, true, 'Asia/Shanghai');

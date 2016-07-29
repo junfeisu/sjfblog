@@ -14,5 +14,8 @@ exports.mongoUse = {
   },
   aggregate: function(model, message, cb) {
     return model.aggregate(message, cb)
+  },
+  mapreduce: function(model, message, cb) {
+    return model.mapReduce(message, cb)
   }
 }
