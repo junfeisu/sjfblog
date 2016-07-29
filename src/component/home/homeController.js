@@ -4,6 +4,7 @@ export default class homeController {
     this.$timeout = $timeout
     this.cursor = ''
     this.getCursor()
+    this.getTag()
   }
   // get the latest blog create_date
   getCursor() {
@@ -16,7 +17,7 @@ export default class homeController {
       }
     })
   }
-
+  
   getData() {
     this.request.getData({
       path: '/api/blog/getbloglist/' + this.cursor,
@@ -26,6 +27,17 @@ export default class homeController {
         this.blogs = data;
       }
     })
+  }
+
+  getTag() {
+    this.request.getData({
+      path: '/api/blog/getblogtype',
+      parm: '',
+      cb: data => {
+        this.tags = data.tags[0]._id
+        this.times = data.times[0]._id
+      }
+    }) 
   }
 
   blogByTag(event) {

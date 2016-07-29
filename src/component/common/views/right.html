@@ -1,14 +1,14 @@
 <div class="tag_class">
   <h3>文章标签</h3>
   <div class="tags">
-    <span ng-repeat="tag in tags"></span>
+    <span ng-repeat="tag in home.tags" ng-bind="tag"></span>
     <div class="clear"></div>
   </div>
 </div>
 <div class="time_class">
   <h3>文章归档</h3>
   <div class="times">
-    <span ng-repeat="time in times"></span>
+    <span ng-repeat="time in home.times" ng-bind="time"></span>
     <div class="clear"></div>
   </div>
 </div>

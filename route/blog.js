@@ -46,8 +46,6 @@ route.get('/getlistbytag/:cursor/:tags', function(req, res) {
   ])
   result.status ? res.status(403).json(result.msg) :
     mongo.aggregate(model.Blog, message, function(err, blog) {
-      console.log(JSON.stringify(err))
-      console.log(JSON.stringify(blog))
       err ? res.status(500).json(err) : res.json(blog)
     })
 })
@@ -60,14 +58,42 @@ route.delete('/delblog', function(req, res) {
     })
 })
 
-route.get('/getblogtag', function(req, res) {
-  mongo.aggregate(model.Blog, ([{$unwind: "$tags"}]))
+route.get('/getblogtype', function(req, res) {
+  var result = {}
+  mongo.aggregate(model.Blog, ([
+      { $group: { _id: "$tags" } },
+      { $unwind: "$_id" }
+    ]),
+    function(err, tag) {
+      if (err) {
+        res.status(500).json(err)
+      } else {
+        result.tags = tag
+        mongo.aggregate(model.Blog, ([
+            { $group: { _id: "$create_date" } } ,
+            { $unwind: "$_id"}
+          ]),
+          function(err, time) {
+            if(err) {
+              res.status(500).json(err)
+            } else {
+              result.times = time
+              console.log('type result is ' + result)
+              res.json(result)
+            }
+          })
+      }
+    })
 })
 
 route.get('/getnewcursor', function(req, res) {
-  mongo.aggregate(model.Blog, ([{ $sort: { _id: -1 } }, { $limit: 1 }]), function(err, cursor) {
-    err ? res.status(500).json(err) : res.json(cursor)
-  })
+  mongo.aggregate(model.Blog, ([
+      { $sort: { _id: -1 } },
+      { $limit: 1 }
+    ]),
+    function(err, cursor) {
+      err ? res.status(500).json(err) : res.json(cursor)
+    })
 })
 
 module.exports = route;

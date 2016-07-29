@@ -70,11 +70,11 @@ date: 2016-07-26
 ##### 但是$group不适合大数量的数据进行分组,因为是在内存中进行的
 ### $sort()
 ##### 大家一看就知道这 个管道函数使用来进行排序的,确实如此,而且规则也和js差不多,-1表示降序,1表示升序
-#####  + $sort和其他管道函数一起用的时候最好放在前面,只会对后面管道函数选出的内容进行排序
-#####  + $sort()也是在内存中进行的,所以当需要排序的内容达到物理内存的10%就会报错
-##### + 当多个属性进行排序冲突时,按照最先进行排序的属性进行排序 
-    * db.tests.aggregate({$sort: {content: -1,time: -1}})这俩个时冲突的就会按照content进行降序排序
-    * db.tests.aggregate({$sort: {time: -1,content: -1}})就会按照time进行降序排序
+#####     &nbsp;&nbsp;&nbsp;&nbsp;.$sort和其他管道函数一起用的时候最好放在前面,只会对后面管道函数选出的内容进行排序
+#####     &nbsp;&nbsp;&nbsp;&nbsp;.$sort()也是在内存中进行的,所以当需要排序的内容达到物理内存的10%就会报错
+#####   &nbsp;&nbsp;&nbsp;&nbsp;.当多个属性进行排序冲突时,按照最先进行排序的属性进行排序 
+     db.tests.aggregate({$sort: {content: -1,time: -1}})这俩个时冲突的就会按照content进行降序排序
+     db.tests.aggregate({$sort: {time: -1,content: -1}})就会按照time进行降序排序
 ### $unwind()
 ##### 这个函数就是对对应的属性进行拆分然后插入到document,就是说如果对上面的tags:["Love","Baby"]进行unwind就会发生这个document会被拆分成俩个docuemnt,一个包含tags: "Love",一个包含"Baby",其他字段的内容都是一样的,eg: 
     > db.blogs.aggregate({$project:{tags: 1}},{$unwind: "$tags"})
