@@ -59,6 +59,9 @@ ol.linenums
     margin-bottom: 0;
 }
 .prettyprint {
+    overflow-x: auto;
+    -ms-overflow-x: auto;
+    overflow-y: hidden;
     background: #000;
 }
 li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
@@ -76,11 +79,11 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
 }
 
 .pretty_h5 {
-    color: #4183c4
+    color: #4183c4;
 }
 
 .pretty_h3 {
-    color: #be41c4
+    color: #be41c4;
 }
 
 @media print

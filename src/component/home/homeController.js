@@ -6,7 +6,7 @@ export default class homeController {
     this.getCursor()
     this.getTag()
   }
-  // get the latest blog create_date
+
   getCursor() {
     this.request.getData({
       path: '/api/blog/getnewcursor',
@@ -17,7 +17,7 @@ export default class homeController {
       }
     })
   }
-  
+
   getData() {
     this.request.getData({
       path: '/api/blog/getbloglist/' + this.cursor,
@@ -29,15 +29,16 @@ export default class homeController {
     })
   }
 
-  getTag() {
-    this.request.getData({
-      path: '/api/blog/getblogtype',
-      parm: '',
-      cb: data => {
-        this.tags = data.tags
-        this.times = data.times
-      }
-    }) 
+  dealData(data) {
+    this.$timeout(function() {
+      let blogBody = document.getElementsByClassName('blog_body')
+      data.forEach(function(value, index) {
+        if (index === 0) {
+          self.cursor = value.create_date
+        }
+        blogBody[index].innerHTML = value.content
+      })
+    })
   }
 
   blogByTag(event) {
@@ -53,16 +54,15 @@ export default class homeController {
     })
   }
 
-  dealData(data) {
-    this.$timeout(function() {
-      let blogBody = document.getElementsByClassName('blog_body')
-      data.forEach(function(value, index) {
-        if(index === 0) {
-          self.cursor = value.create_date
-        }
-        blogBody[index].innerHTML = value.content
-      })
-    })
+  getTag() {
+    this.request.getData({
+      path: '/api/blog/getblogtype',
+      parm: '',
+      cb: data => {
+        this.tags = data.tags
+        this.times = data.times
+      }
+    }) 
   }
 }
 

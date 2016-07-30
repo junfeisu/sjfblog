@@ -3,6 +3,7 @@ export default class detailController {
     this.request = request
     this.params = $stateParams
     this.getData()
+    this.getTag()
   }
 
   getData() {
@@ -21,9 +22,20 @@ export default class detailController {
         content.innerHTML = content.innerHTML.replace(/\<h3\>/g,'<h3 class="pretty_h3">')
         content.innerHTML = content.innerHTML.replace(/\<h5\>/g,'<h5 class="pretty_h5">')
         content.innerHTML = content.innerHTML.replace(/\<code\>/g,'<code class="pretty_code">')
-        console.log(content.innerHTML)
+        
       }
     })
+  }
+
+  getTag() {
+    this.request.getData({
+      path: '/api/blog/getblogtype',
+      parm: '',
+      cb: data => {
+        this.tags = data.tags
+        this.times = data.times
+      }
+    }) 
   }
 }
 
