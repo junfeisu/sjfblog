@@ -19,7 +19,7 @@ route.param('tags', function(req, res, next) {
 route.get('/getbloglist/:cursor', function(req, res) {
   var result = validate.checkResult(req)
   var message = ([
-    { $match: { create_date: { $gte: req.params.cursor } } },
+    { $match: { create_date: { $lte: req.params.cursor } } },
     { $limit: 10 },
     { $sort: { create_date: -1 } }
   ])
@@ -108,6 +108,15 @@ route.get('/getnewcursor', function(req, res) {
     function(err, cursor) {
       err ? res.status(500).json(err) : res.json(cursor)
     })
+})
+
+route.get('/nearblog/:cursor', function(req, res) {
+  var result = {}
+  model.Blog.find(create_date: {$gt: req.params.cursor}).sort({create_date: 1}).hint({create_date: 1}).limt(1)
+})
+
+route.get('nextblog/:cursor', function(req, res) {
+
 })
 
 module.exports = route;

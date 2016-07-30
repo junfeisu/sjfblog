@@ -69,39 +69,42 @@ var getFile = {
   },
   // get the content of md file
   getContent: function(md) {
-    superagent.get(rawPath + "/junfeisu/sjfblog/master/md2html/source/" + md)
+    superagent.get(rawPath + "/junfeisu/sjfblog/master/md2html/source/" + encodeURI(md))
       .end(function(error, result) {
         if (error) {
           console.log('err is ' + error)
+        } else {
+          console.log('result.text is ' + result.text)
+          var slice = result.text.split('---')
+          var blogMes = {
+            tags: []
+          }
+          var date = new Date()
+          var month = date.getMonth() + 1
+          console.log(slice)
+          var message = slice[1].replace(/\n/g, '')
+          var tags = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[0]
+          blogMes.title = (message.split('title: ')[1]).split('tags: ')[0]
+          blogMes.date_create = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[1]
+          tags.split(' ').forEach(function(value) {
+            blogMes.tags.push(value)
+          })
+          blogMes.content = markdown.toHTML(slice[2])
+          fs.writeFileSync('./' + date.getFullYear() + '-' + month + '/' + md, result.text, 'utf-8')
+          mongo.add(new model['Blog']({
+            title: blogMes.title,
+            content: blogMes.content,
+            tags: blogMes.tags,
+            create_date: blogMes.date_create
+          }), function(err, result) {
+            err ? console.log('add err is ' + err) :
+              console.log('fetch success')
+          })
         }
-        var slice = result.text.split('---')
-        var blogMes = {
-          tags: []
-        }
-        var date = new Date()
-        var month = date.getMonth() + 1;
-        var message = slice[1].replace(/\n/g, '')
-        var tags = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[0]
-        blogMes.title = (message.split('title: ')[1]).split('tags: ')[0]
-        blogMes.date_create = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[1]
-        tags.split(' ').forEach(function(value) {
-          blogMes.tags.push(value)
-        })
-        blogMes.content = markdown.toHTML(slice[2])
-        fs.writeFileSync('./' + date.getFullYear() + '-' + month + '/' + md, result.text, 'utf-8')
-        mongo.add(new model['Blog']({
-          title: blogMes.title,
-          content: blogMes.content,
-          tags: blogMes.tags,
-          create_date: blogMes.date_create
-        }), function(err, result) {
-          err ? console.log('add err is ' + err) :
-            console.log('fetch success')
-        })
       })
   }
 }
 
 // new cron('* */10 8-23  * * *', function() {
-  getFile.auth()
-// }, null, true, 'Asia/Shanghai');
+getFile.auth()
+  // }, null, true, 'Asia/Shanghai');

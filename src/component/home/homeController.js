@@ -60,6 +60,9 @@ export default class homeController {
       parm: '',
       cb: data => {
         this.tags = data.tags
+        data.times.forEach(function(value, index) {
+          data.times[index]._id = value._id.split(':')[0]
+        })
         this.times = data.times
       }
     }) 

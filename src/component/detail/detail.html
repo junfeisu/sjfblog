@@ -1,10 +1,14 @@
 <div class="detail">
   <div class="detail_main">
+    <div class="main_top">
+      <span ng-cloak><<{{}}</span>
+      <span ng-cloak>>>{{}}</span>
+    </div>
     <article>
       <h2 ng-bind="detail.blog.title">这是一篇用来测试的</h2>
       <div class="time">
-        <h2 ng-bind="detail.blog.date"></h2>
-        <span ng-bind="detail.blog.month"></span>
+        <h2 ng-bind="detail.blog.create_date | date:'dd'"></h2>
+        <span ng-bind="detail.blog.create_date | date:'yyyy-MM'"></span>
       </div>
       <div class="clear"></div>
       <div class="article_content">

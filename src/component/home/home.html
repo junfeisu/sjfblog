@@ -26,31 +26,30 @@
 <div class="home">
   <div class="main">
     <div class="blog_list">
-  <div class="blog_specifc" ng-repeat="blog in home.blogs">
-    <div class="blog_top">
-      <a ui-sref='detail({blogId: blog._id})' ng-bind="blog.title"></a>
-    </div>
-    <div class="blog_content">
-      <p class="blog_body"></p>
-      <div class="tag">
-        <div class="tag_left">
-          <span>Tags:</span>
-          <span ng-repeat="tag in blog.tags" ng-click='home.blogByTag($event)' ng-bind="tag"></span>
+      <div class="blog_specifc" ng-repeat="blog in home.blogs">
+        <div class="blog_top">
+          <a ui-sref='detail({blogId: blog._id})' ng-bind="blog.title"></a>
         </div>
-        <div class="time">{{blog.create_date | date:'yyyy-MM-dd HH:mm'}}</div>
-        <div class="clear"></div>
+        <div class="blog_content">
+          <p class="blog_body"></p>
+          <div class="tag">
+            <div class="tag_left">
+              <span>Tags:</span>
+              <span ng-repeat="tag in blog.tags" ng-click='home.blogByTag($event)' ng-bind="tag"></span>
+            </div>
+            <div class="time" ng-bind="blog.create_date | date:'yyyy-MM-dd HH:mm'"></div>
+            <div class="clear"></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<div class="page">
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-
+    <div class="page">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
   <div class="right">
     <div class="tag_class">
@@ -62,8 +61,8 @@
     </div>
     <div class="time_class">
       <h3>文章归档</h3>
-      <div class="times">
-        <span ng-repeat="time in home.times" ng-cloak>{{time._id}}({{time.value}})</span>
+          <div class="times">
+            <span ng-repeat="time in home.times" ng-cloak>{{time._id | date:'yyyy-MM-dd'}}({{time.value}})</span>
         <div class="clear"></div>
       </div>
     </div>
