@@ -1,14 +1,14 @@
 <div class="detail">
   <div class="detail_main">
     <div class="main_top">
-      <span ng-bind="'<<' + detail.blog.prevBlog.title"></span>
-      <span ng-bind="detail.blog.nextBlog.title + '>>'"></span>
+      <span ng-bind="'<< ' + detail.prevBlog.title" _id="{{detail.prevBlog._id}}" ng-show="detail.prev" ng-click="detail.changeBlog($event)"></span>
+      <span ng-bind="detail.nextBlog.title + ' >>'" _id="{{detail.nextBlog._id}}" ng-show="detail.next" ng-click="detail.changeBlog($event)"></span>
     </div>
     <article>
-      <h2 ng-bind="detail.blog.currentBlog.title"></h2>
+      <h2 ng-bind="detail.currentBlog.title"></h2>
       <div class="time">
-        <h2 ng-bind="detail.blog.currentBlog.create_date | date:'dd'"></h2>
-        <span ng-bind="detail.blog.currentBlog.create_date | date:'yyyy-MM'"></span>
+        <h2 ng-bind="detail.currentBlog.create_date | date:'dd'"></h2>
+        <span ng-bind="detail.currentBlog.create_date | date:'yyyy-MM'"></span>
       </div>
       <div class="clear"></div>
       <div class="article_content">

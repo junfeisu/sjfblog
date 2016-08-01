@@ -17,8 +17,15 @@
       border-bottom: 0.5px solid #ccc;
       span {
         cursor: pointer;
+        @include transition
+        &:hover {
+          margin-left: -5px
+        }
         &:last-child {
-          float: right
+          float: right;
+          &:hover {
+            margin-right: -5px;
+          }
         }
       }
     }

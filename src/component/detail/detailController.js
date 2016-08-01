@@ -3,20 +3,21 @@ export default class detailController {
     this.request = request
     this.params = $stateParams
     this.$timeout = $timeout
-    this.blog = {}
-    this.getData()
+    this.getData(this.params.blogId)
     this.getTag()
+    this.prev = true
+    this.next = true
   }
 
-  getData() {
+  getData(blogId) {
     this.request.getData({
       path: '/api/blog/getblogbyid',
       way: 'POST',
       parm: {
-        _id: this.params.blogId
+        _id: blogId
       },
       cb: data => {
-        this.blog.currentBlog = data[0]
+        this.currentBlog = data[0]
         this.getNearBlog(data[0].create_date)
         this.dealData(data)
       }
@@ -42,11 +43,17 @@ export default class detailController {
       path: '/api/blog/getnearblog/' + cursor,
       parm: '',
       cb: data => {
-        this.blog.prevBlog = data.prevBlog
-        this.blog.nextBlog = data.nextBlog
-        console.log(this.blog)
+        this.prevBlog = data.prevBlog
+        this.prev = (!this.prevBlog.hasOwnProperty('_id') ? false : true)
+        this.nextBlog = data.nextBlog
+        this.next = (!this.nextBlog.hasOwnProperty('_id') ? false : true)
       }
     })
+  }
+
+  changeBlog(event) {
+    let _id = event.target.attributes._id.value
+    this.getData(_id)
   }
 
   dealData(data) {
