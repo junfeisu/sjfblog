@@ -110,13 +110,28 @@ route.get('/getnewcursor', function(req, res) {
     })
 })
 
-route.get('/nearblog/:cursor', function(req, res) {
+route.get('/getnearblog/:cursor', function(req, res) {
   var result = {}
-  model.Blog.find({create_date: {$gt: req.params.cursor}}).sort({create_date: 1}).hint({create_date: 1}).limit(1)
-})
-
-route.get('nextblog/:cursor', function(req, res) {
-
+  console.log('nearblog')
+  model.Blog.find({ create_date: { $gt: req.params.cursor } },
+    function(err, nextBlog) {
+      if (err) {
+        res.status(500).json(err)
+      } else {
+        result.nextBlog = (JSON.stringify(nextBlog) === '[]' ? {} : nextBlog[0])
+        console.log('2143')
+        model.Blog.find({ create_date: { $lt: req.params.cursor } },
+          function(err, prevBlog) {
+            if (err) {
+              res.status(500).json(err)
+            } else {
+              result.prevBlog = (JSON.stringify(prevBlog) === '[]' ? {} : prevBlog[0])
+              console.log('result is ' + JSON.stringify(result))
+              res.json(result)
+            }
+          }).sort({ create_date: -1 }).limit(1)
+      }
+    }).sort({ create_date: 1 }).limit(1)
 })
 
 module.exports = route;

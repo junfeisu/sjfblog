@@ -3,6 +3,7 @@ export default class detailController {
     this.request = request
     this.params = $stateParams
     this.$timeout = $timeout
+    this.blog = {}
     this.getData()
     this.getTag()
   }
@@ -15,9 +16,9 @@ export default class detailController {
         _id: this.params.blogId
       },
       cb: data => {
-        this.blog = data[0]
+        this.blog.currentBlog = data[0]
+        this.getNearBlog(data[0].create_date)
         this.dealData(data)
-        this.prev(data[0].create_date)
       }
     })
   }
@@ -29,20 +30,21 @@ export default class detailController {
       cb: data => {
         this.tags = data.tags
         data.times.forEach(function(value, index) {
-          data.times[index]._id = value._id.split(':')[0]
+          data.times[index]._id = Date.parse(data.times[index]._id)
         })
         this.times = data.times
       }
     })
   }
 
-  getPrev(cursor) {
+  getNearBlog(cursor) {
     this.request.getData({
-      path: '/api/blog/getprevblog/' + cursor,
+      path: '/api/blog/getnearblog/' + cursor,
       parm: '',
       cb: data => {
-        this.blog = data[0]
-        this.dealData()
+        this.blog.prevBlog = data.prevBlog
+        this.blog.nextBlog = data.nextBlog
+        console.log(this.blog)
       }
     })
   }
@@ -54,7 +56,7 @@ export default class detailController {
       content.innerHTML = content.innerHTML.replace(/\<h3\>/g, '<h3 class="pretty_h3">')
       content.innerHTML = content.innerHTML.replace(/\<h5\>/g, '<h5 class="pretty_h5">')
       content.innerHTML = content.innerHTML.replace(/\<code\>/g, '<code class="pretty_code">')
-      this.cursor = data[0].create_date
+      data[0].create_date = Date.parse(data[0].create_date)
     })
   }
 }

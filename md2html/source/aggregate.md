@@ -1,7 +1,7 @@
 ---
 title: mongdb aggregate(聚合函数)
 tags: mongodb aggregate
-date: 2016-07-26
+date: 2016-07-26:18:17
 ---
 ### $project()
 #####  这个方法就是对要输出的每个document里面的字段进行自定义,可以定义要显示的字段,可以对字段进行重命名,进行重命名,甚至一个字段拆分为多个字段,但是不会改变数据库里面的document结构
