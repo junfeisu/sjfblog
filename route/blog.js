@@ -112,7 +112,7 @@ route.get('/getnewcursor', function(req, res) {
 
 route.get('/nearblog/:cursor', function(req, res) {
   var result = {}
-  model.Blog.find(create_date: {$gt: req.params.cursor}).sort({create_date: 1}).hint({create_date: 1}).limt(1)
+  model.Blog.find({create_date: {$gt: req.params.cursor}}).sort({create_date: 1}).hint({create_date: 1}).limit(1)
 })
 
 route.get('nextblog/:cursor', function(req, res) {
