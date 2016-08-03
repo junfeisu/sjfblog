@@ -23,7 +23,7 @@ export default class detailController {
       }
     })
   }
-
+  // get the whole tags and timestamp
   getTag() {
     this.request.getData({
       path: '/api/blog/getblogtype',
@@ -37,7 +37,7 @@ export default class detailController {
       }
     })
   }
-
+  // get the prev and next blog
   getNearBlog(cursor) {
     this.request.getData({
       path: '/api/blog/getnearblog/' + cursor,
@@ -54,6 +54,7 @@ export default class detailController {
   changeBlog(event) {
     let _id = event.target.attributes._id.value
     this.getData(_id)
+    this.params.blogId = _id
   }
 
   dealData(data) {

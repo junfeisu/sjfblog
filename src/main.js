@@ -13,3 +13,4 @@ import detail from './component/detail/detail'
 
 angular.module('app', [uirouter, home, demo, about, resume, detail])
   .config(routing)
+  .name

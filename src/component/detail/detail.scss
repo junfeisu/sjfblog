@@ -8,13 +8,13 @@
     padding: 10px;
     background: #fff;
     border-radius: 3px;
-    .main_top {
+    .main_bottom {
       width: 90%;
       margin: 0 auto;
       height: 40px;
       line-height: 40px;
       color: #2479CC;
-      border-bottom: 0.5px solid #ccc;
+      border-top: 0.5px solid #ccc;
       span {
         cursor: pointer;
         @include transition
@@ -32,7 +32,7 @@
     article {
       width: 90%;
       margin: 0 auto;
-      margin-top: 20px;
+      margin-top: 10px;
       h2 {
         float: left;
         width: 50%;

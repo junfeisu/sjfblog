@@ -1,28 +1,3 @@
-<!-- <div id="wrapper">
-  <ul class="container" style="left:0px">
-    <li><img src="/common/image/fourth.png" alt="">
-      <p>This is picture4</p>
-    </li>
-    <li><img src="/common/image/sixth.png" alt="">
-      <p>This is picture1</p>
-    </li>
-    <li><img src="/common/image/second.png" alt="">
-      <p>This is picture2</p>
-    </li>
-    <li><img src="/common/image/thrid.png" alt="">
-      <p>This is picture3</p>
-    </li>
-    <li><img src="/common/image/fourth.png" alt="">
-      <p>This is picture4</p>
-    </li>
-    <li><img src="/common/image/sixth.png" alt="">
-      <p>This is picture1</p>
-    </li>
-    <div class="clear"></div>
-  </ul>
-  <a class="arrow" href='/' id="prev" prev-blog>&lt;</a>
-  <a class="arrow" href='/' id="next" next-blog>&gt;</a>
-</div> -->
 <div class="home">
   <div class="main">
     <div class="blog_list">
@@ -44,25 +19,28 @@
       </div>
     </div>
     <div class="page">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
+      <span><<</span>
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+      <span>4</span>
+      <span>5</span>
+      <span>>></span>
+      <div class="clear"></div>
     </div>
   </div>
   <div class="right">
     <div class="tag_class">
       <h3>文章标签</h3>
       <div class="tags">
-        <span ng-repeat="tag in home.tags" ng-cloak>{{tag._id}}({{tag.value}})</span>
+        <span ng-repeat="tag in home.tags" ng-bind="tag._id + '(' + tag.value + ')'" ng-click="home.blogByTag($event)"></span>
         <div class="clear"></div>
       </div>
     </div>
     <div class="time_class">
       <h3>文章归档</h3>
           <div class="times">
-            <span ng-repeat="time in home.times" ng-cloak>{{time._id | date:'yyyy-MM-dd'}}({{time.value}})</span>
+            <span ng-repeat="time in home.times" ng-bind="(time._id | date:'yyyy-MM') + '(' + time.value + ')'" ng-click="home.blogByTag($event)"></span>
         <div class="clear"></div>
       </div>
     </div>

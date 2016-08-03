@@ -6,7 +6,7 @@ export default class homeController {
     this.getCursor()
     this.getTag()
   }
-
+  // get the latest blog time
   getCursor() {
     this.request.getData({
       path: '/api/blog/getnewcursor',
@@ -17,7 +17,7 @@ export default class homeController {
       }
     })
   }
-
+  // get the blog list
   getData() {
     this.request.getData({
       path: '/api/blog/getbloglist/' + this.cursor,
@@ -28,7 +28,7 @@ export default class homeController {
       }
     })
   }
-
+  // deal the blog list 
   dealData(data) {
     this.$timeout(function() {
       let blogBody = document.getElementsByClassName('blog_body')
@@ -40,9 +40,10 @@ export default class homeController {
       })
     })
   }
-
+  // get the bloglist by tag
   blogByTag(event) {
-    let html = event.target.innerHTML
+    let html = event.target.innerHTML.replace(/\([0-9]\)*/g, '')
+    console.log(html)
     this.request.getData({
       path: '/api/blog/getlistbytag/' + this.cursor + '/' + html,
       way: 'GET',
@@ -53,7 +54,7 @@ export default class homeController {
       }
     })
   }
-
+  // get the tags and time (right sidebar)
   getTag() {
     this.request.getData({
       path: '/api/blog/getblogtype',

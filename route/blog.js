@@ -50,6 +50,7 @@ route.get('/getlistbytag/:cursor/:tags', function(req, res) {
     })
 })
 
+// delete the blog
 route.delete('/delblog', function(req, res) {
   var result = validate.checkResult(req)
   result.status ? res.status(403).send(result.msg) :
@@ -57,7 +58,7 @@ route.delete('/delblog', function(req, res) {
       err ? res.status(500).json(err) : res.json(blog)
     })
 })
-
+// get the whole blog tags and the timestamp
 route.get('/getblogtype', function(req, res) {
   var tag = {}
   var result = {}
@@ -100,6 +101,7 @@ route.get('/getblogtype', function(req, res) {
   })
 })
 
+// get the latest blog create_date
 route.get('/getnewcursor', function(req, res) {
   mongo.aggregate(model.Blog, ([
       { $sort: { _id: -1 } },
@@ -110,6 +112,7 @@ route.get('/getnewcursor', function(req, res) {
     })
 })
 
+// get the prev blog and next blog
 route.get('/getnearblog/:cursor', function(req, res) {
   var result = {}
   console.log('nearblog')

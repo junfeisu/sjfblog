@@ -1,9 +1,5 @@
 <div class="detail">
   <div class="detail_main">
-    <div class="main_top">
-      <span ng-bind="'<< ' + detail.prevBlog.title" _id="{{detail.prevBlog._id}}" ng-show="detail.prev" ng-click="detail.changeBlog($event)"></span>
-      <span ng-bind="detail.nextBlog.title + ' >>'" _id="{{detail.nextBlog._id}}" ng-show="detail.next" ng-click="detail.changeBlog($event)"></span>
-    </div>
     <article>
       <h2 ng-bind="detail.currentBlog.title"></h2>
       <div class="time">
@@ -31,6 +27,10 @@
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
     })();
     </script> -->
+    </div>
+    <div class="main_bottom">
+      <span ng-bind="'<< ' + detail.prevBlog.title" ng-show="detail.prev" ui-sref="detail({blogId: detail.prevBlog._id})"></span>
+      <span ng-bind="detail.nextBlog.title + ' >>'" ng-show="detail.next" ui-sref="detail({blogId:detail.nextBlog._id})"></span>
     </div>
   </div>
   <div class="right">

@@ -1,148 +1,96 @@
 @import '../common/style/mixin.scss';
-#wrapper {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  height: 400px;
-  z-index: 1;
-  display: none;
-  .container {
-    width: 400%;
-    height: 400px;
-    margin: 0px;
-    padding: 0px;
-    position: absolute;
-    top: 0px;
-    li {
-      width: 25%;
-      float: left;
-      height: 400px;
-      img {
-        width: 100%;
-      }
-      p {
-        position: absolute;
-        bottom: 5%;
-        left: 7%;
-        width: 10%;
-        height: 50px;
-        color: #fff;
-        font-size: $middleSize;
-        background: #000;
-        text-align: center;
-        line-height: 50px;
-        border-radius: 10px;
-        opacity: .7
-      }
-    }
-  }
-  a {
-    position: absolute;
-    color: #000;
-    top: 42.5%;
-    background: #ccc;
-    display: block;
-    opacity: 0.3;
-    height: 60px;
-    width: 60px;
-    border-radius: 30px;
-    line-height: 60px;
-    text-align: center;
-    font-size: 50px;
-    cursor: pointer;
-    display: none;
-    z-index: 2;
-    &:hover {
-      opacity: 0.6
-    }
-  }
-  #prev {
-    left: 10%;
-  }
-  #next {
-    right: 10%;
-  }
-  &:hover > a {
-    display: block;
-  }
-}
-
 .home {
   width: 90%;
   margin: 0 auto;
   .main {
-  width: 70%;
-  float: left;
-  margin: 0px 0px;
-  .blog_list {
-    width: 75%;
-    margin: 0px auto;
-    .blog_specifc {
-      background: #fff;
-      border: 1px solid $lightColor;
-      border-radius: 5px;
-      padding: 5px 2%;
-      margin-top: 20px;
-      opacity: 0.7;
-      transition: 0.8s;
-      .blog_top {
-        margin-bottom: 30px;
-        a {
-          text-decoration: none;
-          cursor: pointer;
-          font-size: $largeSize;
-          @include transition($time: .8s);
-          color: #111;
-          &:hover {
-            margin-left: 10px
+    width: 52.5%;
+    float: left;
+    margin: 0px 0px 0px 8%;
+    .blog_list {
+      width: 100%;
+      margin: 0px auto;
+      .blog_specifc {
+        background: #fff;
+        border: 1px solid $lightColor;
+        border-radius: 5px;
+        padding: 5px 2%;
+        margin-top: 20px;
+        opacity: 0.7;
+        transition: 0.8s;
+        .blog_top {
+          margin-bottom: 30px;
+          a {
+            text-decoration: none;
+            cursor: pointer;
+            font-size: $largeSize;
+            @include transition($time: .8s);
+            color: #111;
+            &:hover {
+              margin-left: 10px
+            }
           }
         }
+        .blog_body {
+          height: 60px;
+          overflow: hidden;
+          margin-bottom: 30px
+        }
+        span {
+          display: block;
+          float: left;
+          margin-right: 20px;
+          height: 20px;
+          line-height: 20px;
+          font-size: $middleSize;
+          color: #0a0a0a;
+          &:hover {
+            margin-top: 2px;
+            color: $color;
+            cursor: pointer
+          }
+          ;
+          &:first-child {
+            margin-right: 2px;
+            cursor: default;
+            &:hover {
+              margin-top: 0px;
+              color: #0a0a0a;
+              cursor: default
+            }
+          }
+        }
+        .tag {
+          .tag_left {
+            float: left;
+          }
+          .time {
+            float: right;
+            color: $strongColor
+          }
+        }
+        &:first-child {
+          margin-top: 0px
+        }
+        &:hover {
+          opacity: 1;
+        }
       }
-      .blog_body {
-        height: 60px;
-        overflow: hidden;
-        margin-bottom: 30px
-      }
+    }
+    .page {
+      width: 240px;
+      margin: 10px auto;
       span {
         display: block;
         float: left;
-        margin-right: 20px;
+        width: 20px;
+        color: #fff;
         height: 20px;
         line-height: 20px;
-        font-size: $middleSize;
-        color: #0a0a0a;
-        &:hover {
-          margin-top: 2px;
-          color: $color;
-          cursor: pointer
-        }
-        ;
+        margin-left: 8px;
         &:first-child {
-          margin-right: 2px;
-          cursor: default;
-          &:hover {
-            margin-top: 0px;
-            color: #0a0a0a;
-            cursor: default
-          }
+          margin-right: 8px;
         }
-      }
-      .tag {
-        .tag_left {
-          float: left;
-        }
-        .time {
-          float: right;
-          color: $strongColor
-        }
-      }
-      &:first-child {
-        margin-top: 0px
-      }
-      &:hover {
-        opacity: 1;
       }
     }
   }
-}
 }
