@@ -77,19 +77,21 @@
       }
     }
     .page {
-      width: 240px;
-      margin: 10px auto;
-      span {
-        display: block;
-        float: left;
-        width: 20px;
-        color: #fff;
-        height: 20px;
-        line-height: 20px;
-        margin-left: 8px;
+      width: 260px;
+      margin: 30px auto;
+      button {
+        @include button;
         &:first-child {
-          margin-right: 8px;
+          margin-right: 10px;
         }
+        &:last-child {
+          margin-left: 10px;
+        }
+      }
+      .active {
+        color: #fff;
+        background: #4078c0;
+        opacity: 1
       }
     }
   }

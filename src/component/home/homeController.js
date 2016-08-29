@@ -2,6 +2,9 @@ export default class homeController {
   constructor(request, $timeout) {
     this.request = request
     this.$timeout = $timeout
+    this.prev = false
+    this.next = true
+    this.total = []
     this.cursor = ''
     this.getCursor()
     this.getTag()
@@ -23,8 +26,17 @@ export default class homeController {
       path: '/api/blog/getbloglist/' + this.cursor,
       parm: '',
       cb: data => {
+        let total = Math.ceil(data.total / 10)
         this.dealData(data)
-        this.blogs = data;
+        this.blogs = data.blogs;
+        if (total === 1) {
+          this.total = [1]
+          this.next = false
+        } else {
+          for(let i = 0; i < total; i++) {
+            this.total.push(i + 1)
+          }
+        }
       }
     })
   }
@@ -32,7 +44,7 @@ export default class homeController {
   dealData(data) {
     this.$timeout(function() {
       let blogBody = document.getElementsByClassName('blog_body')
-      data.forEach(function(value, index) {
+      data.blogs.forEach(function(value, index) {
         if (index === 0) {
           self.cursor = value.create_date
         }
@@ -45,12 +57,12 @@ export default class homeController {
     let html = event.target.innerHTML.replace(/\([0-9]\)*/g, '')
     console.log(html)
     this.request.getData({
-      path: '/api/blog/getlistbytag/' + this.cursor + '/' + html,
+      path: '/api/blog/getlistbytag/' + html,
       way: 'GET',
       parm: '',
       cb: data => {
         this.dealData(data)
-        this.blogs = data
+        this.blogs = data.blogs
       }
     })
   }

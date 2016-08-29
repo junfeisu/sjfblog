@@ -18,6 +18,10 @@ route.param('tags', function(req, res, next) {
 
 route.get('/getbloglist/:cursor', function(req, res) {
   var result = validate.checkResult(req)
+  var newResult = {
+    blogs: [],
+    total: ''
+  }
   var message = ([
     { $match: { create_date: { $lte: req.params.cursor } } },
     { $limit: 10 },
@@ -25,19 +29,28 @@ route.get('/getbloglist/:cursor', function(req, res) {
   ])
   result.status ? res.status(403).json(result.msg) :
     mongo.aggregate(model.Blog, message, function(err, blog) {
-      err ? res.status(500).json(err) : res.json(blog)
+      if (err) {
+        res.status(500).json(err)
+      } else {
+        newResult.blogs = blog
+        mongo.search(model.Blog, {}, function(err, count){
+          console.log(count.length)
+          newResult.total = count.length
+          res.json(newResult)
+        })
+      }
     })
 })
 
 route.post('/getblogbyid', function(req, res) {
-  var result = validate.checkResult(req);
+  var result = validate.checkResult(req)
   result.status ? res.status(403).json(result.msg) :
     mongo.search(model.Blog, req.body, function(err, blog) {
       err ? res.status(500).json(err) : res.json(blog)
     })
 })
 
-route.get('/getlistbytag/:cursor/:tags', function(req, res) {
+route.get('/getlistbytag/:tags', function(req, res) {
   var result = validate.checkResult(req)
   var message = ([
     { $sort: { create_date: -1 } },
@@ -46,7 +59,7 @@ route.get('/getlistbytag/:cursor/:tags', function(req, res) {
   ])
   result.status ? res.status(403).json(result.msg) :
     mongo.aggregate(model.Blog, message, function(err, blog) {
-      err ? res.status(500).json(err) : res.json(blog)
+      err ? res.status(500).json(err) : res.json({total: blog.length, blogs: blog})
     })
 })
 

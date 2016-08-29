@@ -19,14 +19,9 @@
       </div>
     </div>
     <div class="page">
-      <span><<</span>
-      <span>1</span>
-      <span>2</span>
-      <span>3</span>
-      <span>4</span>
-      <span>5</span>
-      <span>>></span>
-      <div class="clear"></div>
+      <button ng-show="home.prev"><<</button>
+      <button ng-repeat="i in home.total" ng-class="{active: $index === 0}">{{$index + 1}}</button>
+      <button ng-show="home.next">>></button>
     </div>
   </div>
   <div class="right">
@@ -39,8 +34,8 @@
     </div>
     <div class="time_class">
       <h3>文章归档</h3>
-          <div class="times">
-            <span ng-repeat="time in home.times" ng-bind="(time._id | date:'yyyy-MM') + '(' + time.value + ')'" ng-click="home.blogByTag($event)"></span>
+      <div class="times">
+        <span ng-repeat="time in home.times" ng-bind="(time._id | date:'yyyy-MM') + '(' + time.value + ')'" ng-click="home.blogByTag($event)"></span>
         <div class="clear"></div>
       </div>
     </div>
