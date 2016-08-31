@@ -63,6 +63,7 @@ export default class detailController {
       content.innerHTML = data[0].content.replace(/\<pre\>/g, '<pre class="prettyprint">')
       content.innerHTML = content.innerHTML.replace(/\<h3\>/g, '<h3 class="pretty_h3">')
       content.innerHTML = content.innerHTML.replace(/\<h5\>/g, '<h5 class="pretty_h5">')
+      content.innerHTML = content.innerHTML.replace(/\<img.+\>/g, '<img class="pretty_img">')
       content.innerHTML = content.innerHTML.replace(/\<code\>/g, '<code class="pretty_code">')
       data[0].create_date = Date.parse(data[0].create_date)
     })
