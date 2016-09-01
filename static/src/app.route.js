@@ -43,4 +43,3 @@ export default function configRouter (router) {
     document.title = transition.to.docTitle || 'SJF'
   })
 }
-

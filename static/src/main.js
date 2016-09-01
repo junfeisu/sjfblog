@@ -4,10 +4,10 @@ import VueRouter from 'vue-router'
 import configRouter from './app.route'
 import VueResource from 'vue-resource'
 
-Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.use(VueRouter)
 
-const router = new VueRouter({
+const router = new VueRouter ({
   saveScrollPosition: true,
   history: true
 })
