@@ -8,20 +8,22 @@ route.get('/', function(req, res) {
   res.send('This is blog Api');
 })
 
-route.param('cursor', function(req, res, next) {
-  next()
-})
+// route.param('cursor', function(req, res, next) {
+//   next()
+// })
 
-route.param('tags', function(req, res, next) {
-  next()
-})
+// route.param('tags', function(req, res, next) {
+//   next()
+// })
 
-route.get('/getbloglist/:cursor', function(req, res) {
+route.get('/getbloglist/', function(req, res) {
   var result = validate.checkResult(req)
   var newResult = {
     blogs: [],
     total: ''
   }
+  console.log('134')
+  console.log('req.params.tags is ' + JSON.stringify(req))
   var message = ([
     { $match: { create_date: { $lte: req.params.cursor } } },
     { $limit: 10 },
@@ -34,7 +36,6 @@ route.get('/getbloglist/:cursor', function(req, res) {
       } else {
         newResult.blogs = blog
         mongo.search(model.Blog, {}, function(err, count){
-          console.log(count.length)
           newResult.total = count.length
           res.json(newResult)
         })
