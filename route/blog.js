@@ -76,6 +76,7 @@ route.delete('/delblog', function(req, res) {
       err ? res.status(500).json(err) : res.json(blog)
     })
 })
+
 // get the whole blog tags and the timestamp
 route.get('/getblogtype', function(req, res) {
   var tag = {}
@@ -141,14 +142,12 @@ route.get('/getnearblog/:cursor', function(req, res) {
         res.status(500).json(err)
       } else {
         result.nextBlog = (JSON.stringify(nextBlog) === '[]' ? {} : nextBlog[0])
-        console.log('2143')
         model.Blog.find({ create_date: { $lt: req.params.cursor } },
           function(err, prevBlog) {
             if (err) {
               res.status(500).json(err)
             } else {
               result.prevBlog = (JSON.stringify(prevBlog) === '[]' ? {} : prevBlog[0])
-              console.log('result is ' + JSON.stringify(result))
               res.json(result)
             }
           }).sort({ create_date: -1 }).limit(1)

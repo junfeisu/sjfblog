@@ -1,10 +1,10 @@
 <template>
   <div class="detail_main">
     <article>
-      <h2 ng-bind="detail.currentBlog.title"></h2>
+      <h2>{{currentBlog.title}}</h2>
       <div class="time">
-        <h2 ng-bind="detail.currentBlog.create_date | date:'dd'"></h2>
-        <span ng-bind="detail.currentBlog.create_date | date:'yyyy-MM'"></span>
+        <h2>{{currentBlog.create_date}}</h2>
+        <span>{{currentBlog.create_date}}</span>
       </div>
       <div class="clear"></div>
       <div class="article_content">
@@ -29,8 +29,8 @@
     </script> -->
     </div>
     <div class="main_bottom">
-      <span ng-bind="'<< ' + detail.prevBlog.title" ng-show="detail.prev" ui-sref="detail({blogId: detail.prevBlog._id})"></span>
-      <span ng-bind="detail.nextBlog.title + ' >>'" ng-show="detail.next" ui-sref="detail({blogId:detail.nextBlog._id})"></span>
+      <span v-show="prev" v-link="{name: 'blogDetail', params: {id: prevBlog._id}}">&lt;&lt;{{prevBlog.title}}</span>
+      <span v-show="next" v-link="{name: 'blogDetail', params: {id: nextBlog._id}}">{{nextBlog.title}}&gt;&gt;</span>
     </div>
   </div>
 </template>
@@ -38,8 +38,6 @@
 <style lang="scss" scoped>
   @import './../../assets/style/mixin.scss';
   .detail_main {
-    width: 65%;
-    float: left;
     padding: 10px;
     background: #fff;
     border-radius: 3px;
@@ -109,13 +107,60 @@
       }
     }
   }
+  .clear {
+    @include clear-float
+  }
 </style>
 
 <script>
   export default {
     name: 'blogList',
     data () {
-      return {}
+      return {
+        cursor: '',
+        prevBlog: {},
+        nextBlog: {},
+        currentBlog: {}
+      }
+    },
+    methods: {
+      dealData (data) {
+        setTimeout(() => {
+          var content = document.getElementsByClassName('article_content')[0]
+          content.innerHTML = data.content.replace(/<pre>/g, '<pre class="prettyprint">')
+          content.innerHTML = content.innerHTML.replace(/<h3>/g, '<h3 class="pretty_h3">')
+          content.innerHTML = content.innerHTML.replace(/<h5>/g, '<h5 class="pretty_h5">')
+          content.innerHTML = content.innerHTML.replace(/<code>/g, '<code class="pretty_code">')
+          data.create_date = Date.parse(data.create_date)
+        })
+      },
+      getBlog () {
+        this.$http.post('/api/blog/getblogbyid', {_id: this.$route.params.id})
+          .then(response => {
+            let data = JSON.parse(response.body)[0]
+            this.dealData(data)
+            this.currentBlog = data
+            this.cursor = data.create_date
+            this.getNearBlog()
+          }, error => {
+            console.log(error)
+          })
+      },
+      getNearBlog () {
+        this.$http.get('/api/blog/getnearblog/' + this.cursor)
+          .then(response => {
+            let data = JSON.parse(response.body)
+            this.prevBlog = data.prevBlog
+            this.prev = (!this.prevBlog.hasOwnProperty('_id') ? 'false' : 'true')
+            this.nextBlog = data.nextBlog
+            this.next = (!this.nextBlog.hasOwnProperty('_id') ? 'false' : 'true')
+          }, error => {
+            console.log(error)
+          })
+      }
+    },
+    ready () {
+      this.getBlog()
     }
   }
 </script>

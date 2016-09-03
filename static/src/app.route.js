@@ -17,7 +17,7 @@ export default function configRouter (router) {
           name: 'blogList',
           component: blogList
         },
-        '/detail': {
+        '/detail/:id': {
           name: 'blogDetail',
           component: blogDetail
         }

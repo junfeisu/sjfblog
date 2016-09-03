@@ -2,7 +2,7 @@
   <div class="blog_list">
     <div class="blog_specifc" v-for="blog in blogs">
       <div class="blog_top">
-        <a ui-sref='detail({blogId: blog._id})' ng-bind="blog.title">{{blog.title}}</a>
+        <a v-link="{name: 'blogDetail', params: {id: blog._id}}">{{blog.title}}</a>
       </div>
       <div class="blog_content">
         <p class="blog_body"></p>
@@ -11,7 +11,7 @@
             <span>Tags:</span>
             <span v-for="tag in blog.tags">{{tag}}</span>
           </div>
-          <div class="time">{{blog.create_data}}</div>
+          <div class="time">{{blog.create_date}}</div>
           <div class="clear"></div>
         </div>
       </div>
