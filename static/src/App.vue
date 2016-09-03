@@ -35,6 +35,9 @@
     background-size: 100% 100%;
     background-repeat: no-repeat;
     min-width: 1260px;
+    h1, h2, h3, h4, h5 {
+      margin: 0px;
+    }
   }
 
   #app {
@@ -45,9 +48,7 @@
       margin: 0 auto;
       min-width: 1080px;
       padding: 10px 0px;
-    },
-    h1, h2, h3, h4, h5 {
-      margin: 0px;
     }
   }
+  
 </style>

@@ -16,26 +16,34 @@ route.param('tags', function(req, res, next) {
   next()
 })
 
-route.get('/getbloglist/:cursor/:tags', function(req, res) {
+route.get('/getbloglist/:cursor/:tags/:time', function(req, res) {
   var result = validate.checkResult(req)
+  var matchMessage = {
+    tags: '',
+    create_date: '',
+  }
   var newResult = {
     blogs: [],
     total: ''
   }
-  var message
-  console.log(typeof req.params.tags)
-  if (req.params.tags === 'null') {
-    message = [
-      { $match: { create_date: { $lte: req.params.cursor } } },
-      { $sort: { create_date: -1 } },
-      { $limit: 10 },
-    ]
-  } else {
-    message = [
-      { $match: { tags: req.params.tags, create_date: { $lte: req.params.cursor } } },
-      { $sort: { create_date: -1 } },
-      { $limit: 10 },
-    ]
+  var message = [
+    { $match: matchMessage },
+    { $sort: { create_date: -1 } },
+    { $limit: 10 }
+  ]
+  // message.unshift({ $match: { create_date: { $lte: req.params.cursor } } })
+  // message.unshift({ $match: { tags: /req.params.tags.+/, create_date: { $lte: req.params.cursor } } })
+  if (req.params.tags === 'null' && req.params.time === 'null' && req.params.cursor === 'null') {
+    message.shift()
+  } else if (req.params.tags === 'null' && req.params.time === 'null') {
+    delete matchMessage.tags
+    matchMessage.create_date = { $lte: req.params.cursor }
+  } else if (req.params.tags === 'null' && req.params.cursor === 'null') {
+    delete matchMessage.tags
+    matchMessage.create_date = new RegExp("^" + req.params.time + ".+")
+  } else if (req.params.cursor === 'null' && req.params.time === 'null') {
+    delete matchMessage.create_date
+    matchMessage.tags = req.params.tags
   }
   console.log(message)
   result.status ? res.status(403).json(result.msg) :
@@ -89,7 +97,8 @@ route.get('/getblogtype', function(req, res) {
     return count
   }
   time.map = function() {
-    emit(this.create_date, 1)
+    var tmp = this.create_date.split(':')[0]
+    emit(tmp.split('-')[0] + '-' + tmp.split('-')[1], 1)
   }
   time.reduce = function(key, values) {
     return Array.sum(values)

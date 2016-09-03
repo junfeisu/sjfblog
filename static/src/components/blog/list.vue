@@ -127,7 +127,8 @@
         blogs: [],
         listParam: {
           cursor: null,
-          tag: null
+          tag: null,
+          time: null
         },
         next: true,
         prev: false,
@@ -149,7 +150,7 @@
         })
       },
       getList () {
-        this.$http.get('/api/blog/getbloglist/' + this.listParam.cursor + '/' + this.listParam.tag)
+        this.$http.get('/api/blog/getbloglist/' + this.listParam.cursor + '/' + this.listParam.tag + '/' + this.listParam.time)
           .then(response => {
             let data = JSON.parse(response.body)
             this.dealData(data)

@@ -39,6 +39,7 @@
       margin-top: 10px;
       h3 {
         text-align: center;
+        margin-bottom: 10px;
       }
       .tags {
         width: 90%;
@@ -53,7 +54,8 @@
       margin: 0 auto;
       margin-top: 40px;
       h3 {
-        text-align: center
+        text-align: center;
+        margin-bottom: 10px;
       }
       .times {
         width: 90%;
@@ -81,7 +83,14 @@
     methods: {
       blogByTag (event) {
         let target = event.target
-        this.$children[0].listParam.tag = target.innerHTML.split('(')[0]
+        this.$children[0].listParam.cursor = null
+        if (target.parentElement.className === 'tags') {
+          this.$children[0].listParam.time = null
+          this.$children[0].listParam.tag = target.innerHTML.split('(')[0]
+        } else {
+          this.$children[0].listParam.tag = null
+          this.$children[0].listParam.time = target.innerHTML.split('(')[0]
+        }
         this.$children[0].getList()
       }
     },
@@ -89,9 +98,10 @@
       this.$http.get('/api/blog/getblogtype')
         .then(response => {
           let data = JSON.parse(response.body)
+          // let newTime = []
           this.tags = data.tags
           data.times.forEach((value, index) => {
-            data.times[index]._id = value._id.split(':')[0]
+            data.times[index]._id = value._id.split(':')[0].split()
           })
           this.times = data.times
         }, error => {
