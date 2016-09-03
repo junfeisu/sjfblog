@@ -8,27 +8,36 @@ route.get('/', function(req, res) {
   res.send('This is blog Api');
 })
 
-// route.param('cursor', function(req, res, next) {
-//   next()
-// })
+route.param('cursor', function(req, res, next) {
+  next()
+})
 
-// route.param('tags', function(req, res, next) {
-//   next()
-// })
+route.param('tags', function(req, res, next) {
+  next()
+})
 
-route.get('/getbloglist/', function(req, res) {
+route.get('/getbloglist/:cursor/:tags', function(req, res) {
   var result = validate.checkResult(req)
   var newResult = {
     blogs: [],
     total: ''
   }
-  console.log('134')
-  console.log('req.params.tags is ' + JSON.stringify(req))
-  var message = ([
-    { $match: { create_date: { $lte: req.params.cursor } } },
-    { $limit: 10 },
-    { $sort: { create_date: -1 } }
-  ])
+  var message
+  console.log(typeof req.params.tags)
+  if (req.params.tags === 'null') {
+    message = [
+      { $match: { create_date: { $lte: req.params.cursor } } },
+      { $sort: { create_date: -1 } },
+      { $limit: 10 },
+    ]
+  } else {
+    message = [
+      { $match: { tags: req.params.tags, create_date: { $lte: req.params.cursor } } },
+      { $sort: { create_date: -1 } },
+      { $limit: 10 },
+    ]
+  }
+  console.log(message)
   result.status ? res.status(403).json(result.msg) :
     mongo.aggregate(model.Blog, message, function(err, blog) {
       if (err) {
@@ -48,19 +57,6 @@ route.post('/getblogbyid', function(req, res) {
   result.status ? res.status(403).json(result.msg) :
     mongo.search(model.Blog, req.body, function(err, blog) {
       err ? res.status(500).json(err) : res.json(blog)
-    })
-})
-
-route.get('/getlistbytag/:tags', function(req, res) {
-  var result = validate.checkResult(req)
-  var message = ([
-    { $sort: { create_date: -1 } },
-    { $limit: 10 },
-    { $match: { tags: req.params.tags } }
-  ])
-  result.status ? res.status(403).json(result.msg) :
-    mongo.aggregate(model.Blog, message, function(err, blog) {
-      err ? res.status(500).json(err) : res.json({total: blog.length, blogs: blog})
     })
 })
 

@@ -75,50 +75,15 @@
     data () {
       return {
         tags: [],
-        times: [],
-        total: [],
-        blogs: [],
-        next: true
+        times: []
       }
     },
     methods: {
       blogByTag (event) {
         let target = event.target
-        this.cursor
-        this.getList()
-      },
-      dealData (data) {
-        let self = this
-        setTimeout(() => {
-          let blogBody = document.getElementsByClassName('blog_body')
-          data.blogs.forEach((value, index) => {
-            if (index === 0) {
-              self.cursor = value.create_date
-            }
-            blogBody[index].innerHTML = value.content
-          })
-        })
-      },
-      getList () {
-        this.$http.get('/api/blog/getbloglist/' + this.cursor)
-          .then(response => {
-            let data = JSON.parse(response.body)
-            this.dealData(data)
-            let total = Math.ceil(data.total / 10)
-            this.blogs = data.blogs
-            if (total === 1) {
-              this.total = [1]
-              this.next = false
-            } else {
-              for (let i = 0; i < total; i++) {
-                this.total.push(i + 1)
-              }
-            }
-          }, error => {
-            console.log(error)
-          })
-      },
-
+        this.$children[0].listParam.tag = target.innerHTML.split('(')[0]
+        this.$children[0].getList()
+      }
     },
     ready () {
       this.$http.get('/api/blog/getblogtype')

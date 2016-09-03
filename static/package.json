@@ -70,20 +70,14 @@
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.0.0",
     "vue-loader": "^8.3.0",
-<<<<<<< HEAD
     "vue-resource": "^0.9.3",
-=======
->>>>>>> 84a98d2dcb8fc80828ca3f3f50185ce9fafeb579
     "vue-router": "^0.7.13",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0",
-<<<<<<< HEAD
     "webpack-merge": "^0.8.3",
-    "whatwg-fetch": "^1.0.0"
-=======
+    "whatwg-fetch": "^1.0.0",
     "webpack-merge": "^0.8.3"
->>>>>>> 84a98d2dcb8fc80828ca3f3f50185ce9fafeb579
   }
 }

@@ -1,26 +1,26 @@
 <template>
   <div class="blog_list">
-    <div class="blog_specifc" ng-repeat="blog in home.blogs">
+    <div class="blog_specifc" v-for="blog in blogs">
       <div class="blog_top">
-        <a ui-sref='detail({blogId: blog._id})' ng-bind="blog.title"></a>
+        <a ui-sref='detail({blogId: blog._id})' ng-bind="blog.title">{{blog.title}}</a>
       </div>
       <div class="blog_content">
         <p class="blog_body"></p>
         <div class="tag">
-          <div class="tag_left">
+          <div class="tag_left" @click="getBlogByTag($event)">
             <span>Tags:</span>
-            <span ng-repeat="tag in blog.tags" ng-click='home.blogByTag($event)' ng-bind="tag"></span>
+            <span v-for="tag in blog.tags">{{tag}}</span>
           </div>
-          <div class="time" ng-bind="blog.create_date | date:'yyyy-MM-dd HH:mm'"></div>
+          <div class="time">{{blog.create_data}}</div>
           <div class="clear"></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="page">
-    <button ng-show="home.prev">&lt;&lt;</button>
-    <button ng-repeat="i in home.total" ng-class="{active: $index === 0}">{{$index + 1}}</button>
-    <button ng-show="home.next">&gt;&gt;</button>
+  <div class="page" @click="changeNum($event)">
+    <button v-show="prev">&lt;&lt;</button>
+    <button v-for="i in total" :class="$index === 0 ? 'active' : ''">{{i}}</button>
+    <button v-show="next">&gt;&gt;</button>
   </div>
 </template>
 
@@ -114,13 +114,73 @@
       opacity: 1
     }
   }
+  .clear {
+    @include clear-float
+  }
 </style>
 
 <script>
   export default {
     name: 'blogList',
     data () {
-      return {}
+      return {
+        blogs: [],
+        listParam: {
+          cursor: null,
+          tag: null
+        },
+        next: true,
+        prev: false,
+        total: []
+      }
+    },
+    methods: {
+      dealData (data) {
+        let self = this
+        setTimeout(() => {
+          let blogBody = document.getElementsByClassName('blog_body')
+          data.blogs.forEach((value, index) => {
+            if (index === 0) {
+              self.cursor = value.create_date
+            }
+            value.content = value.content.replace(/^(<h2>).+(<\/h2>)|(<h3>).+(<\/h3>)/g, '')
+            blogBody[index].innerHTML = value.content
+          })
+        })
+      },
+      getList () {
+        this.$http.get('/api/blog/getbloglist/' + this.listParam.cursor + '/' + this.listParam.tag)
+          .then(response => {
+            let data = JSON.parse(response.body)
+            this.dealData(data)
+            let total = Math.ceil(data.total / 10)
+            this.blogs = data.blogs
+            if (total === 1) {
+              this.total = [1]
+              this.next = false
+            } else {
+              for (let i = 0; i < total; i++) {
+                this.total.push(i + 1)
+              }
+            }
+            setTimeout(() => {
+              this.$parent.$parent.setHeight()
+            })
+          }, error => {
+            console.log(error)
+          })
+      },
+      getCursor () {
+        this.$http.get('/api/blog/getnewcursor/')
+          .then(response => {
+            let data = JSON.parse(response.body)
+            this.listParam.cursor = data[0].create_date
+            this.getList()
+          })
+      }
+    },
+    ready () {
+      this.getCursor()
     }
   }
 </script>
