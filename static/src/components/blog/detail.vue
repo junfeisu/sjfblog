@@ -3,8 +3,8 @@
     <article>
       <h2>{{currentBlog.title}}</h2>
       <div class="time">
-        <h2>{{currentBlog.create_date}}</h2>
-        <span>{{currentBlog.create_date}}</span>
+        <h2>{{currentBlog.create_date | format_date}}</h2>
+        <span>{{currentBlog.create_date | format_year_month}}</span>
       </div>
       <div class="clear"></div>
       <div class="article_content">
@@ -33,6 +33,7 @@
       <span v-show="next" v-link="{name: 'blogDetail', params: {id: nextBlog._id}}">{{nextBlog.title}}&gt;&gt;</span>
     </div>
   </div>
+  <script src="./../../../node_modules/prettify/prettify.js"></script>
 </template>
 
 <style lang="scss" scoped>
@@ -42,7 +43,7 @@
     background: #fff;
     border-radius: 3px;
     .main_bottom {
-      width: 90%;
+      width: 98%;
       margin: 0 auto;
       height: 40px;
       line-height: 40px;
@@ -52,7 +53,7 @@
         cursor: pointer;
         @include transition
         &:hover {
-          margin-left: -5px
+          margin-left: -5px;
         }
         &:last-child {
           float: right;
@@ -63,7 +64,7 @@
       }
     }
     article {
-      width: 90%;
+      width: 96%;
       margin: 0 auto;
       margin-top: 10px;
       h2 {
@@ -86,7 +87,7 @@
           height: 25px;
           width: 90%;
           line-height: 25px;
-          color: #1ba1e2
+          color: #1ba1e2;
         }
         span {
           display: block;
@@ -97,13 +98,6 @@
       }
       .article_content {
         margin-top: 10px;
-        h2 {
-          float: none;
-        }
-        img {
-          max-width: 100%;
-          box-sizing: border-box
-        }
       }
     }
   }
@@ -118,29 +112,28 @@
     data () {
       return {
         cursor: '',
-        prevBlog: {},
+        currentBlog: {},
+        next: true,
         nextBlog: {},
-        currentBlog: {}
+        prev: true,
+        prevBlog: {}
       }
     },
     methods: {
       dealData (data) {
         setTimeout(() => {
           var content = document.getElementsByClassName('article_content')[0]
-          content.innerHTML = data.content.replace(/<pre>/g, '<pre class="prettyprint">')
-          content.innerHTML = content.innerHTML.replace(/<h3>/g, '<h3 class="pretty_h3">')
-          content.innerHTML = content.innerHTML.replace(/<h5>/g, '<h5 class="pretty_h5">')
-          content.innerHTML = content.innerHTML.replace(/<code>/g, '<code class="pretty_code">')
-          data.create_date = Date.parse(data.create_date)
+          content.innerHTML = data.content
+          this.$parent.$parent.setHeight()
         })
       },
       getBlog () {
         this.$http.post('/api/blog/getblogbyid', {_id: this.$route.params.id})
           .then(response => {
             let data = JSON.parse(response.body)[0]
+            this.cursor = data.create_date
             this.dealData(data)
             this.currentBlog = data
-            this.cursor = data.create_date
             this.getNearBlog()
           }, error => {
             console.log(error)

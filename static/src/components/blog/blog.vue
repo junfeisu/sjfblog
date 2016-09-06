@@ -13,7 +13,7 @@
     <div class="time_class">
       <h3>文章归档</h3>
       <div class="times" @click="blogByTag($event)">
-        <span v-for="time in times">{{time._id}}({{time.value}})</span>
+        <span v-for="time in times">{{time._id | format_year_month}}({{time.value}})</span>
         <div class="clear"></div>
       </div>
     </div>
@@ -25,7 +25,7 @@
   @import './../../assets/style/mixin.scss';
   .blog-left {
     float: left;
-    width: 52.5%;
+    width: 60%;
     margin-left: 5%;
   }
   .blog-right {
@@ -100,9 +100,6 @@
           let data = JSON.parse(response.body)
           // let newTime = []
           this.tags = data.tags
-          data.times.forEach((value, index) => {
-            data.times[index]._id = value._id.split(':')[0].split()
-          })
           this.times = data.times
         }, error => {
           console.log(error)
