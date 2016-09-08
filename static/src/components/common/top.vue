@@ -6,10 +6,10 @@
     </div>
     <div class="top_main">
       <div id="nav">
-        <li ui-sref="home">Home</li>
-        <li ui-sref="demo">Demos</li>
-        <li ui-sref="resume">Resume</li>
-        <li ui-sref="about">About</li>
+        <li v-link="{name: 'blog'}">Home</li>
+        <li v-link="{name: 'about'}">Demos</li>
+        <li v-link="{name: 'resume'}">Resume</li>
+        <li v-link="{name: 'about'}">About</li>
         <li><a href="https://github.com/junfeisu" title="">Github</a></li>
         <div class="clear"></div>
       </div>
@@ -47,10 +47,10 @@
         color: #fff;
         display: block;
         float: right;
+        margin: 0px;
         margin-left: 5px;
         height: 48px;
         line-height: 48px;
-        font-weight: bloder;
         font-size: 22px
       }
     }

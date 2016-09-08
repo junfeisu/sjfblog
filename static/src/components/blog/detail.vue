@@ -38,6 +38,7 @@
 
 <style lang="scss" scoped>
   @import './../../assets/style/mixin.scss';
+  // @import './../../assets/pretty/prettify.css';
   .detail_main {
     padding: 10px;
     background: #fff;
@@ -123,6 +124,10 @@
       dealData (data) {
         setTimeout(() => {
           var content = document.getElementsByClassName('article_content')[0]
+          content.innerHTML = content.innerHTML.replace(/<h3>/g, '<h3 class="prettyprint">')
+          content.innerHTML = content.innerHTML.replace(/<h5>/g, '<h5 class="prettyprint">')
+          content.innerHTML = content.innerHTML.replace(/<img.+>/g, '<img class="prettyprint">')
+          content.innerHTML = content.innerHTML.replace(/<code>/g, '<code class="prettyprint">')
           content.innerHTML = data.content
           this.$parent.$parent.setHeight()
         })
