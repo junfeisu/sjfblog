@@ -7,22 +7,27 @@
           <div>
             <img width="25" height="25" src="http://7xrp7o.com1.z0.glb.clouddn.com/mail.png" alt="">
             <span>sjf1982764150@gmail.com</span>
+            <p class="clear"></p>
           </div>
           <div>
             <img width="25" height="25" src="http://7xrp7o.com1.z0.glb.clouddn.com/weixin.png" alt="">
             <span>sjffly</span>
+            <p class="clear"></p>
           </div>
           <div>
             <img width="25" height="25" src="http://7xrp7o.com1.z0.glb.clouddn.com/phone.png" alt="">
             <span>18170415420</span>
+            <p class="clear"></p>
           </div>
           <div>
             <img width="25" height="25" src="http://7xrp7o.com1.z0.glb.clouddn.com/Github.png" alt="">
-            <span>https://github.com/junfeisu</span>
+            <a href="https://github.com/junfeisu">junfeisu</a>
+            <p class="clear"></p>
           </div>
           <div>
             <img width="25" height="25" src="http://7xrp7o.com1.z0.glb.clouddn.com/weibo.png" alt="">
             <span>http://115.159.224.128</span>
+            <p class="clear"></p>
           </div>
         </div>
       </div>
@@ -48,7 +53,6 @@
       width: 100%;
       margin: 0 auto;
       height: 200px;
-      line-height: 200px;
       background: #000;
       color: #fff;
       .resume_contact {
@@ -56,26 +60,35 @@
         float: left;
         margin-left: 10%;
         margin-top: 37.5px;
-        .way {
-          position: relative;
-          float: right;
-          .code {
-            position: absolute;
-            left: -140px;
-            top: 0px;
+      }
+      .way {
+        position: relative;
+        float: right;
+        .code {
+          position: absolute;
+          left: -140px;
+          top: 0px;
+        }
+        div {
+          height: 25px;
+          line-height: 25px;
+          img {
+            float: left;
           }
-          div {
-            height: 25px;
-            img {
-              float: left;
-            }
-            span {
-              display: iblock;
-              float: left;
-              height: 25px;
-              line-height: 25px;
-              margin-left: 5px;
-            }
+          span {
+            text-align: left;
+            display: block;
+            float: right;
+            width: 80%;
+          }
+          a {
+            text-align: left;
+            display: block;
+            float: right;
+            width: 80%;
+            color: #fff;
+            text-decoration: none;
+            margin-left: 5px;
           }
         }
       }

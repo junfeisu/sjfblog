@@ -29,8 +29,8 @@
     </script> -->
     </div>
     <div class="main_bottom">
-      <span v-show="prev" v-link="{name: 'blogDetail', params: {id: prevBlog._id}}">&lt;&lt;{{prevBlog.title}}</span>
-      <span v-show="next" v-link="{name: 'blogDetail', params: {id: nextBlog._id}}">{{nextBlog.title}}&gt;&gt;</span>
+      <span v-show="prev" @click="getBlog(prevBlog._id)" v-link="{name: 'blogDetail', params: {id: prevBlog._id}}">&lt;&lt;{{prevBlog.title}}</span>
+      <span v-show="next" @click="getBlog(nextBlog._id)" v-link="{name: 'blogDetail', params: {id: nextBlog._id}}">{{nextBlog.title}}&gt;&gt;</span>
     </div>
   </div>
   <script src="./../../../node_modules/prettify/prettify.js"></script>
@@ -38,7 +38,7 @@
 
 <style lang="scss" scoped>
   @import './../../assets/style/mixin.scss';
-  // @import './../../assets/pretty/prettify.css';
+  // @import './../../assets/pretty/prettify.scss';
   .detail_main {
     padding: 10px;
     background: #fff;
@@ -109,14 +109,14 @@
 
 <script>
   export default {
-    name: 'blogList',
+    name: 'blogDetail',
     data () {
       return {
         cursor: '',
         currentBlog: {},
-        next: true,
+        next: 'true',
         nextBlog: {},
-        prev: true,
+        prev: false,
         prevBlog: {}
       }
     },
@@ -132,8 +132,9 @@
           this.$parent.$parent.setHeight()
         })
       },
-      getBlog () {
-        this.$http.post('/api/blog/getblogbyid', {_id: this.$route.params.id})
+      getBlog (id) {
+        typeof id === 'undefined' ? this.$route.params._id : id
+        this.$http.post('/api/blog/getblogbyid', {_id: id})
           .then(response => {
             let data = JSON.parse(response.body)[0]
             this.cursor = data.create_date
@@ -149,9 +150,9 @@
           .then(response => {
             let data = JSON.parse(response.body)
             this.prevBlog = data.prevBlog
-            this.prev = (!this.prevBlog.hasOwnProperty('_id') ? 'false' : 'true')
+            this.prevBlog.hasOwnProperty('_id') ? this.prev = true : this.prev = false
             this.nextBlog = data.nextBlog
-            this.next = (!this.nextBlog.hasOwnProperty('_id') ? 'false' : 'true')
+            this.nextBlog.hasOwnProperty('_id') ? this.next = true : this.next = false
           }, error => {
             console.log(error)
           })

@@ -83,6 +83,7 @@
     methods: {
       blogByTag (event) {
         let target = event.target
+        console.dir(this.$children[0])
         this.$children[0].listParam.cursor = null
         if (target.parentElement.className === 'tags') {
           this.$children[0].listParam.time = null
