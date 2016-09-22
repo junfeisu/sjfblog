@@ -14,6 +14,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '/')))
 // app.use(formidable);
 app.use('/api/blog', blog);
 app.use('/api/user', user);

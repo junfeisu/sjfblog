@@ -55,7 +55,6 @@ var checkMes = function(check) {
 };
 
 exports.checkResult = function(req) {
-  console.log('2134')
   console.log('req.params is ' + JSON.stringify(req.params))
   var result = checkMes({ pathname: req.url, data: req.params });
   console.log('result is ' + JSON.stringify(result))
