@@ -10,9 +10,10 @@ if [ $# -ge 1 ]
 then
     for f in $*
     do  
-        hexo new $f
+        touch $f.md
         echo -e "---\ntitle: \ntags: \ndate: $time\n---\n" >> $f.md
         echo 'The $f.md is creared at ~/Desktop/sjfblog/md2html/source'
+        subl $f.md
     done
 else
     echo "parm error,need file1[,file2...]"
