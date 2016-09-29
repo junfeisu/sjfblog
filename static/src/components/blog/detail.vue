@@ -37,6 +37,7 @@
 
 <style lang="scss" scoped>
   @import './../../assets/style/mixin.scss';
+  @import './../../../static/highlight/atom-one-dark.css';
   .detail_main {
     padding: 10px;
     background: #fff;
@@ -106,6 +107,7 @@
 </style>
 
 <script>
+  import hljs from 'highlight.js'
   export default {
     name: 'blogDetail',
     data () {
@@ -120,18 +122,18 @@
     },
     methods: {
       changeBlog (id) {
-        this.getBlog(id)
         this.$route.router.go({name: 'blogDetail', params: {id: id}})
+        this.getBlog(id)
       },
       dealData (data) {
+        let content = document.getElementsByClassName('article_content')[0]
+        content.innerHTML = data.content
         setTimeout(() => {
-          var content = document.getElementsByClassName('article_content')[0]
-          content.innerHTML = data.content
-          console.log(data.content)
-          setTimeout(() => {
-            window.hljs.initHighlighting()
-            this.$parent.$parent.setHeight()
-          })
+          let ele = content.querySelectorAll('pre code')
+          for (let i = 0; i < ele.length; i++) {
+            hljs.highlightBlock(ele[i])
+          }
+          this.$parent.$parent.setHeight()
         })
       },
       getBlog (id) {

@@ -17,7 +17,7 @@ date: 2016-09-24
 		    for f in $*
 		    do  
 		        touch $f.md
-		        echo -e "```\ntitle: \ntags: \ndate: $time\n```\n" >> $f.md
+		        echo -e "---\ntitle: \ntags: \ndate: $time\n---\n" >> $f.md
 		        echo 'The $f.md is creared at ~/Desktop/sjfblog/md2html/source'
 		        subl $f.md
 		    done

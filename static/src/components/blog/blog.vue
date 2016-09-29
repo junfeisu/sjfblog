@@ -1,6 +1,6 @@
 <template>
   <div class="blog-left">
-    <router-view></router-view>
+    <router-view keep-alive></router-view>
   </div>
   <div class="blog-right">
     <div class="tag_class">
@@ -25,8 +25,8 @@
   @import './../../assets/style/mixin.scss';
   .blog-left {
     float: left;
-    width: 60%;
-    margin-left: 5%;
+    width: 70%;
+    // margin-left: 5%;
   }
   .blog-right {
     float: right;
