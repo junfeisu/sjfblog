@@ -126,11 +126,8 @@
       dealData (data) {
         setTimeout(() => {
           var content = document.getElementsByClassName('article_content')[0]
-          content.innerHTML = content.innerHTML.replace(/<h3>/g, '<h3 class="prettyprint">')
-          content.innerHTML = content.innerHTML.replace(/<h5>/g, '<h5 class="prettyprint">')
-          content.innerHTML = content.innerHTML.replace(/<img.+>/g, '<img class="prettyprint" />')
-          content.innerHTML = content.innerHTML.replace(/<code>/g, '<code class="prettyprint">')
           content.innerHTML = data.content
+          console.log(data.content)
           setTimeout(() => {
             window.hljs.initHighlighting()
             this.$parent.$parent.setHeight()
