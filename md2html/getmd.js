@@ -7,6 +7,19 @@ var markdown = require('../node_modules/markdown').markdown
 var model = require('../model/schema').models
 var path = 'https://github.com'
 var rawPath = 'https://raw.githubusercontent.com'
+var sortArr = function(property, obj) {
+  return obj.sort(function(obj1, obj2) {
+    var val1 = obj1[property]
+    var val2 = obj2[property]
+    if (val1 < val2) {
+      return -1
+    } else if (val1 === val2) {
+      return 0
+    } else {
+      return 1
+    }
+  })
+}
 
 var getFile = {
   // get the auth-key and cookie_id
@@ -56,22 +69,19 @@ var getFile = {
               err ? console.log('the mkdir err is ' + err) : console.log('mkdir success')
             })
         })
-        // console.log('val is ' + val)
-        // val.forEach(function(value, index) {
-        //   md.push(value.attribs.href.split('source/')[1])
-        // })
+        // 把source目录下的md文件push进md
         for(var i = 0; i < val.length; i++) {
           md.push(val[i].attribs.href.split('source/')[1])
         }
-        for (var j = 0; j < md.length; j++) {
-          md[j] = decodeURI(md[j]) //decodeURL the filename to Chinese or English
-          if (/^[\u4e00-\u9fa5\w]+\.md$/.test(md[j])) {
-            var exist = fs.existsSync('./' + date.getFullYear() + '-' + month + '/' + md[j])
-            exist ? console.log('the file is exist already') : getFile.getContent(md[j])
+        md.forEach(function (value, index) {
+          value = decodeURI(value)
+          if (/^[\u4e00-\u9fa5\w]+\.md$/.test(value)) {
+            var exist = fs.existsSync('./' + date.getFullYear() + '-' + month + '/' + value)
+            exist ? console.log('the file is exist already') : getFile.getContent(value)
           } else {
             console.log('there is no new md')
           }
-        }
+        })
       })
   },
   // get the content of md file
@@ -82,35 +92,23 @@ var getFile = {
           console.log('the get md content err is ' + error)
         } else {
           var date = new Date()
-          var month = date.getMonth() + 1
+          var month = +date.getMonth() + 1
           var sortedRes = []
-          var sortArr = function(property, obj) {
-              return obj.sort(function(obj1, obj2) {
-                var val1 = obj1[property]
-                var val2 = obj2[property]
-                if(val1 < val2) {
-                  return -1
-                } else if(val1 === val2) {
-                  return 0
-                } else {
-                  return 1
-                }
-              })
-            }
             // analysis the md file content and create the blogMes
           var slice = result.text.split('---')
-          var blogMes = {
-            tags: []
-          }
+          var blogMes = {tags: []}
+          // 去除换行符
           var message = slice[1].replace(/\n/g, '')
-          var tags = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[0]
-          blogMes.title = (message.split('title: ')[1]).split('tags: ')[0]
-          blogMes.date_create = (message.split('title: ')[1]).split('tags: ')[1].split('date: ')[1]
-          tags.split(' ').forEach(function(value) {
+          var re = /^title: |tags: |date: /g
+          // change the (title: 123tag: 2434 fsdfsdate: 2016-09-25) to (,123,2434 fsdfs,2016-09-25)
+          // split the (,123,2434 fsdfs,2016-09-25) to ['', '123', '2434 fsdfs', '2016-09-25']
+          message = message.replace(re, ",").split(',')
+          blogMes.title = message[1]
+          blogMes.date_create = message[3]
+          message[2].split(' ').forEach(function(value) {
             blogMes.tags.push(value)
           })
           blogMes.content = markdown.toHTML(slice[2])
-          console.log(blogMes.content)
           sortedRes.push(blogMes)
           sortArr('create_date', sortedRes)
             // to check the md file is exist or not

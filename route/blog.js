@@ -124,7 +124,7 @@ route.get('/getblogtype', function(req, res) {
 // get the latest blog create_date
 route.get('/getnewcursor', function(req, res) {
   mongo.aggregate(model.Blog, ([
-      { $sort: { _id: -1 } },
+      { $sort: { create_date: -1 } },
       { $limit: 1 }
     ]),
     function(err, cursor) {
