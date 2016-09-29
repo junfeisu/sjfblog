@@ -42,7 +42,7 @@ var getFile = {
   },
   // select the md file in github
   selectMdList: function() {
-    superagent.get(path + '/junfeisu/sjfblog/tree/master/md2html/source')
+    superagent.get(path + '/junfeisu/sjfblog/tree/vue/md2html/source')
       .end(function(err, res) {
         var md = []
         var $ = cheerio.load(res.text)
@@ -76,7 +76,7 @@ var getFile = {
   },
   // get the content of md file
   getContent: function(md) {
-    superagent.get(rawPath + "/junfeisu/sjfblog/master/md2html/source/" + encodeURI(md))
+    superagent.get(rawPath + "/junfeisu/sjfblog/vue/md2html/source/" + encodeURI(md))
       .end(function(error, result) {
         if (error) {
           console.log('the get md content err is ' + error)
@@ -110,6 +110,7 @@ var getFile = {
             blogMes.tags.push(value)
           })
           blogMes.content = markdown.toHTML(slice[2])
+          console.log(blogMes.content)
           sortedRes.push(blogMes)
           sortArr('create_date', sortedRes)
             // to check the md file is exist or not

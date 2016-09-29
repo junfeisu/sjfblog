@@ -5,11 +5,11 @@ date: 2016-08-30:19:42
 ---
 ## js原型链
 ##### 首先简单说一下原型，js中替代其他面向对象语言中的类的一种特殊结构，原型是基于对象而言的，一个对象被创建时，js内部就会为这个对象添加一个\_\_proto\_\_属性，这个属性指向的就是这个对象的原型对象，Object()对象内置的公有属性方法就是添加在内置的Object对象的原型对象上面的。例如toString(), hasOwnProperty()等等，可以去浏览器控制台自己打印一下看看，结果是这样的。
-<img src="http://7xrp7o.com1.z0.glb.clouddn.com/prototype.png" />
+![](http://7xrp7o.com1.z0.glb.clouddn.com/prototype.png)
 ##### 然后这个原型对象又有自己的prototype属性，指向他的原型对象，就这样一直向上指，直到没有原型为止，也就是原型链的顶端（Object.prototype）,他的prototype指向的是null,这样由prototype指向形成的链就是原型链,可以分为俩种吧,一种就是构造函数的prototype指向的函数, 一种就是普通的对象的prototype指向的对象,当然可以把函数也看做对象吧(个人觉得js里面就一种数据类型,就是对象)
 ## prototype 和 \_\_proto\_\_
 ##### prototype属性是函数对象才有的属性，一般的对象事没有prototype对象的，有的只是\_\_proto\_\_属性，实际上，\_\_proto\_\_属性才是真正的原型属性指针，但是这个属性是不被浏览器所公开的，只是能看，并不能在开发中使用，所以这时prototype就出现了（但是只在函数对象中使用），这时看一下浏览器显示的结果吧。
-<img src="http://7xrp7o.com1.z0.glb.clouddn.com/prototype%20and%20__proto__.png" width="100%" height="300"/>
+![](http://7xrp7o.com1.z0.glb.clouddn.com/prototype%20and%20__proto__.png)
 ## 继承
 #### 1. 原型继承(封装之后的Object.create()方法)
 ##### 简单说一下实现方法
@@ -45,7 +45,7 @@ date: 2016-08-30:19:42
         child.sayName() //--> undefined
         // 说明child继承了parent原型上面的sayName方法,但是并没有继承parent的name属性
 ##### 下面用一幅图来解释一下上面的三段代码的结果(字好丑)
-<img src="http://7xrp7o.com1.z0.glb.clouddn.com/IMG_20160831_095854.jpg" />
+![](http://7xrp7o.com1.z0.glb.clouddn.com/IMG_20160831_095854.jpg)
 #### 2. 类式继承
 1.  默认模式
 

@@ -29,16 +29,14 @@
     </script> -->
     </div>
     <div class="main_bottom">
-      <span v-show="prev" @click="getBlog(prevBlog._id)" v-link="{name: 'blogDetail', params: {id: prevBlog._id}}">&lt;&lt;{{prevBlog.title}}</span>
-      <span v-show="next" @click="getBlog(nextBlog._id)" v-link="{name: 'blogDetail', params: {id: nextBlog._id}}">{{nextBlog.title}}&gt;&gt;</span>
+      <span v-show="prev" @click="changeBlog(prevBlog._id)">&lt;&lt;{{prevBlog.title}}</span>
+      <span v-show="next" @click="changeBlog(nextBlog._id)">{{nextBlog.title}}&gt;&gt;</span>
     </div>
   </div>
-  <script src="./../../../node_modules/prettify/prettify.js"></script>
 </template>
 
 <style lang="scss" scoped>
   @import './../../assets/style/mixin.scss';
-  // @import './../../assets/pretty/prettify.scss';
   .detail_main {
     padding: 10px;
     background: #fff;
@@ -121,19 +119,26 @@
       }
     },
     methods: {
+      changeBlog (id) {
+        this.getBlog(id)
+        this.$route.router.go({name: 'blogDetail', params: {id: id}})
+      },
       dealData (data) {
         setTimeout(() => {
           var content = document.getElementsByClassName('article_content')[0]
           content.innerHTML = content.innerHTML.replace(/<h3>/g, '<h3 class="prettyprint">')
           content.innerHTML = content.innerHTML.replace(/<h5>/g, '<h5 class="prettyprint">')
-          content.innerHTML = content.innerHTML.replace(/<img.+>/g, '<img class="prettyprint">')
+          content.innerHTML = content.innerHTML.replace(/<img.+>/g, '<img class="prettyprint" />')
           content.innerHTML = content.innerHTML.replace(/<code>/g, '<code class="prettyprint">')
           content.innerHTML = data.content
-          this.$parent.$parent.setHeight()
+          setTimeout(() => {
+            window.hljs.initHighlighting()
+            this.$parent.$parent.setHeight()
+          })
         })
       },
       getBlog (id) {
-        typeof id === 'undefined' ? this.$route.params._id : id
+        typeof id === 'undefined' ? this.$route.params.id : id
         this.$http.post('/api/blog/getblogbyid', {_id: id})
           .then(response => {
             let data = JSON.parse(response.body)[0]
@@ -159,7 +164,7 @@
       }
     },
     ready () {
-      this.getBlog()
+      this.getBlog(this.$route.params.id)
     }
   }
 </script>

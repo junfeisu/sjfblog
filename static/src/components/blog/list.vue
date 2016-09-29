@@ -51,9 +51,12 @@
         }
       }
       .blog_body {
-        height: 60px;
-        overflow: hidden;
-        margin-bottom: 30px
+        margin-bottom: 30px;
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
       }
       span {
         display: block;
@@ -144,7 +147,8 @@
             if (index === 0) {
               self.cursor = value.create_date
             }
-            value.content = value.content.replace(/^(<h2>).+(<\/h2>)|(<h3>).+(<\/h3>)/g, '')
+            // clear the html tag
+            value.content = value.content.replace(/<[^>]+>/g, '')
             blogBody[index].innerHTML = value.content
           })
         })
