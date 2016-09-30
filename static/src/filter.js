@@ -3,7 +3,7 @@ const MyFilter = {}
 MyFilter.install = function (Vue) {
   Vue.filter('format_date', value => {
     if (typeof value !== 'undefined' && value !== null) {
-      value.length > 10 ? value = value.substring(8, 10) : ''
+      value = value.split('-')[2]
     }
     return value
   })
