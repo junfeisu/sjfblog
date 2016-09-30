@@ -37,7 +37,7 @@
 
 <style lang="scss" scoped>
   @import './../../assets/style/mixin.scss';
-  @import './../../../static/highlight/atom-one-dark.css';
+  @import './../../assets/style/atom-one-dark.css';
   .detail_main {
     padding: 10px;
     background: #fff;
@@ -130,8 +130,12 @@
         content.innerHTML = data.content
         setTimeout(() => {
           let ele = content.querySelectorAll('pre code')
+          let img = content.querySelectorAll('p img')
           for (let i = 0; i < ele.length; i++) {
             hljs.highlightBlock(ele[i])
+          }
+          for (let j = 0; j < img.length; j++) {
+            hljs.highlightBlock(img[j])
           }
           this.$parent.$parent.setHeight()
         })

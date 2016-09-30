@@ -1,7 +1,7 @@
 ---
 title: setTimeout和IIFE的联用
 tags: setTimeout IIFE
-date: 2016-08-29:19:57
+date: 2016-08-29
 ---
 #### 首先上三个类似的代码片段，大家去判断一下结果是什么样的
     // this is the first code segment
