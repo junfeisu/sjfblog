@@ -31,9 +31,9 @@ route.get('/getbloglist/:cursor/:tags/:time', function(req, res) {
     { $sort: { create_date: -1 } },
     { $limit: 10 }
   ]
-  
   // message.unshift({ $match: { create_date: { $lte: req.params.cursor } } })
   // message.unshift({ $match: { tags: /req.params.tags.+/, create_date: { $lte: req.params.cursor } } })
+
   if (req.params.tags === 'null' && req.params.time === 'null' && req.params.cursor === 'null') {
     message.shift()
   } else if (req.params.tags === 'null' && req.params.time === 'null') {
