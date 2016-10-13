@@ -139,6 +139,10 @@
       }
     },
     methods: {
+      changeNum (event) {
+        let target = event.target
+        console.log(target)
+      },
       dealData (data) {
         let self = this
         setTimeout(() => {
@@ -156,7 +160,7 @@
       getList () {
         this.$http.get('/api/blog/getbloglist/' + this.listParam.cursor + '/' + this.listParam.tag + '/' + this.listParam.time)
           .then(response => {
-            let data = JSON.parse(response.body)
+            let data = response.body
             this.dealData(data)
             let total = Math.ceil(data.total / 10)
             this.blogs = data.blogs
@@ -178,7 +182,7 @@
       getCursor () {
         this.$http.get('/api/blog/getnewcursor/')
           .then(response => {
-            let data = JSON.parse(response.body)
+            let data = response.body
             this.listParam.cursor = data[0].create_date
             this.getList()
           })

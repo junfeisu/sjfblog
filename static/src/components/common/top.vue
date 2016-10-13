@@ -2,7 +2,7 @@
   <header class="top">
     <div class="show_logo">
       <div class="logo"></div>
-      <h3>Sjf's Blog</h3>
+      <h3>Sjffly</h3>
     </div>
     <div class="top_main">
       <div id="nav">

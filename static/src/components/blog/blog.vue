@@ -98,7 +98,7 @@
     ready () {
       this.$http.get('/api/blog/getblogtype')
         .then(response => {
-          let data = JSON.parse(response.body)
+          let data = response.body
           // let newTime = []
           this.tags = data.tags
           this.times = data.times
