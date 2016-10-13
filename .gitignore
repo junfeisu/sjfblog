@@ -1,4 +1,4 @@
-node_modules
-static/node_modules
-test.js
+node_modules/
+dist/
 npm-debug.log
+md2html/201*-*

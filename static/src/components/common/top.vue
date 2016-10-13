@@ -2,7 +2,11 @@
   <header class="top">
     <div class="show_logo">
       <div class="logo"></div>
+<<<<<<< HEAD
       <h3>Sjffly</h3>
+=======
+      <h3>Sjf's Blog</h3>
+>>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
     </div>
     <div class="top_main">
       <div id="nav">

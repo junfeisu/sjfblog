@@ -1,4 +1,8 @@
 build/*.js
 config/*.js
+<<<<<<< HEAD
 res.js
 
+=======
+static/highlight/*.js
+>>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280

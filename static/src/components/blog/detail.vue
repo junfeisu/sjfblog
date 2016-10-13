@@ -144,7 +144,11 @@
         typeof id === 'undefined' ? this.$route.params.id : id
         this.$http.post('/api/blog/getblogbyid', {_id: id})
           .then(response => {
+<<<<<<< HEAD
             let data = response.body[0]
+=======
+            let data = JSON.parse(response.body)[0]
+>>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
             this.cursor = data.create_date
             this.dealData(data)
             this.currentBlog = data
@@ -156,7 +160,11 @@
       getNearBlog () {
         this.$http.get('/api/blog/getnearblog/' + this.cursor)
           .then(response => {
+<<<<<<< HEAD
             let data = response.body
+=======
+            let data = JSON.parse(response.body)
+>>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
             this.prevBlog = data.prevBlog
             this.prevBlog.hasOwnProperty('_id') ? this.prev = true : this.prev = false
             this.nextBlog = data.nextBlog

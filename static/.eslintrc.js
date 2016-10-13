@@ -10,9 +10,12 @@ module.exports = {
   plugins: [
     'html'
   ],
+<<<<<<< HEAD
   globals: {
     res: true
   },
+=======
+>>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
   // add your custom rules here
   'rules': {
     // allow paren-less arrow functions

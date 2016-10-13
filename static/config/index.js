@@ -23,8 +23,12 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '/api': {
+<<<<<<< HEAD
             target: "http://127.0.0.1:3000",
             changeOrigin: true
+=======
+            target: 'http://127.0.0.1:3000'
+>>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
         }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
