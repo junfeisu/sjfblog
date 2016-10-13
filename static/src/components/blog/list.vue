@@ -139,19 +139,10 @@
       }
     },
     methods: {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
       changeNum (event) {
         let target = event.target
         console.log(target)
       },
-<<<<<<< HEAD
-=======
->>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
-=======
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
       dealData (data) {
         let self = this
         setTimeout(() => {
@@ -169,15 +160,7 @@
       getList () {
         this.$http.get('/api/blog/getbloglist/' + this.listParam.cursor + '/' + this.listParam.tag + '/' + this.listParam.time)
           .then(response => {
-<<<<<<< HEAD
-<<<<<<< HEAD
             let data = response.body
-=======
-            let data = JSON.parse(response.body)
->>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
-=======
-            let data = response.body
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
             this.dealData(data)
             let total = Math.ceil(data.total / 10)
             this.blogs = data.blogs
@@ -199,15 +182,7 @@
       getCursor () {
         this.$http.get('/api/blog/getnewcursor/')
           .then(response => {
-<<<<<<< HEAD
-<<<<<<< HEAD
             let data = response.body
-=======
-            let data = JSON.parse(response.body)
->>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
-=======
-            let data = response.body
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
             this.listParam.cursor = data[0].create_date
             this.getList()
           })

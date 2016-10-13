@@ -1,27 +1,12 @@
 {
-<<<<<<< HEAD
-  "name": "slj",
-  "version": "1.0.0",
-  "description": "the project for apologize",
-=======
   "name": "sjfblog-vue",
   "version": "1.0.0",
   "description": "The blog website for sujunfei",
->>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
   "author": "sujunfei <sjf1982764150@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    "unit": "karma start test/unit/karma.conf.js --single-run",
-    "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
->>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
-=======
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
@@ -32,34 +17,15 @@
     "babel-core": "^6.0.0",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.0.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "babel-plugin-syntax-async-generators": "^6.13.0",
-=======
->>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
-=======
-    "babel-plugin-syntax-async-generators": "^6.13.0",
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
     "babel-plugin-transform-runtime": "^6.0.0",
     "babel-preset-es2015": "^6.0.0",
     "babel-preset-stage-2": "^6.0.0",
     "babel-register": "^6.0.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "connect-history-api-fallback": "^1.1.0",
     "css-loader": "^0.23.0",
-=======
-    "chai": "^3.5.0",
-    "chromedriver": "^2.21.2",
-=======
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
     "connect-history-api-fallback": "^1.1.0",
     "css-loader": "^0.23.0",
-<<<<<<< HEAD
-    "es6-promise": "^3.2.1",
->>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
-=======
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
     "eslint": "^2.10.2",
     "eslint-config-standard": "^5.1.0",
     "eslint-friendly-formatter": "^2.0.5",
@@ -75,8 +41,6 @@
     "highlight.js": "^9.7.0",
     "html-webpack-plugin": "^2.8.1",
     "http-proxy-middleware": "^0.12.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "json-loader": "^0.5.4",
     "node-sass": "^3.9.3",
     "ora": "^0.2.0",
@@ -84,49 +48,21 @@
     "resjs": "0.0.4",
     "sass-loader": "^4.0.2",
     "shelljs": "^0.6.0",
-=======
-    "inject-loader": "^2.0.1",
-    "isparta-loader": "^2.0.0",
-=======
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
     "json-loader": "^0.5.4",
     "node-sass": "^3.9.3",
     "ora": "^0.2.0",
     "sass-loader": "^4.0.2",
     "shelljs": "^0.6.0",
-<<<<<<< HEAD
-    "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0",
->>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
-=======
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
     "url-loader": "^0.5.7",
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.0.0",
     "vue-loader": "^8.3.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "vue-resource": "^1.0.3",
-=======
-    "vue-resource": "^0.9.3",
->>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
-=======
-    "vue-resource": "^1.0.3",
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
     "vue-router": "^0.7.13",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "webpack-merge": "^0.8.3"
-=======
-    "webpack-merge": "^0.8.3",
-    "whatwg-fetch": "^1.0.0"
->>>>>>> 0d09d858c1ccbfa3f2f5cf58d7e3102f08946280
-=======
-    "webpack-merge": "^0.8.3"
->>>>>>> 96be647c12790ee69b74e7ac6adabcc3360f7297
   }
 }
