@@ -1,7 +1,8 @@
 var mongoose = require('../node_modules/mongoose'),
   ObjectId = mongoose.Schema.Types.ObjectId,
   Schema = mongoose.Schema;
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/test')
+
 var schemas = {
   blogSchema: new Schema({
     title: { type: String, required: true },
@@ -42,4 +43,4 @@ exports.models = {
   Blog: mongoose.model('Blog', schemas.blogSchema)
 };
 
-exports.schemas;
+exports.schemas
