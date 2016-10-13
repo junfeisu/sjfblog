@@ -1,4 +1,4 @@
-//the operation of mongodb
+//the operation of mongodb crud
 exports.mongoUse = {
   add: function(entity, cb) {
     entity.save(cb)
