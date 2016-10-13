@@ -1,11 +1,11 @@
-var express = require('express');
-var route = express.Router();
-var mongo = require('../model/mongo').mongoUse;
-var validate = require('../model/validate');
-var model = require('../model/schema').models;
-var fs = require('fs');
+var express = require('express')
+var route = express.Router()
+var mongo = require('../model/mongo').mongoUse
+var validate = require('../model/validate')
+var model = require('../model/schema').models
+var fs = require('fs')
 route.get('/', function(req, res) {
-  res.send('This is blog Api');
+  res.send('This is blog Api')
 })
 
 route.param('cursor', function(req, res, next) {
