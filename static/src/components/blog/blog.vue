@@ -25,6 +25,7 @@
     </div>
   </div>
   <div class="clear"></div>
+  <side></side>
 </template>
 
 <style lang="scss" scoped>
@@ -66,8 +67,12 @@
 </style>
 
 <script>
+  import side from '../common/side.vue'
   export default {
     name: 'blog',
+    components: {
+      'side': side
+    },
     data () {
       return {
         tags: [],
