@@ -1,13 +1,13 @@
 var route = {
-  '/getblogbyid': { _id: 'string' },
-  '/getbloglist': { cursor: 'string'}
+  '/blogbyid': { _id: 'string' },
+  '/bloglist': { cursor: 'string'}
 }
 var getPropertyName = function(obj) {
   return Object.keys(obj)
 }
 var getPropertyVal = function(obj) {
-  var val = [],
-    pro = Object.keys(obj);
+  var val = []
+  var pro = Object.keys(obj)
   pro.forEach(function(value) {
     val.push(obj[value])
   })
@@ -55,8 +55,8 @@ var checkMes = function(check) {
 };
 
 exports.checkResult = function(req) {
-  console.log('req.params is ' + JSON.stringify(req.params))
-  var result = checkMes({ pathname: req.url, data: req.params });
+  console.log('req.query is ' + JSON.stringify(req.query))
+  var result = checkMes({ pathname: req.url, data: req.query });
   console.log('result is ' + JSON.stringify(result))
   return result;
 }

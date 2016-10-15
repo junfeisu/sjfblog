@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var blog = require('./route/blog');
 var user = require('./route/user');
+var doc = require('./route/meta');
 var cons = require('consolidate');
 
 var app = express();
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, '/')))
 // app.use(formidable);
 app.use('/api/blog', blog);
 app.use('/api/user', user);
+app.use('/api/doc', doc);
 
 app.engine('html',cons.swig);
 app.set('views', path.join(__dirname + '/build'));

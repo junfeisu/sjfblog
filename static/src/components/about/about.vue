@@ -9,8 +9,8 @@
         <img src="http://7xrp7o.com1.z0.glb.clouddn.com/sjfblog.png" width="100" height="100" alt="">
         <span class="user_name">苏俊飞</span>
         <p>坚持就是胜利</p>
-        <p>热爱天然,热爱生命</p>
         <p>珍惜现在所有的,争取你该拥有的</p>
+        <p>南昌大学～2014级～本科～网络工程</p>
       </div>
     </div>
     <div id="skill">
@@ -46,19 +46,19 @@
     <div id="contact">
       <h3>联系方式</h3>
       <div class="contact_way">
-        邮箱 : <a href="#">sjf1982764150@gmail.com</a>
+        邮箱 : <span href="#">sjf1982764150@gmail.com</span>
       </div>
       <div class="contact_way">
-        知乎 : <a href="#">苏俊飞</a>
+        知乎 : <a href="https://www.zhihu.com/people/su-jun-fei-87">苏俊飞</a>
       </div>
       <div class="contact_way">
-        Github : <a href="#">junfeisu</a>
+        Github : <a href="https://github.com/junfeisu">junfeisu</a>
       </div>
       <div class="contact_way">
-        QQ : <a href="#">1982764150</a>
+        QQ : <span href="#">1982764150</span>
       </div>
       <div class="contact_way">
-        电话 : <a href="#">18170415420</a>
+        电话 : <span href="#">18170415420</span>
       </div>
     </div>
   </div>

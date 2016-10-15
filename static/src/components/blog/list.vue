@@ -2,16 +2,16 @@
   <div class="blog_list">
     <div class="blog_specifc" v-for="blog in blogs">
       <div class="blog_top">
-        <a v-link="{name: 'blogDetail', params: {id: blog._id}}">{{blog.title}}</a>
+        <a v-link="{name: 'blogDetail', params: {id: blog._id}}" v-text="blog.title"></a>
       </div>
       <div class="blog_content">
         <p class="blog_body"></p>
         <div class="tag">
           <div class="tag_left" @click="getBlogByTag($event)">
             <span>Tags:</span>
-            <span v-for="tag in blog.tags">{{tag}}</span>
+            <span class="tag-specifc" v-for="tag in blog.tags" v-text="tag"></span>
           </div>
-          <div class="time">{{blog.create_date}}</div>
+          <div class="time" v-text="blog.create_date"></div>
           <div class="clear"></div>
         </div>
       </div>
@@ -56,6 +56,8 @@
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 3;
+        -moz-line-clamp: 3;
+        max-height: 54px;
         -webkit-box-orient: vertical;
       }
       span {
@@ -129,9 +131,9 @@
       return {
         blogs: [],
         listParam: {
-          cursor: null,
-          tag: null,
-          time: null
+          page_size: 1,
+          tags: null,
+          create_date: null
         },
         next: true,
         prev: false,
@@ -157,10 +159,16 @@
           })
         })
       },
+      getBlogByTag (event) {
+        let target = event.target
+        if (target.className === 'tag-specifc') {
+          this.listParam.tag = target.innerHTML
+          this.getList()
+        }
+      },
       getList () {
-        this.$http.get('/api/blog/getbloglist/' + this.listParam.cursor + '/' + this.listParam.tag + '/' + this.listParam.time)
-          .then(response => {
-            let data = response.body
+        res.blog.get_bloglist(this.listParam)
+          .then(data => {
             this.dealData(data)
             let total = Math.ceil(data.total / 10)
             this.blogs = data.blogs
@@ -178,18 +186,10 @@
           }, error => {
             console.log(error)
           })
-      },
-      getCursor () {
-        this.$http.get('/api/blog/getnewcursor/')
-          .then(response => {
-            let data = response.body
-            this.listParam.cursor = data[0].create_date
-            this.getList()
-          })
       }
     },
     ready () {
-      this.getCursor()
+      this.getList()
     }
   }
 </script>
