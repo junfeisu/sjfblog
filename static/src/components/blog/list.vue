@@ -57,7 +57,7 @@
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -moz-line-clamp: 3;
-        max-height: 54px;
+        max-height: 60px;
         -webkit-box-orient: vertical;
       }
       span {
@@ -146,14 +146,9 @@
         console.log(target)
       },
       dealData (data) {
-        let self = this
         setTimeout(() => {
           let blogBody = document.getElementsByClassName('blog_body')
           data.blogs.forEach((value, index) => {
-            if (index === 0) {
-              self.cursor = value.create_date
-            }
-            // clear the html tag
             value.content = value.content.replace(/<[^>]+>/g, '')
             blogBody[index].innerHTML = value.content
           })
@@ -162,7 +157,7 @@
       getBlogByTag (event) {
         let target = event.target
         if (target.className === 'tag-specifc') {
-          this.listParam.tag = target.innerHTML
+          this.listParam.tags = target.innerHTML
           this.getList()
         }
       },
@@ -183,8 +178,9 @@
             setTimeout(() => {
               this.$parent.$parent.setHeight()
             })
-          }, error => {
-            console.log(error)
+          })
+          .catch(error => {
+            this.$root.add({msg: JSON.stringify(error), type: 'error'})
           })
       }
     },

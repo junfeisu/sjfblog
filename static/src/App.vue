@@ -4,16 +4,22 @@
     <div class="content">
       <router-view></router-view>
     </div>
+    <sjf-remind></sjf-remind>
   </div>
 </template>
 
 <script>
   import Top from './components/common/top'
+  import sjfRemind from './components/common/sjf-remind'
   export default {
     components: {
-      Top
+      'top': Top,
+      'sjf-remind': sjfRemind
     },
     methods: {
+      add (data) {
+        this.$root.$children[1].addRemind(data)
+      },
       setHeight () {
         let html = document.getElementsByTagName('html')[0]
         let dHeight = document.documentElement.clientHeight
@@ -24,6 +30,7 @@
     },
     ready () {
       this.setHeight()
+      console.log(this.$children)
     }
   }
 </script>

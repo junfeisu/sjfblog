@@ -21,11 +21,13 @@ route.get('/bloglist', function(req, res) {
 
   for (var i in req.query) {
     if (req.query.hasOwnProperty(i)) {
-      if (i === 'create_date' && req.query[i] !== '') {
-        matchMessage['create_date'] = new RegExp("^" + req.query[i] + ".+")
-      }
+      console.log(typeof i)
       if (req.query[i] !== '') {
-        matchMessage[i] = req.query[i]
+        if (i === 'create_date') {
+          matchMessage['create_date'] = new RegExp("^" + req.query[i] + ".+")
+        } else {
+          matchMessage[i] = req.query[i]
+        }
       }
     }
     delete matchMessage.page_size
