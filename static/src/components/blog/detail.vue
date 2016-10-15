@@ -106,7 +106,7 @@
     },
     methods: {
       changeBlog (id) {
-        this.$route.router.go({name: 'blogDetail', params: {id: id}})
+        this.$router.go({name: 'blogDetail', params: {id: id}})
         this.getBlog(id)
       },
       dealData (data) {
@@ -126,27 +126,27 @@
       },
       getBlog (id) {
         typeof id === 'undefined' ? this.$route.params.id : id
-        this.$http.post('/api/blog/getblogbyid', {_id: id})
-          .then(response => {
-            let data = response.body[0]
+        res.blog.post_blogbyid({_id: id})
+          .then(data => {
             this.cursor = data.create_date
             this.dealData(data)
             this.currentBlog = data
             this.getNearBlog()
-          }, error => {
-            console.log(error)
+          })
+          .catch(error => {
+            this.$root.add({type: 'error', msg: JSON.stringify(error)})
           })
       },
       getNearBlog () {
-        this.$http.get('/api/blog/getnearblog/' + this.cursor)
-          .then(response => {
-            let data = response.body
+        res.blog.get_nearblog({cursor: this.cursor})
+          .then(data => {
             this.prevBlog = data.prevBlog
             this.prevBlog.hasOwnProperty('_id') ? this.prev = true : this.prev = false
             this.nextBlog = data.nextBlog
             this.nextBlog.hasOwnProperty('_id') ? this.next = true : this.next = false
-          }, error => {
-            console.log(error)
+          })
+          .catch(error => {
+            this.$root.add({type: 'error', msg: JSON.stringify(error)})
           })
       }
     },

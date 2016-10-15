@@ -50,7 +50,7 @@ route.get('/bloglist', function(req, res) {
 
 route.post('/blogbyid', function(req, res) {
   mongo.search(model.Blog, req.body, function(err, blog) {
-    err ? res.status(500).json(err) : res.json(blog)
+    err ? res.status(500).json(err) : res.json(blog[0])
   })
 })
 
