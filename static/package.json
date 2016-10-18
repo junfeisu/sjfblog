@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "npm run res && node build/dev-server.js",
     "build": "npm run res && node build/build.js",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "res": "resjs http://127.0.0.1:4000/api/doc/ -p /api -m -d ./res.js"
   },
   "dependencies": {
