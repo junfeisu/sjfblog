@@ -175,9 +175,9 @@
         res.blog.get_bloglist(this.listParam)
           .then(data => {
             this.dealData(data)
-            this.total = Math.ceil(data.total / 3)
+            this.total = Math.ceil(data.total / 10)
             this.blogs = data.blogs
-            this.total === 1 ? this.next = false : this.next = true
+            this.total === 1 ? this.next = false : ''
             console.log('a is ' + this.next)
             setTimeout(() => {
               this.$parent.$parent.setHeight()
