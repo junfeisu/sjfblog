@@ -9,8 +9,8 @@ Vue.use(VueRouter)
 Vue.use(VueFilter)
 
 const router = new VueRouter({
-  saveScrollPosition: true,
-  history: true
+  saveScrollPosition: true
+  // history: fa;s
 })
 
 window.res = res

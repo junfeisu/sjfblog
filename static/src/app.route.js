@@ -8,7 +8,7 @@ import Resume from './components/resume/resume.vue'
 
 export default function configRouter (router) {
   router.map({
-    '/blog': {
+    '/': {
       name: 'blog',
       docTitle: 'blog',
       component: blog,

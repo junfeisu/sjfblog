@@ -15,16 +15,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/')))
+app.use(express.static(path.join(__dirname, '/static/dist')))
 // app.use(formidable);
 app.use('/api/blog', blog);
 app.use('/api/user', user);
 app.use('/api/doc', doc);
 
-app.engine('html',cons.swig);
-app.set('views', path.join(__dirname + '/build'));
-app.set('view engine', 'html');
-app.use(express.static(path.join(__dirname, '/build')));
+// app.engine('html',cons.swig);
+// app.set('views', path.join(__dirname + '/build'));
+// app.set('view engine', 'html');
+// app.use(express.static(path.join(__dirname, '/build')));
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -53,8 +53,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(3000, function() {
-  console.log('Server start at 127.0.0.1:3000');
+app.listen(4000, function() {
+  console.log('Server start at 127.0.0.1:4000');
 })
 
 module.exports = app;

@@ -1,6 +1,6 @@
 <template>
   <div class="blog-left">
-    <router-view keep-alive></router-view>
+    <router-view></router-view>
   </div>
   <div class="blog-right">
     <div class="tag-class">

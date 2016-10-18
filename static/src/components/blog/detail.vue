@@ -151,6 +151,7 @@
       }
     },
     ready () {
+      console.log('123')
       this.getBlog(this.$route.params.id)
     }
   }
