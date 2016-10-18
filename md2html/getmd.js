@@ -1,4 +1,3 @@
-var cron = require('cron').CronJob
 var superagent = require('superagent')
 var cheerio = require('cheerio')
 var fs = require('fs')
@@ -21,7 +20,7 @@ var sortArr = function(property, obj) {
   })
 }
 
-var getFile = {
+exports.getFile = {
   // get the auth-key and cookie_id
   auth: function() {
     superagent.get(path + '/login')
@@ -55,7 +54,7 @@ var getFile = {
   },
   // select the md file in github
   selectMdList: function() {
-    superagent.get(path + '/junfeisu/sjfblog/tree/vue/md2html/source')
+    superagent.get(path + '/junfeisu/sjfblog/tree/master/md2html/source')
       .end(function(err, res) {
         var md = []
         var $ = cheerio.load(res.text)
@@ -86,7 +85,7 @@ var getFile = {
   },
   // get the content of md file
   getContent: function(md) {
-    superagent.get(rawPath + "/junfeisu/sjfblog/vue/md2html/source/" + encodeURI(md))
+    superagent.get(rawPath + "/junfeisu/sjfblog/master/md2html/source/" + encodeURI(md))
       .end(function(error, result) {
         if (error) {
           console.log('the get md content err is ' + error)
@@ -129,7 +128,3 @@ var getFile = {
       })
   }
 }
-
-// new cron('* */10 8-23  * * *', function() {
-  getFile.auth()
-// }, null, true, 'Asia/Shanghai');
