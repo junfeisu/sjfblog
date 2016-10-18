@@ -25,30 +25,30 @@ var judge = {
 
 route.post('/', function (req, res) {
   console.log('req is ' + req)
-  res.send('success')
-  // exec('git pull', {'cwd': '/home/www/sjfblog'}, function (err, stdout, stderr) {
-  //   if (err !== null) {
-  //     res.json('err is ' + JSON.stringify(err))
-  //   } else {
-  //     var result = req.commits.added.concat(req.commits.removed, req.commits.modifed)
-  //     if (req.commits.removed.length !== 0) {
-  //       req.commits.removed.forEach(value => {
-  //         result.push({tag: 'remove', path: value})
-  //       })
-  //     }
-  //     if (req.commits.added.length !== 0) {
-  //       req.commits.added.forEach(value => {
-  //         result.push({tag: 'add', path: value})
-  //       })
-  //     }
-  //     if (req.commits.modified.length !== 0) {
-  //       req.commits.modified.forEach(value => {
-  //         result.push({tag: 'update', path: value})
-  //       })
-  //     }
-  //     judge.build(result)
-  //   }
-  // })
+  exec('git pull', {'cwd': '/home/www/sjfblog'}, function (err, stdout, stderr) {
+    if (err !== null) {
+      res.json('err is ' + JSON.stringify(err))
+    } else {
+      res.send('success')
+      // var result = req.commits.added.concat(req.commits.removed, req.commits.modifed)
+      // if (req.commits.removed.length !== 0) {
+      //   req.commits.removed.forEach(value => {
+      //     result.push({tag: 'remove', path: value})
+      //   })
+      // }
+      // if (req.commits.added.length !== 0) {
+      //   req.commits.added.forEach(value => {
+      //     result.push({tag: 'add', path: value})
+      //   })
+      // }
+      // if (req.commits.modified.length !== 0) {
+      //   req.commits.modified.forEach(value => {
+      //     result.push({tag: 'update', path: value})
+      //   })
+      // }
+      // judge.build(result)
+    }
+  })
 })
 
 module.exports = route
