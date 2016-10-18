@@ -129,4 +129,4 @@ var getFile = {
   }
 }
 
-exports.getFile
+module.exports = getFile
