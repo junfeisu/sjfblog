@@ -23,7 +23,7 @@ var judge = {
 }
 
 route.post('/', function (req, res) {
-  console.log('req is ' + JSON.stringify(req))
+  console.log('req is ' + req)
   // exec('git pull', {'cwd': '/home/www/sjfblog'}, function (err, stdout, stderr) {
   //   if (err !== null) {
   //     res.json('err is ' + JSON.stringify(err))
