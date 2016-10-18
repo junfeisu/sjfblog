@@ -63,7 +63,7 @@ var deal = {
         function (err, blog) {
           err ? console.log('err is ' + err) : console.log('update success')
     })
-  },
+  }
 }
 
 module.exports = deal
