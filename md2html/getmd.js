@@ -20,7 +20,7 @@ var sortArr = function(property, obj) {
   })
 }
 
-exports.getFile = {
+var getFile = {
   // get the auth-key and cookie_id
   auth: function() {
     superagent.get(path + '/login')
@@ -128,3 +128,5 @@ exports.getFile = {
       })
   }
 }
+
+exports.getFile
