@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, '/static/dist')))
 app.use('/api/blog', blog);
 app.use('/api/user', user);
 app.use('/api/doc', doc);
-app.use(webhook);
+app.use('/api/webhook', webhook);
 
 // app.engine('html',cons.swig);
 // app.set('views', path.join(__dirname + '/build'));
