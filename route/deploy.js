@@ -11,6 +11,7 @@ var judge = {
         deal.build()
       }
     })
+    judge.blog()
   },
   blog: function (result) {
     var mdReg = /^md2html\/source\//
@@ -24,6 +25,7 @@ var judge = {
 
 route.post('/', function (req, res) {
   console.log('req is ' + req)
+  res.send('success')
   // exec('git pull', {'cwd': '/home/www/sjfblog'}, function (err, stdout, stderr) {
   //   if (err !== null) {
   //     res.json('err is ' + JSON.stringify(err))

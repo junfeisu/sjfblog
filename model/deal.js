@@ -1,5 +1,3 @@
-var superagent = require('superagent')
-var cheerio = require('cheerio')
 var mongo = require('../model/mongo.js').mongoUse
 var markdown = require('../node_modules/markdown').markdown
 var model = require('../model/schema').models
