@@ -10,7 +10,6 @@ Vue.use(VueFilter)
 
 const router = new VueRouter({
   saveScrollPosition: true
-  // history: fa;s
 })
 
 window.res = res
