@@ -18,9 +18,9 @@
     </div>
   </div>
   <div class="page" @click="changeNum($event)">
-    <button v-show="prev">&lt;&lt;</button>
-    <button v-for="i in total" :class="$index === 0 ? 'active' : ''">{{i}}</button>
-    <button v-show="next">&gt;&gt;</button>
+    <button v-show="prev" @click="prevBlog()">&lt;&lt;</button>
+    <button class="num" v-for="i in total" :class="$index === 0 ? 'active' : ''">{{i + 1}}</button>
+    <button v-show="next" @click="nextBlog()">&gt;&gt;</button>
   </div>
 </template>
 
@@ -137,13 +137,23 @@
         },
         next: true,
         prev: false,
-        total: []
+        total: null
       }
     },
     methods: {
       changeNum (event) {
         let target = event.target
-        console.log(target)
+        let activeNum = document.getElementsByClassName('active')[0]
+        if (!target.classList.contains('active')) {
+          if (target.classList.contains('num')) {
+            this.listParam.page_size = +target.innerHTML
+            activeNum.classList.remove('active')
+            target.classList.add('active')
+            this.getList()
+            // +target.innerHTML === 1 ? this.prev = false : this.prev = true
+            // +target.innerHTML === this.total.length ? this.next = false : this.next = true
+          }
+        }
       },
       dealData (data) {
         setTimeout(() => {
@@ -165,16 +175,10 @@
         res.blog.get_bloglist(this.listParam)
           .then(data => {
             this.dealData(data)
-            let total = Math.ceil(data.total / 10)
+            this.total = Math.ceil(data.total / 3)
             this.blogs = data.blogs
-            if (total === 1) {
-              this.total = [1]
-              this.next = false
-            } else {
-              for (let i = 0; i < total; i++) {
-                this.total.push(i + 1)
-              }
-            }
+            this.total === 1 ? this.next = false : this.next = true
+            console.log('a is ' + this.next)
             setTimeout(() => {
               this.$parent.$parent.setHeight()
             })
@@ -182,6 +186,33 @@
           .catch(error => {
             this.$root.add({msg: JSON.stringify(error), type: 'error'})
           })
+      },
+      prevBlog () {
+        let activeNum = document.getElementsByClassName('active')[0]
+        activeNum.classList.remove('active')
+        activeNum.previousSibling.classList.add('active')
+        this.listParam.page_size -= 1
+        // this.listParam.page_size === 1 ? this.prev = false : this.prev = true
+        // this.listParam.page_size === this.total.length ? this.next = false : this.next = true
+        this.getList()
+      },
+      nextBlog () {
+        let activeNum = document.getElementsByClassName('active')[0]
+        activeNum.classList.remove('active')
+        activeNum.nextSibling.classList.add('active')
+        this.listParam.page_size += 1
+      },
+      watchFun () {
+        console.log('123')
+        this.listParam.page_size === 1 ? this.prev = false : this.prev = true
+        this.listParam.page_size === this.total ? this.next = false : this.next = true
+        console.log('b is ' + this.next)
+      }
+    },
+    watch: {
+      'listParam.page_size': {
+        handler: 'watchFun',
+        deep: true
       }
     },
     ready () {

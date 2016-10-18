@@ -26,7 +26,6 @@
         }
       },
       backUp () {
-        console.log('back')
         let time = setInterval(() => {
           let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
           let speed = Math.ceil(scrollTop / 5)
