@@ -13,6 +13,7 @@ var deal = {
     console.log('add mes is ' + JSON.stringify(mes))
     if (mes !== null) {
       mongo.add(new model['Blog'](mes), function (err, blog) {
+        console.log('add blog is ' + JSON.stringify(blog))
         err ? console.log('err is ' + err) : console.log('add success')
       })
     }
@@ -58,6 +59,7 @@ var deal = {
   removeBlog: function (value) {
     console.log('value is ' + value)
     mongo.remove(model.Blog, {title: value.split('source/')[1].split('.md')[0]}, function (err, blog) {
+      console.log('remove blog is ' + JSON.stringify(blog))
       err ? console.log('err is ' + err) : console.log('remove success')
     })
   },
@@ -67,6 +69,7 @@ var deal = {
     if (mes !== null) {
       mongo.update(model.Blog, ({title: mes.title}, {$set: {content: mes.content}}), 
           function (err, blog) {
+            console.log('update blog is ' + JSON.stringify(blog))
             err ? console.log('err is ' + err) : console.log('update success')
       })
     }
