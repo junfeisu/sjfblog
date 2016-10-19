@@ -83,13 +83,13 @@
       blogByTag (event) {
         let target = event.target
         if (target.className === 'tag-specifc') {
-          this.$children[0].listParam.tags = target.innerHTML.split('(')[0]
-          this.$children[0].listParam.create_date = null
+          this.$children[1].listParam.tags = target.innerHTML.split('(')[0]
+          this.$children[1].listParam.create_date = null
         } else if (target.className === 'time-specifc') {
-          this.$children[0].listParam.create_date = target.innerHTML.split('(')[0]
-          this.$children[0].listParam.tags = null
+          this.$children[1].listParam.create_date = target.innerHTML.split('(')[0]
+          this.$children[1].listParam.tags = null
         }
-        this.$children[0].getList()
+        this.$children[1].getList()
       },
       getTags () {
         res.blog.get_blogtype()
