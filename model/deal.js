@@ -34,7 +34,7 @@ var deal = {
       if (err) {
         console.log('err is' + err)
       } else {
-        var slice = result.split('---')
+        var slice = result.toString().split('---')
         var blogMes = {tags: []}
         // 去除换行符
         var message = slice[1].replace(/\n/g, '')
