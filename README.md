@@ -1,6 +1,6 @@
 # sjfblog
 
-> a simple personal blog
+> A simple personal blog website. It's based on express + vue + mongodb + webhook
 
 ## Build Setup
 
