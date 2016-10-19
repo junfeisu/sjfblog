@@ -45,7 +45,7 @@ var deal = {
       // split the (,123,2434 fsdfs,2016-09-25) to ['', '123', '2434 fsdfs', '2016-09-25']
       message = message.replace(re, ",").split(',')
       blogMes.title = message[1]
-      blogMes.date_create = message[3]
+      blogMes.create_date = message[3]
       message[2].split(' ').forEach(function(value) {
         blogMes.tags.push(value)
       })
