@@ -5,13 +5,14 @@ var exec = require('child_process').exec
 
 var judge = {
   build: function (result) {
+    console.log('result is ' + JSON.stringify(result))
     var staticReg = /^static/
     result.forEach(value => {
       if (staticReg.test(value.path)) {
         deal.build()
       }
     })
-    judge.blog()
+    judge.blog(result)
   },
   blog: function (result) {
     console.log('blog is execute')
