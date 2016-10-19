@@ -29,9 +29,9 @@ route.post('/', function (req, res) {
     if (err !== null) {
       res.json('err is ' + JSON.stringify(err))
     } else {
-      res.send('success')
       var commits = req.body.commits
-      var result = commits.added.concat(commits.removed, commits.modifed)
+      console.log('commits.added is ' + JSON.stringify(commits.added))
+      var result = commits.added.concat(commits.removed, commits.modified)
       if (commits.removed.length !== 0) {
         commits.removed.forEach(value => {
           result.push({tag: 'remove', path: value})
