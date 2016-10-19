@@ -11,6 +11,7 @@ var deal = {
   addBlog: function (value) {
     console.log('addBlog is execute')
     var mes = deal.getContent(value)
+    console.log('add mes is ' + JSON.stringify(mes))
     mongo.add(new model['Blog'](mes), function (err, blog) {
       err ? console.log('err is ' + err) : console.log('add success')
     })
@@ -54,6 +55,7 @@ var deal = {
   },
   updateBlog: function (value) {
     var mes = deal.getContent(value)
+    console.log('mes is ' + JSON.stringify(mes))
     mongo.update(model.Blog, ({title: mes.title}, {$set: {content: mes.content}}), 
         function (err, blog) {
           err ? console.log('err is ' + err) : console.log('update success')
