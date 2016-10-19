@@ -32,6 +32,7 @@ var deal = {
   getContent: function (value) {
     console.log('getContent is execute')
     var result = fs.readFile(value, 'utf-8')
+    console.log('result is' + result)
     var slice = result.split('---')
     var blogMes = {tags: []}
     // 去除换行符
@@ -46,9 +47,11 @@ var deal = {
       blogMes.tags.push(value)
     })
     blogMes.content = markdown.toHTML(slice[2])
+    console.log('blogMes is ' + JSON.stringify(blogMes))
     return blogMes
   },
   removeBlog: function (value) {
+    console.log('value is ' + value)
     mongo.remove(model.Blog, {title: value.split('source/')[1].split('.md')[0]}, function (err, blog) {
       err ? console.log('err is ' + err) : console.log('remove success')
     })
