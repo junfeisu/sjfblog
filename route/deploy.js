@@ -5,7 +5,6 @@ var exec = require('child_process').exec
 
 var judge = {
   build: function (result) {
-    console.log('result is ' + JSON.stringify(result))
     var staticReg = /^static/
     result.forEach(value => {
       if (staticReg.test(value.path)) {
@@ -15,7 +14,6 @@ var judge = {
     judge.blog(result)
   },
   blog: function (result) {
-    console.log('blog is execute')
     var mdReg = /^md2html\/source\//
     result.forEach(value => {
       if (mdReg.test(value.path)) {
@@ -26,13 +24,11 @@ var judge = {
 }
 
 route.post('/', function (req, res) {
-  console.log('req.body.commits is ' + JSON.stringify(req.body.commits))
   exec('git pull', {'cwd': '/home/www/sjfblog'}, function (err, stdout, stderr) {
     if (err !== null) {
       res.json('err is ' + JSON.stringify(err))
     } else {
       var commits = req.body.commits[0]
-      console.log('commits.added is ' + JSON.stringify(commits.added))
       var result = []
       if (commits.removed.length !== 0) {
         commits.removed.forEach(value => {
