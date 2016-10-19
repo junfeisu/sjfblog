@@ -9,12 +9,14 @@ var rawPath = 'https://raw.githubusercontent.com'
 
 var deal = {
   addBlog: function (value) {
+    console.log('addBlog is execute')
     var mes = deal.getContent(value)
     mongo.add(new model['Blog'](mes), function (err, blog) {
       err ? console.log('err is ' + err) : console.log('add success')
     })
   },
   build: function () {
+    console.log('deal is execute')
     exec('npm run build',
        {'cwd': '/home/www/sjfblog/static'},
        function (err, stdout, stderr) {
@@ -27,6 +29,7 @@ var deal = {
     })
   },
   getContent: function (value) {
+    console.log('getContent is execute')
     fs.readFile(value, function (err, result) {
       if (err) {
         console.log('err is' + err)
@@ -50,7 +53,6 @@ var deal = {
     })
   },
   removeBlog: function (value) {
-    var mes = deal.getContent(value)
     mongo.remove(model.Blog, {title: value.split('source/')[1].split('.md')[0]}, function (err, blog) {
       err ? console.log('err is ' + err) : console.log('remove success')
     })

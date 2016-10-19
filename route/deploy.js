@@ -14,6 +14,7 @@ var judge = {
     judge.blog()
   },
   blog: function (result) {
+    console.log('blog is execute')
     var mdReg = /^md2html\/source\//
     result.forEach(value => {
       if (mdReg.test(value.path)) {
@@ -31,7 +32,7 @@ route.post('/', function (req, res) {
     } else {
       var commits = req.body.commits[0]
       console.log('commits.added is ' + JSON.stringify(commits.added))
-      var result = commits.added.concat(commits.removed, commits.modified)
+      var result = []
       if (commits.removed.length !== 0) {
         commits.removed.forEach(value => {
           result.push({tag: 'remove', path: value})
