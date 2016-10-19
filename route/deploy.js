@@ -29,7 +29,7 @@ route.post('/', function (req, res) {
     if (err !== null) {
       res.json('err is ' + JSON.stringify(err))
     } else {
-      var commits = req.body.commits
+      var commits = req.body.commits[0]
       console.log('commits.added is ' + JSON.stringify(commits.added))
       var result = commits.added.concat(commits.removed, commits.modified)
       if (commits.removed.length !== 0) {
