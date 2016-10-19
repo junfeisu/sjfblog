@@ -9,12 +9,13 @@ var rawPath = 'https://raw.githubusercontent.com'
 
 var deal = {
   addBlog: function (value) {
-    console.log('addBlog is execute')
     var mes = deal.getContent(value)
     console.log('add mes is ' + JSON.stringify(mes))
-    mongo.add(new model['Blog'](mes), function (err, blog) {
-      err ? console.log('err is ' + err) : console.log('add success')
-    })
+    if (mes !== null) {
+      mongo.add(new model['Blog'](mes), function (err, blog) {
+        err ? console.log('err is ' + err) : console.log('add success')
+      })
+    }
   },
   build: function () {
     console.log('deal is execute')
@@ -31,24 +32,28 @@ var deal = {
   },
   getContent: function (value) {
     console.log('getContent is execute')
-    var result = fs.readFile(value, 'utf-8')
+    var result = fs.readFile('../' + value, 'utf-8')
     console.log('result is' + result)
-    var slice = result.split('---')
-    var blogMes = {tags: []}
-    // 去除换行符
-    var message = slice[1].replace(/\n/g, '')
-    var re = /^title: |tags: |date: /g
-    // change the (title: 123tag: 2434 fsdfsdate: 2016-09-25) to (,123,2434 fsdfs,2016-09-25)
-    // split the (,123,2434 fsdfs,2016-09-25) to ['', '123', '2434 fsdfs', '2016-09-25']
-    message = message.replace(re, ",").split(',')
-    blogMes.title = message[1]
-    blogMes.date_create = message[3]
-    message[2].split(' ').forEach(function(value) {
-      blogMes.tags.push(value)
-    })
-    blogMes.content = markdown.toHTML(slice[2])
-    console.log('blogMes is ' + JSON.stringify(blogMes))
-    return blogMes
+    if (typeof result !== 'undefined') {
+      var slice = result.split('---')
+      var blogMes = {tags: []}
+      // 去除换行符
+      var message = slice[1].replace(/\n/g, '')
+      var re = /^title: |tags: |date: /g
+      // change the (title: 123tag: 2434 fsdfsdate: 2016-09-25) to (,123,2434 fsdfs,2016-09-25)
+      // split the (,123,2434 fsdfs,2016-09-25) to ['', '123', '2434 fsdfs', '2016-09-25']
+      message = message.replace(re, ",").split(',')
+      blogMes.title = message[1]
+      blogMes.date_create = message[3]
+      message[2].split(' ').forEach(function(value) {
+        blogMes.tags.push(value)
+      })
+      blogMes.content = markdown.toHTML(slice[2])
+      console.log('blogMes is ' + JSON.stringify(blogMes))
+      return blogMes
+    } else {
+      return null
+    }
   },
   removeBlog: function (value) {
     console.log('value is ' + value)
@@ -59,10 +64,12 @@ var deal = {
   updateBlog: function (value) {
     var mes = deal.getContent(value)
     console.log('mes is ' + JSON.stringify(mes))
-    mongo.update(model.Blog, ({title: mes.title}, {$set: {content: mes.content}}), 
-        function (err, blog) {
-          err ? console.log('err is ' + err) : console.log('update success')
-    })
+    if (mes !== null) {
+      mongo.update(model.Blog, ({title: mes.title}, {$set: {content: mes.content}}), 
+          function (err, blog) {
+            err ? console.log('err is ' + err) : console.log('update success')
+      })
+    }
   }
 }
 
