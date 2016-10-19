@@ -10,7 +10,6 @@ var rawPath = 'https://raw.githubusercontent.com'
 var deal = {
   addBlog: function (value) {
     var mes = deal.getContent(value)
-    console.log('add mes is ' + JSON.stringify(mes))
     if (mes !== null) {
       mongo.add(new model['Blog'](mes), function (err, blog) {
         console.log('add blog is ' + JSON.stringify(blog))
@@ -19,7 +18,6 @@ var deal = {
     }
   },
   build: function () {
-    console.log('deal is execute')
     exec('npm run build',
        {'cwd': '/home/www/sjfblog/static'},
        function (err, stdout, stderr) {
@@ -32,9 +30,7 @@ var deal = {
     })
   },
   getContent: function (value) {
-    console.log('getContent is execute')
     var result = fs.readFileSync('/home/www/sjfblog/' + value, 'utf-8')
-    console.log('result is' + result)
     if (result) {
       var slice = result.split('---')
       var blogMes = {tags: []}
@@ -50,14 +46,12 @@ var deal = {
         blogMes.tags.push(value)
       })
       blogMes.content = markdown.toHTML(slice[2])
-      console.log('blogMes is ' + JSON.stringify(blogMes))
       return blogMes
     } else {
       return null
     }
   },
   removeBlog: function (value) {
-    console.log('value is ' + value)
     mongo.remove(model.Blog, {title: value.split('source/')[1].split('.md')[0]}, function (err, blog) {
       console.log('remove blog is ' + JSON.stringify(blog))
       err ? console.log('err is ' + err) : console.log('remove success')
