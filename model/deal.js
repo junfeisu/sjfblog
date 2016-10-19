@@ -30,27 +30,22 @@ var deal = {
   },
   getContent: function (value) {
     console.log('getContent is execute')
-    fs.readFile(value, function (err, result) {
-      if (err) {
-        console.log('err is' + err)
-      } else {
-        var slice = result.toString().split('---')
-        var blogMes = {tags: []}
-        // 去除换行符
-        var message = slice[1].replace(/\n/g, '')
-        var re = /^title: |tags: |date: /g
-        // change the (title: 123tag: 2434 fsdfsdate: 2016-09-25) to (,123,2434 fsdfs,2016-09-25)
-        // split the (,123,2434 fsdfs,2016-09-25) to ['', '123', '2434 fsdfs', '2016-09-25']
-        message = message.replace(re, ",").split(',')
-        blogMes.title = message[1]
-        blogMes.date_create = message[3]
-        message[2].split(' ').forEach(function(value) {
-          blogMes.tags.push(value)
-        })
-        blogMes.content = markdown.toHTML(slice[2])
-        return blogMes
-      }
+    var result = fs.readFile(value, 'utf-8')
+    var slice = result.split('---')
+    var blogMes = {tags: []}
+    // 去除换行符
+    var message = slice[1].replace(/\n/g, '')
+    var re = /^title: |tags: |date: /g
+    // change the (title: 123tag: 2434 fsdfsdate: 2016-09-25) to (,123,2434 fsdfs,2016-09-25)
+    // split the (,123,2434 fsdfs,2016-09-25) to ['', '123', '2434 fsdfs', '2016-09-25']
+    message = message.replace(re, ",").split(',')
+    blogMes.title = message[1]
+    blogMes.date_create = message[3]
+    message[2].split(' ').forEach(function(value) {
+      blogMes.tags.push(value)
     })
+    blogMes.content = markdown.toHTML(slice[2])
+    return blogMes
   },
   removeBlog: function (value) {
     mongo.remove(model.Blog, {title: value.split('source/')[1].split('.md')[0]}, function (err, blog) {
