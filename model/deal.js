@@ -33,7 +33,7 @@ var deal = {
   },
   getContent: function (value) {
     console.log('getContent is execute')
-    var result = fs.readFile('../' + value, 'utf-8')
+    var result = fs.readFileSync('../' + value, 'utf-8')
     console.log('result is' + result)
     if (typeof result !== 'undefined') {
       var slice = result.split('---')
