@@ -33,9 +33,9 @@ var deal = {
   },
   getContent: function (value) {
     console.log('getContent is execute')
-    var result = fs.readFileSync('../' + value, 'utf-8')
+    var result = fs.readFileSync('/home/www/sjfblog/' + value, 'utf-8')
     console.log('result is' + result)
-    if (typeof result !== 'undefined') {
+    if (result) {
       var slice = result.split('---')
       var blogMes = {tags: []}
       // 去除换行符
