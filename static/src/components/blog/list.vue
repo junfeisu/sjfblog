@@ -57,7 +57,7 @@
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -moz-line-clamp: 3;
-        max-height: 60px;
+        max-height: 56px;
         -webkit-box-orient: vertical;
       }
       span {

@@ -53,7 +53,7 @@
     background-color: #999;
   }
   .backup {
-    background: url('../../assets/img/backUp.png');
+    background: url('http://7xrp7o.com1.z0.glb.clouddn.com/backup.png');
     background-size: 50%;
     background-repeat: no-repeat;
     background-position: 50% 50%;

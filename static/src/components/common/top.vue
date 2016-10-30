@@ -35,7 +35,7 @@
         background: #fff;
         width: 48px;
         height: 48px;
-        background-image: url('./../../assets/img/sixth.png');
+        background-image: url('http://7xrp7o.com1.z0.glb.clouddn.com/baby.png');
         background-size: 48px 48px;
         border-radius: 24px;
         @include transition($time: 2s);

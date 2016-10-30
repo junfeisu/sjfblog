@@ -6,6 +6,7 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var webpackSpritesmith = require('webpack-spritesmith')
 var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : config.build.env
@@ -57,6 +58,19 @@ var webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
+    }),
+    new webpackSpritesmith({
+      src: {
+        cwd: path.resolve(__dirname, '../src/assets/img'),
+        glob: '*.png'
+      },
+      target: {
+        image: utils.assetsPath('img/sprite.png'),
+        css: utils.assetsPath('css/sprite.styl')
+      },
+      apiOptions: {
+        cssImageRef: "~sprite.png"
+      }
     }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
