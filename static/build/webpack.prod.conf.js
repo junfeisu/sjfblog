@@ -59,19 +59,6 @@ var webpackConfig = merge(baseWebpackConfig, {
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
-    new webpackSpritesmith({
-      src: {
-        cwd: path.resolve(__dirname, '../src/assets/img'),
-        glob: '*.png'
-      },
-      target: {
-        image: utils.assetsPath('img/sprite.png'),
-        css: utils.assetsPath('css/sprite.styl')
-      },
-      apiOptions: {
-        cssImageRef: "~sprite.png"
-      }
-    }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
