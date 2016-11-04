@@ -23,11 +23,5 @@ date: 2016-10-19
           err ? io.emit('comment_error', err) : io.emit('comment_update', res)
         })
       })
-      socket.on('topic', function (topic) {
-        console.log('topic')
-        mongo.add(new model['Topic'](topic), function (err, res) {
-          err ? io.emit('topic_error', err) : io.emit('topic_update', res)
-        })
-      })
     })
 其实socket通信就是服务端和客户端之间不停的相互emit事件,一开始我以为socket.on('xxx')是会自动在某个特定条件下会触发的,但是

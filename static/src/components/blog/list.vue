@@ -17,7 +17,7 @@
       </div>
     </div>
   </div>
-  <div class="page" @click="changeNum($event)">
+  <div class="page" @click="changeNum($event)" v-show="total > 1">
     <button v-show="prev" @click="prevBlog()">&lt;&lt;</button>
     <button class="num" v-for="i in total" :class="$index === 0 ? 'active' : ''">{{i + 1}}</button>
     <button v-show="next" @click="nextBlog()">&gt;&gt;</button>
@@ -141,6 +141,7 @@
       }
     },
     methods: {
+      // 页码改变
       changeNum (event) {
         let target = event.target
         let activeNum = document.getElementsByClassName('active')[0]
@@ -149,12 +150,11 @@
             this.listParam.page_size = +target.innerHTML
             activeNum.classList.remove('active')
             target.classList.add('active')
-            this.getList()
-            // +target.innerHTML === 1 ? this.prev = false : this.prev = true
-            // +target.innerHTML === this.total.length ? this.next = false : this.next = true
+            this.$parent.getList()
           }
         }
       },
+      // 处理博客内容
       dealData (data) {
         setTimeout(() => {
           let blogBody = document.getElementsByClassName('blog_body')
@@ -164,49 +164,34 @@
           })
         })
       },
+      // 通过tag获取博客
       getBlogByTag (event) {
         let target = event.target
         if (target.className === 'tag-specifc') {
           this.listParam.tags = target.innerHTML
-          this.getList()
+          this.$parent.getList()
         }
       },
-      getList () {
-        res.blog.get_bloglist(this.listParam)
-          .then(data => {
-            this.dealData(data)
-            this.total = Math.ceil(data.total / 10)
-            this.blogs = data.blogs
-            this.total === 1 ? this.next = false : ''
-            console.log('a is ' + this.next)
-            setTimeout(() => {
-              this.$parent.$parent.setHeight()
-            })
-          })
-          .catch(error => {
-            this.$root.add({msg: JSON.stringify(error), type: 'error'})
-          })
-      },
+      // 前一篇博客
       prevBlog () {
         let activeNum = document.getElementsByClassName('active')[0]
         activeNum.classList.remove('active')
         activeNum.previousSibling.classList.add('active')
         this.listParam.page_size -= 1
-        // this.listParam.page_size === 1 ? this.prev = false : this.prev = true
-        // this.listParam.page_size === this.total.length ? this.next = false : this.next = true
-        this.getList()
+        this.$parent.getList()
       },
+      // 后一篇博客
       nextBlog () {
         let activeNum = document.getElementsByClassName('active')[0]
         activeNum.classList.remove('active')
         activeNum.nextSibling.classList.add('active')
         this.listParam.page_size += 1
+        this.$parent.getList()
       },
+      // 监测页码变化
       watchFun () {
-        console.log('123')
         this.listParam.page_size === 1 ? this.prev = false : this.prev = true
         this.listParam.page_size === this.total ? this.next = false : this.next = true
-        console.log('b is ' + this.next)
       }
     },
     watch: {
@@ -216,7 +201,7 @@
       }
     },
     ready () {
-      this.getList()
+      this.$parent.getList()
     }
   }
 </script>

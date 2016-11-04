@@ -7,11 +7,9 @@
         <span>{{currentBlog.create_date | format_year_month}}</span>
       </div>
       <div class="clear"></div>
-      <div class="article_content">
-      </div>
+      <div class="article_content"></div>
     </article>
-    <div class="comment">
-    </div>
+    <div class="comment"></div>
     <div class="main_bottom">
       <span v-show="prev" @click="changeBlog(prevBlog._id)">&lt;&lt;{{prevBlog.title}}</span>
       <span v-show="next" @click="changeBlog(nextBlog._id)">{{nextBlog.title}}&gt;&gt;</span>
@@ -121,7 +119,7 @@
           for (let j = 0; j < img.length; j++) {
             hljs.highlightBlock(img[j])
           }
-          this.$parent.$parent.setHeight()
+          this.$parent.setHeight()
         })
       },
       getBlog (id) {
@@ -151,7 +149,6 @@
       }
     },
     ready () {
-      console.log('123')
       this.getBlog(this.$route.params.id)
     }
   }

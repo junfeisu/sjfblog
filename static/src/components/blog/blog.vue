@@ -1,40 +1,50 @@
 <template>
-  <div class="blog-left">
-    <router-view></router-view>
+  <div class="blog">
+    <div class="blog-left">
+      <router-view></router-view>
+    </div>
+    <div class="blog-right">
+      <div class="tag-class">
+        <h3>文章标签</h3>
+        <div class="tags" @click="blogByTag($event)">
+          <span v-for="tag in tags" class="tag-specifc">{{tag._id}}({{tag.value}})</span>
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div class="tag-class">
+        <h3>文章归档</h3>
+        <div class="tags" @click="blogByTag($event)">
+          <span class="time-specifc" v-for="time in times">{{time._id | format_year_month}}({{time.value}})</span>
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div class="tag-class">
+        <h3>作者简介</h3>
+        <div class="author-description">
+          苏俊飞，南昌大学，网络工程2014级，大学四年一直在南昌大学家园工作室学习前端开发
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <side></side>
   </div>
-  <div class="blog-right">
-    <div class="tag-class">
-      <h3>文章标签</h3>
-      <div class="tags" @click="blogByTag($event)">
-        <span v-for="tag in tags" class="tag-specifc">{{tag._id}}({{tag.value}})</span>
-        <div class="clear"></div>
-      </div>
-    </div>
-    <div class="tag-class">
-      <h3>文章归档</h3>
-      <div class="tags" @click="blogByTag($event)">
-        <span class="time-specifc" v-for="time in times">{{time._id | format_year_month}}({{time.value}})</span>
-        <div class="clear"></div>
-      </div>
-    </div>
-    <div class="tag-class">
-      <h3>作者简介</h3>
-      <div class="author-description">
-        苏俊飞，南昌大学，网络工程2014级，大学四年一直在南昌大学家园工作室学习前端开发
-      </div>
-    </div>
-  </div>
-  <div class="clear"></div>
-  <side></side>
 </template>
 
 <style lang="scss" scoped>
   @import './../../assets/style/mixin.scss';
+  .blog {
+    background: url('./../../assets/img/bg.png');
+    background-size: cover;
+    padding: 10px 5%;
+    // position: fixed;
+    top: 80px;
+  }
+
   .blog-left {
     float: left;
     width: 70%;
-    // margin-left: 5%;
   }
+
   .blog-right {
     float: right;
     width: 25%;
@@ -75,6 +85,11 @@
     },
     data () {
       return {
+        listParam: {
+          page_size: 1,
+          tags: null,
+          create_date: null
+        },
         tags: [],
         times: []
       }
@@ -83,13 +98,30 @@
       blogByTag (event) {
         let target = event.target
         if (target.className === 'tag-specifc') {
-          this.$children[1].listParam.tags = target.innerHTML.split('(')[0]
-          this.$children[1].listParam.create_date = null
+          this.listParam.tags = target.innerHTML.split('(')[0]
+          this.listParam.create_date = null
         } else if (target.className === 'time-specifc') {
-          this.$children[1].listParam.create_date = target.innerHTML.split('(')[0]
-          this.$children[1].listParam.tags = null
+          this.listParam.create_date = target.innerHTML.split('(')[0]
+          this.listParam.tags = null
         }
-        this.$children[1].getList()
+        this.getList()
+      },
+      // 获取博客列表
+      getList () {
+        res.blog.get_bloglist(this.listParam)
+          .then(data => {
+            this.$router.go({path: '/'})
+            this.$children[1].dealData(data)
+            this.$children[1].total = Math.ceil(data.total / 10)
+            this.$children[1].blogs = data.blogs
+            this.$children[1].total === 1 ? this.$children[1].next = false : ''
+            setTimeout(() => {
+              this.setHeight()
+            })
+          })
+          .catch(error => {
+            this.$root.add({msg: JSON.stringify(error), type: 'error'})
+          })
       },
       getTags () {
         res.blog.get_blogtype()
@@ -100,6 +132,15 @@
           .catch(error => {
             console.log(error)
           })
+      },
+      setHeight () {
+        let blog = document.querySelector('.blog')
+        blog.style.height = window.screen.availHeight - 80 + 'px'
+        let dHeight = document.documentElement.clientHeight
+        let sHeight = document.scrollingElement.clientHeight
+        let bHeight = document.body.scrollHeight
+        let height = Math.max(dHeight, sHeight, bHeight)
+        blog.style.height = height - 80 + 'px'
       }
     },
     ready () {

@@ -8,7 +8,7 @@
       <div id="nav">
         <li v-link="{name: 'blog'}">Home</li>
         <li v-link="{name: 'about'}">Demos</li>
-        <li v-link="{name: 'resume'}">Resume</li>
+        <li v-link="{name: 'about'}">Resume</li>
         <li v-link="{name: 'about'}">About</li>
         <li><a href="https://github.com/junfeisu" title="">Github</a></li>
         <div class="clear"></div>
