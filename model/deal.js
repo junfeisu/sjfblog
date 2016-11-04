@@ -18,7 +18,7 @@ var deal = {
     }
   },
   build: function () {
-    exec('npm run build',
+    exec('npm i && npm run build',
        {'cwd': '/home/www/sjfblog/static'},
        function (err, stdout, stderr) {
           if (err) {
@@ -28,6 +28,18 @@ var deal = {
             console.log('stderr is' + stderr)
           }
     })
+  },
+  install: function () {
+    exec('npm i', 
+      {'cwd': '/home/www/sjfblog'},
+      function (err, stdout, stderr) {
+        if (err) {
+          console.log('exec err is ' + err)
+        } else {
+          console.log('stdout is' + stdout)
+          console.log('stderr is' + stderr)
+        }
+      })
   },
   getContent: function (value) {
     var result = fs.readFileSync('/home/www/sjfblog/' + value, 'utf-8')
@@ -59,7 +71,6 @@ var deal = {
   },
   updateBlog: function (value) {
     var mes = deal.getContent(value)
-    console.log('mes is ' + JSON.stringify(mes))
     if (mes !== null) {
       mongo.update(model.Blog, ({title: mes.title}, {$set: {content: mes.content}}), 
           function (err, blog) {
