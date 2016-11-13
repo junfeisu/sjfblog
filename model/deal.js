@@ -76,7 +76,7 @@ var deal = {
   },
   addLog: function (err, data) {
     var fileName = new Date().getFullYear() + '-' + (new Date().getMonth() + 1)
-    fs.open(`./blogLog/${fileName}.log`, 'a', function (e, fd) {
+    fs.open(`./blogLog/${fileName}.log`, 'a', err, function (e, fd) {
       if (e) {
         console.log(e)
       }
