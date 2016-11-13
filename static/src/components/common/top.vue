@@ -1,5 +1,5 @@
 <template>
-  <header class="top" :class="{'top hide': hide, 'top': !hide}">
+  <header class="top" class="top">
     <div class="show-logo">
       <div class="logo"></div>
       <h3>Sjffly</h3>
@@ -29,10 +29,7 @@
     top: 0px;
     z-index: 999;
   }
-  .hide {
-    display: none;
-    @include transition($time: 0.3s);
-  }
+
   .show-logo {
     float: left;
     margin-left: 30px;
@@ -60,6 +57,7 @@
       font-size: 22px
     }
   }
+  
   .top-main {
     width: 60%;
     margin: 0 auto;
@@ -92,24 +90,6 @@
 
 <script>
   export default {
-    name: 'top',
-    data () {
-      return {
-        hide: false
-      }
-    },
-    methods: {
-      watchFun () {
-        if (this.$route.path === '/resume') {
-          this.hide = true
-        }
-      }
-    },
-    watch: {
-      '$route': {
-        handler: 'watchFun',
-        deep: true
-      }
-    }
+    name: 'top'
   }
 </script>

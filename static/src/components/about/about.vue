@@ -3,14 +3,14 @@
     <div class="bg">
     </div>
     <div class="about-content">
-      <div class="about_top">
+      <div class="about-top">
         <h2>About Sjffly</h2>
       </div>
       <div id="description">
         <h3>个人简介</h3>
         <div class="user">
           <img src="http://7xrp7o.com1.z0.glb.clouddn.com/sjfblog.png" width="100" height="100" alt="">
-          <span class="user_name">苏俊飞</span>
+          <span class="user-name">苏俊飞</span>
           <p>坚持就是胜利</p>
           <p>珍惜现在所有的,争取你该拥有的</p>
           <p>南昌大学～2014级～本科～网络工程</p>
@@ -18,27 +18,27 @@
       </div>
       <div id="skill">
         <h3>专业技能</h3>
-        <div class="skill_list">
+        <div class="skill-list">
           <div class="specifc">
             <div class="track"></div>
-            <div class="left_circle"></div>
-            <div class="right_circle"></div>
+            <div class="left-circle"></div>
+            <div class="right-circle"></div>
             <div class="master"></div>
             <span>50%</span>
             <span>HTML/CSS/JS</span>
           </div>
           <div class="specifc">
             <div class="track"></div>
-            <div class="left_circle"></div>
-            <div class="right_circle"></div>
+            <div class="left-circle"></div>
+            <div class="right-circle"></div>
             <div class="master"></div>
             <span>50%</span>
             <span>Node/Mongodb</span>
           </div>
           <div class="specifc">
             <div class="track"></div>
-            <div class="left_circle"></div>
-            <div class="right_circle"></div>
+            <div class="left-circle"></div>
+            <div class="right-circle"></div>
             <div class="master"></div>
             <span>50%</span>
             <span>Node/Mongodb</span>
@@ -48,19 +48,19 @@
       </div>
       <div id="contact">
         <h3>联系方式</h3>
-        <div class="contact_way">
+        <div class="contact-way">
           邮箱 : <span href="#">sjf1982764150@gmail.com</span>
         </div>
-        <div class="contact_way">
+        <div class="contact-way">
           知乎 : <a href="https://www.zhihu.com/people/su-jun-fei-87">苏俊飞</a>
         </div>
-        <div class="contact_way">
+        <div class="contact-way">
           Github : <a href="https://github.com/junfeisu">junfeisu</a>
         </div>
-        <div class="contact_way">
+        <div class="contact-way">
           QQ : <span href="#">1982764150</span>
         </div>
-        <div class="contact_way">
+        <div class="contact-way">
           电话 : <span href="#">18170415420</span>
         </div>
       </div>
@@ -89,7 +89,7 @@
     position: relative;
   }
 
-  .about_top {
+  .about-top {
     height: 40px;
     line-height: 40px;
     h2{
@@ -135,7 +135,7 @@
     padding-bottom: 20px;
   }
 
-  .skill_list {
+  .skill-list {
     width: 90%;
     margin: 5px auto;
     text-align: center;
@@ -153,13 +153,13 @@
         clip: rect(0 50px 100px 0);
         @include position;
       }
-      .left_circle {
+      .left-circle {
         clip: rect(0 50px 100px 0);
         @include position;
         border-color: #6fec6f;
         @include transform($angel: 144deg);
       }
-      .right_circle {
+      .right-circle {
         clip: rect(0 50px 100px 0);
         opacity: 0;
         @include transform;
@@ -182,7 +182,7 @@
 
   #contact {
     padding-bottom: 20px;
-    .contact_way {
+    .contact-way {
       text-align: left;
       width: 40%;
       margin: 5px auto;

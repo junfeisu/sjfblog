@@ -50,7 +50,7 @@
     bottom: 20px;
     right: 100px;
     width: 50px;
-    background-color: #999;
+    background-color: #f5f5f5;
   }
   .backup {
     background: url('http://7xrp7o.com1.z0.glb.clouddn.com/backup.png');
