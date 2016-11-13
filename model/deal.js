@@ -78,10 +78,10 @@ var deal = {
     var fileName = new Date().getFullYear() + '-' + (new Date().getMonth() + 1)
     fs.open(`./blogLog/${fileName}.log`, 'a', function (e, fd) {
       if (e) {
-        throw new Error(e)
+        console.log(e)
       }
       fs.write(fd, data, function (error) {
-        err ? throw new Error(error) : console.log('add log success')
+        err ? console.log('write error is ' + error) : console.log('add log success')
       })
       fs.closeSync(fd)
     })
