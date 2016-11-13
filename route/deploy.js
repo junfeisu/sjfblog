@@ -34,30 +34,34 @@ var judge = {
 }
 
 route.post('/', function (req, res) {
-  exec('git pull', {'cwd': '/home/www/sjfblog'}, function (err, stdout, stderr) {
-    if (err !== null) {
-      res.json('err is ' + JSON.stringify(err))
-    } else {
-      var commits = req.body.commits[0]
-      var result = []
-      if (commits.removed.length !== 0) {
-        commits.removed.forEach(value => {
-          result.push({tag: 'remove', path: value})
-        })
+  try{
+    exec('git pull', {'cwd': '/home/www/sjfblog'}, function (err, stdout, stderr) {
+      if (err !== null) {
+        res.json('err is ' + JSON.stringify(err))
+      } else {
+        var commits = req.body.commits[0]
+        var result = []
+        if (commits.removed.length !== 0) {
+          commits.removed.forEach(value => {
+            result.push({tag: 'remove', path: value})
+          })
+        }
+        if (commits.added.length !== 0) {
+          commits.added.forEach(value => {
+            result.push({tag: 'add', path: value})
+          })
+        }
+        if (commits.modified.length !== 0) {
+          commits.modified.forEach(value => {
+            result.push({tag: 'update', path: value})
+          })
+        }
+        judge.build(result)
       }
-      if (commits.added.length !== 0) {
-        commits.added.forEach(value => {
-          result.push({tag: 'add', path: value})
-        })
-      }
-      if (commits.modified.length !== 0) {
-        commits.modified.forEach(value => {
-          result.push({tag: 'update', path: value})
-        })
-      }
-      judge.build(result)
-    }
-  })
+    })
+  } catch(e) {
+    res.status(500).json(e)
+  }
 })
 
 module.exports = route

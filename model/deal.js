@@ -12,33 +12,25 @@ var deal = {
     var mes = deal.getContent(value)
     if (mes !== null) {
       mongo.add(new model['Blog'](mes), function (err, blog) {
-        console.log('add blog is ' + JSON.stringify(blog))
-        err ? console.log('err is ' + err) : console.log('add success')
+        err ? deal.addLog('add blog error is ' + JSON.stringify(err), null) : 
+          deal.addLog(null, 'add blog is ' + JSON.stringify(blog))
       })
     }
   },
   build: function () {
-    exec('npm i && npm run build',
+    exec('cnpm i && npm run build',
        {'cwd': '/home/www/sjfblog/static'},
        function (err, stdout, stderr) {
-          if (err) {
-            console.log('exec err is ' + err)
-          } else {
-            console.log('stdout is' + stdout)
-            console.log('stderr is' + stderr)
-          }
+         err ? deal.addLog('cnpm i && npm run build error is ' + JSON.stringify(err), null) : 
+          res.json('stdout and stderr is ' + JSON.stringify(stdout) + ' ' + JSON.stringify(stderr))
     })
   },
   install: function () {
-    exec('npm i', 
+    exec('cnpm i', 
       {'cwd': '/home/www/sjfblog'},
       function (err, stdout, stderr) {
-        if (err) {
-          console.log('exec err is ' + err)
-        } else {
-          console.log('stdout is' + stdout)
-          console.log('stderr is' + stderr)
-        }
+        err ? deal.addLog('cnpm i error is ' + JSON.stringify(err), null) : 
+          res.json('stdout and stderr is ' + JSON.stringify(stdout) + ' ' + JSON.stringify(stderr))
       })
   },
   getContent: function (value) {
@@ -64,20 +56,35 @@ var deal = {
     }
   },
   removeBlog: function (value) {
-    mongo.remove(model.Blog, {title: value.split('source/')[1].split('.md')[0]}, function (err, blog) {
-      console.log('remove blog is ' + JSON.stringify(blog))
-      err ? console.log('err is ' + err) : console.log('remove success')
+    mongo.remove(model.Blog, 
+      {title: value.split('source/')[1].split('.md')[0]}, 
+      function (err, blog) {
+        err ? deal.addLog('remove err is ' + JSON.stringify(err), null) : 
+          deal.addLog(null, 'remove blog is ' + JSON.stringify(blog))
     })
   },
   updateBlog: function (value) {
     var mes = deal.getContent(value)
     if (mes !== null) {
-      mongo.update(model.Blog, ({title: mes.title}, {$set: {content: mes.content}}), 
-          function (err, blog) {
-            console.log('update blog is ' + JSON.stringify(blog))
-            err ? console.log('err is ' + err) : console.log('update success')
+      mongo.update(model.Blog, 
+        ({title: mes.title}, {$set: {content: mes.content}}), 
+        function (err, blog) {
+          err ? deal.addLog('update err is ' + JSON.stringify(err), null) : 
+            deal.addLog(null, 'update blog is ' + JSON.stringify(blog))
       })
     }
+  },
+  addLog: function (err, data) {
+    var fileName = new Date().getFullYear() + '-' + (new Date().getMonth() + 1)
+    fs.open(`./blogLog/${fileName}.log`, 'a', function (e, fd) {
+      if (e) {
+        throw new Error(e)
+      }
+      fs.write(fd, data, function (error) {
+        err ? throw new Error(error) : console.log('add log success')
+      })
+      fs.closeSync(fd)
+    })
   }
 }
 
