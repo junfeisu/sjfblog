@@ -1,4 +1,4 @@
 node_modules/
 dist/
-npm-debug.log
+npm-debug.*
 md2html/201*-*

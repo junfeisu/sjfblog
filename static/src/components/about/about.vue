@@ -71,19 +71,24 @@
 <style lang="scss" scoped>
   @import './../../assets/style/mixin.scss';
   .bg {
-    position: absolute;
-    bottom: 0px;
+    position: fixed;
     top: 80px;
     left: 0px;
     right: 0px;
+    bottom: 0px;
     opacity: 0.3;
-    background: url('./../../assets/img/about.png')
+    background: url('./../../assets/img/about.png');
+    background-size: cover;
+    z-index: 1;
   }
 
   .about-content {
     width: 90%;
     margin: 20px auto;
+    z-index: 99;
+    position: relative;
   }
+
   .about_top {
     height: 40px;
     line-height: 40px;
@@ -128,47 +133,48 @@
   #skill {
     margin: 10px 0px;
     padding-bottom: 20px;
-    .skill_list {
-      width: 90%;
-      margin: 5px auto;
-      text-align: center;
-      .specifc {
-        width: 20%;
-        margin-left: 13%;
-        height: 140px;
-        line-height: 140px;
-        position: relative;
-        float: left;
-        .track {
-          @include position;
-        }
-        .master {
-          clip: rect(0 50px 100px 0);
-          @include position;
-        }
-        .left_circle {
-          clip: rect(0 50px 100px 0);
-          @include position;
-          border-color: #6fec6f;
-          @include transform($angel: 144deg);
-        }
-        .right_circle {
-          clip: rect(0 50px 100px 0);
-          opacity: 0;
-          @include transform;
-          @include position;
-          border-color: #6fec6f;
-        }
-        span {
-          position: absolute;
-          left: 34px;
-          top: 26%;
-          height: 30px;
-          line-height: 30px;
-          &:last-child {
-            left: 0%;
-            top: 72%;
-          }
+  }
+
+  .skill_list {
+    width: 90%;
+    margin: 5px auto;
+    text-align: center;
+    .specifc {
+      width: 20%;
+      margin-left: 13%;
+      height: 140px;
+      line-height: 140px;
+      position: relative;
+      float: left;
+      .track {
+        @include position;
+      }
+      .master {
+        clip: rect(0 50px 100px 0);
+        @include position;
+      }
+      .left_circle {
+        clip: rect(0 50px 100px 0);
+        @include position;
+        border-color: #6fec6f;
+        @include transform($angel: 144deg);
+      }
+      .right_circle {
+        clip: rect(0 50px 100px 0);
+        opacity: 0;
+        @include transform;
+        @include position;
+        border-color: #6fec6f;
+      }
+      span {
+        position: absolute;
+        left: 34px;
+        top: 26%;
+        height: 30px;
+        line-height: 30px;
+        &:last-child {
+          left: 0%;
+          top: 72%;
         }
       }
     }
@@ -197,11 +203,6 @@
     name: 'about',
     data () {
       return {}
-    },
-    ready () {
-      setTimeout(() => {
-        this.$parent.setHeight()
-      })
     }
   }
 </script>

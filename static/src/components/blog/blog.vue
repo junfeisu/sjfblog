@@ -33,11 +33,9 @@
 <style lang="scss" scoped>
   @import './../../assets/style/mixin.scss';
   .blog {
-    background: url('./../../assets/img/bg.png');
+    background: url('http://7xrp7o.com1.z0.glb.clouddn.com/running.png');
     background-size: cover;
     padding: 10px 5%;
-    // position: fixed;
-    top: 80px;
   }
 
   .blog-left {

@@ -14,16 +14,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, '/static/dist')))
+
 app.use('/api/blog', blog);
 app.use('/api/user', user);
 app.use('/api/doc', doc);
 app.use('/api/webhook', webhook);
 
-// app.engine('html',cons.swig);
-// app.set('views', path.join(__dirname + '/build'));
-// app.set('view engine', 'html');
-// app.use(express.static(path.join(__dirname, '/build')));
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

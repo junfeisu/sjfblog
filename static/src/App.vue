@@ -36,6 +36,8 @@
   #app {
     color: #2c3e50;
     font-family: Source Sans Pro, Helvetica, sans-serif;
+    width: 100%;
+    margin-top: 80px;
     .content {
       margin: 0 auto;
       min-width: 1080px;
