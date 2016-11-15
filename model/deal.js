@@ -13,7 +13,7 @@ var deal = {
     if (mes !== null) {
       mongo.add(new model['Blog'](mes), function (err, blog) {
         err ? deal.addLog('add blog error is ' + JSON.stringify(err), null) : 
-          deal.addLog(null, 'add blog is ' + JSON.stringify(blog.title))
+          deal.addLog(null, 'add blog is ' + JSON.stringify(blog.n))
       })
     }
   },
@@ -62,7 +62,7 @@ var deal = {
       function (err, blog) {
         console.log('blog is ' + JSON.stringify(blog))
         err ? deal.addLog('remove err is ' + JSON.stringify(err), null) : 
-          deal.addLog(null, 'remove blog is ' + JSON.stringify(blog.title))
+          deal.addLog(null, 'remove blog is ' + JSON.stringify(blog.n))
     })
   },
   updateBlog: function (value) {
@@ -71,9 +71,8 @@ var deal = {
       mongo.update(model.Blog, 
         ({title: mes.title}, {$set: {content: mes.content}}), 
         function (err, blog) {
-          console.log('blog is ' + JSON.stringify(blog))
           err ? deal.addLog('update err is ' + JSON.stringify(err), null) : 
-            deal.addLog(null, 'update blog is ' + JSON.stringify(blog.title))
+            deal.addLog(null, 'update blog num is ' + JSON.stringify(blog.nModified))
       })
     }
   },
