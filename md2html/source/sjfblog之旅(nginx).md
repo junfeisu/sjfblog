@@ -58,3 +58,5 @@ nginx的配置都是在一个nginx.conf文件里面更改的，那么问题来�
   * 比如里面还有服务器GZip服务的开放
   * worker\_progress表示工作进程的数量，数目设置成CPU的核数还是核数的倍数，还是自动计算auto
   * rewrite只在localtion,server里面配置有用，并且会忽略url后面的传递的参数
+
+错误谢谢大家提出来
