@@ -20,17 +20,16 @@ nginx的配置都是在一个nginx.conf文件里面更改的，那么问题来�
 
 在主要是看http里面的server配置，server 里面就是一个个项目的域名配置。
 
-```bash
-  server {
-    listen 80;
-    server_name xxxxx;
-    location / {
-      root /home/xxxxxx;
-      index index.html;
-      proxy_pass http://localhost:4000;
+    server {
+      listen 80;
+      server_name xxxxx;
+      location / {
+        root /home/xxxxxx;
+        index index.html;
+        proxy_pass http://localhost:4000;
+      }
     }
-  }
-```
+  
   * listen表示监听的端口, 上面表示监听80端口
   * `server\_name`表示务要绑定的域名
   * `root`表示静态资源的根目录
