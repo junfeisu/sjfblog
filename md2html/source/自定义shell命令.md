@@ -76,4 +76,4 @@ touch $f.md表示touch表示生成一个新文件，这里的$f就是for循环�
 回到用户目录，执行一下这个命令
 	
 	source .bashrc
-让bash加入sjf这个命令，来来大家可以试一试了
+让bash加入sjf这个命令，来来大家可以试一试了.
