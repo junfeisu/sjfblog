@@ -38,14 +38,12 @@ nginx的配置都是在一个nginx.conf文件里面更改的，那么问题来�
   * `proxy\_pass`表示将访问80端口的请求代理到4000端口，因为后端服务开启在4000端口，直接监听4000端口也可以，只是访问的时候需要在`server\_name`后面加上4000端口，因为浏览器默认访问的端口号是80
 
 这里就已经配好了一个简单的域名。当然写完nginx.conf配置之后检测一下nginx的配置有没有什么问题
-``` bash
-  sudo nginx -t
-```
+    
+    sudo nginx -t
 看到这样的信息才说明你的nginx.conf没有简单的语法之类的错误
-``` bash
-  nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-  nginx: configuration file /etc/nginx/nginx.conf test is successful
-```
+
+    nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+    nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 然后要重新启动nginx服务,俩种方式：
 
