@@ -40,6 +40,7 @@ nginx的配置都是在一个nginx.conf文件里面更改的，那么问题来�
 这里就已经配好了一个简单的域名。当然写完nginx.conf配置之后检测一下nginx的配置有没有什么问题
     
     sudo nginx -t
+
 看到这样的信息才说明你的nginx.conf没有简单的语法之类的错误
 
     nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
@@ -57,4 +58,4 @@ nginx的配置都是在一个nginx.conf文件里面更改的，那么问题来�
   * worker\_progress表示工作进程的数量，数目设置成CPU的核数还是核数的倍数，还是自动计算auto
   * rewrite只在localtion,server里面配置有用，并且会忽略url后面的传递的参数
 
-错误谢谢大家提出来。
+如有错误谢谢大家提出来
