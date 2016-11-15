@@ -70,6 +70,7 @@ var deal = {
       mongo.update(model.Blog, 
         ({title: mes.title}, {$set: {content: mes.content}}), 
         function (err, blog) {
+          console.log('blog is ' + JSON.stringify(blog))
           err ? deal.addLog('update err is ' + JSON.stringify(err), null) : 
             deal.addLog(null, 'update blog is ' + JSON.stringify(blog.title))
       })
