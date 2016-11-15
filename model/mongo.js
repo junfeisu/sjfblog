@@ -4,7 +4,7 @@ exports.mongoUse = {
     entity.save(cb)
   },
   update: function(model, message, cb) {
-    model.update(cb)
+    model.update(message, cb)
   },
   remove: function(model, message, cb) {
     model.remove(message, cb)
