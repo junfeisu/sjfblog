@@ -50,6 +50,7 @@ var deal = {
         blogMes.tags.push(value)
       })
       blogMes.content = markdown.toHTML(slice[2])
+      console.log('blogmes.title is ' + blogMes.title)
       return blogMes
     } else {
       return null
