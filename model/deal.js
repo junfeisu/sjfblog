@@ -60,6 +60,7 @@ var deal = {
     mongo.remove(model.Blog, 
       {title: value.split('source/')[1].split('.md')[0]}, 
       function (err, blog) {
+        console.log('blog is ' + JSON.stringify(blog))
         err ? deal.addLog('remove err is ' + JSON.stringify(err), null) : 
           deal.addLog(null, 'remove blog is ' + JSON.stringify(blog.title))
     })
