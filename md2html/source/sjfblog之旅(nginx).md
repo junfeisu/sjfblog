@@ -58,4 +58,4 @@ nginx的配置都是在一个nginx.conf文件里面更改的，那么问题来�
   * worker\_progress表示工作进程的数量，数目设置成CPU的核数还是核数的倍数，还是自动计算auto
   * rewrite只在localtion,server里面配置有用，并且会忽略url后面的传递的参数
 
-如有错误谢谢大家提出来
+如有错误谢谢大家提出来.
