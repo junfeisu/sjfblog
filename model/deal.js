@@ -11,10 +11,9 @@ var deal = {
   addBlog: function (value) {
     var mes = deal.getContent(value)
     if (mes !== null) {
-      deal.addLog(null, 'mes is ' + JSON.stringify(mes))
       mongo.add(new model['Blog'](mes), function (err, blog) {
         err ? deal.addLog('add blog error is ' + JSON.stringify(err), null) : 
-          deal.addLog(null, 'add blog is ' + JSON.stringify(blog))
+          deal.addLog(null, 'add blog is ' + JSON.stringify(blog.title))
       })
     }
   },
@@ -61,18 +60,17 @@ var deal = {
       {title: value.split('source/')[1].split('.md')[0]}, 
       function (err, blog) {
         err ? deal.addLog('remove err is ' + JSON.stringify(err), null) : 
-          deal.addLog(null, 'remove blog is ' + JSON.stringify(blog))
+          deal.addLog(null, 'remove blog is ' + JSON.stringify(blog.title))
     })
   },
   updateBlog: function (value) {
     var mes = deal.getContent(value)
-    deal.addLog(null, 'mes is ' + JSON.stringify(mes))
     if (mes !== null) {
       mongo.update(model.Blog, 
         ({title: mes.title}, {$set: {content: mes.content}}), 
         function (err, blog) {
           err ? deal.addLog('update err is ' + JSON.stringify(err), null) : 
-            deal.addLog(null, 'update blog is ' + JSON.stringify(blog))
+            deal.addLog(null, 'update blog is ' + JSON.stringify(blog.title))
       })
     }
   },
@@ -82,7 +80,7 @@ var deal = {
       if (e) {
         console.log(e)
       }
-      fs.write(fd, data, function (error) {
+      fs.write(fd, data + '\n', function (error) {
         err ? console.log('write error is ' + error) : console.log('add log success')
       })
       fs.closeSync(fd)
