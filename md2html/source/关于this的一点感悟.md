@@ -11,7 +11,6 @@ date: 2016-11-16
 
 第一种是不对的，比如看一下后面的代码：
 
-```javascript   
     test.count = 2
     function test () {
       this.count = 3 // 指向自身的话这里的this就指向test
@@ -19,7 +18,6 @@ date: 2016-11-16
     
     test()
     console.log(test.count)
-```
 ![](http://7xrp7o.com1.z0.glb.clouddn.com/test.png)
 但是结果还是2,说明test里面的this并未指向test
 
