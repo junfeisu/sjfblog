@@ -139,6 +139,17 @@
         let bHeight = document.body.scrollHeight
         let height = Math.max(dHeight, sHeight, bHeight)
         blog.style.height = height - 80 + 'px'
+      },
+      // 监测页码变化
+      watchFun () {
+        this.listParam.page_size === 1 ? this.$children[1].prev = false : this.$children[1].prev = true
+        this.listParam.page_size === this.$children[1].total ? this.$children[1].next = false : this.$children[1].next = true
+      }
+    },
+    watch: {
+      'listParam.page_size': {
+        handler: 'watchFun',
+        deep: true
       }
     },
     ready () {

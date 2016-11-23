@@ -152,7 +152,7 @@
       // 处理博客内容
       dealData (data) {
         setTimeout(() => {
-          let blogBody = document.getElementsByClassName('blog_body')
+          let blogBody = document.querySelectorAll('.blog_body')
           data.blogs.forEach((value, index) => {
             value.content = value.content.replace(/<[^>]+>/g, '')
             blogBody[index].innerHTML = value.content
@@ -161,7 +161,7 @@
       },
       // 前一篇博客
       prevBlog () {
-        let activeNum = document.getElementsByClassName('active')[0]
+        let activeNum = document.querySelector('.active')
         activeNum.classList.remove('active')
         activeNum.previousSibling.classList.add('active')
         this.$parent.listParam.page_size -= 1
@@ -169,22 +169,11 @@
       },
       // 后一篇博客
       nextBlog () {
-        let activeNum = document.getElementsByClassName('active')[0]
+        let activeNum = document.querySelector('.active')
         activeNum.classList.remove('active')
         activeNum.nextSibling.classList.add('active')
-        this.$aprent.listParam.page_size += 1
+        this.$parent.listParam.page_size += 1
         this.$parent.getList()
-      },
-      // 监测页码变化
-      watchFun () {
-        this.$parent.listParam.page_size === 1 ? this.prev = false : this.prev = true
-        this.$parent.listParam.page_size === this.total ? this.next = false : this.next = true
-      }
-    },
-    watch: {
-      'listParam.page_size': {
-        handler: 'watchFun',
-        deep: true
       }
     },
     ready () {
