@@ -130,11 +130,6 @@
     data () {
       return {
         blogs: [],
-        listParam: {
-          page_size: 1,
-          tags: null,
-          create_date: null
-        },
         next: true,
         prev: false,
         total: null
@@ -147,7 +142,7 @@
         let activeNum = document.getElementsByClassName('active')[0]
         if (!target.classList.contains('active')) {
           if (target.classList.contains('num')) {
-            this.listParam.page_size = +target.innerHTML
+            this.$parent.listParam.page_size = +target.innerHTML
             activeNum.classList.remove('active')
             target.classList.add('active')
             this.$parent.getList()
@@ -164,20 +159,12 @@
           })
         })
       },
-      // 通过tag获取博客
-      getBlogByTag (event) {
-        let target = event.target
-        if (target.className === 'tag-specifc') {
-          this.listParam.tags = target.innerHTML
-          this.$parent.getList()
-        }
-      },
       // 前一篇博客
       prevBlog () {
         let activeNum = document.getElementsByClassName('active')[0]
         activeNum.classList.remove('active')
         activeNum.previousSibling.classList.add('active')
-        this.listParam.page_size -= 1
+        this.$parent.listParam.page_size -= 1
         this.$parent.getList()
       },
       // 后一篇博客
@@ -185,13 +172,13 @@
         let activeNum = document.getElementsByClassName('active')[0]
         activeNum.classList.remove('active')
         activeNum.nextSibling.classList.add('active')
-        this.listParam.page_size += 1
+        this.$aprent.listParam.page_size += 1
         this.$parent.getList()
       },
       // 监测页码变化
       watchFun () {
-        this.listParam.page_size === 1 ? this.prev = false : this.prev = true
-        this.listParam.page_size === this.total ? this.next = false : this.next = true
+        this.$parent.listParam.page_size === 1 ? this.prev = false : this.prev = true
+        this.$parent.listParam.page_size === this.total ? this.next = false : this.next = true
       }
     },
     watch: {

@@ -54,7 +54,7 @@ date: 2016-11-16
   * 最初触发`test1`函数的对象是`obj`,这个时候`test1`里面的`this`指向`obj`对象，所以结果就是'obj'
 
 
-当然如果使用的是严格模式的话,`this`不会指向`window`对象, eg:
+当然如果**函数体**使用的是严格模式而不是**调用位置**的话,`this`不会指向`window`对象, eg:
 
       var a = 'window'
       function test () {
@@ -63,6 +63,9 @@ date: 2016-11-16
       }
       test() 
 ![](http://7xrp7o.com1.z0.glb.clouddn.com/unpoint_window.png)
+上面的严格模式强调使用的地方是**函数体**，在具体一下：
+
+
 当然上面的俩个例子是最普通的情况，下面咱们再看一下其他几种特殊的情况
 
   * 与`this`操作相关的别名函数

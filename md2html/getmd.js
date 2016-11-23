@@ -129,4 +129,4 @@ var getFile = {
   }
 }
 
-module.exports = getFile
+getFile.auth()
