@@ -1,6 +1,6 @@
 <template>
   <div class="side-operate">
-    <div class="backup" v-show="isShow" @click="backUp()"></div>
+    <div class="backup" v-if="isShow" @click="backUp()"></div>
   </div>
 </template>
 
@@ -19,7 +19,6 @@
       },
       watchScroll () {
         if (this.isFirefox) {
-          console.log(document.documentElement.scrollTop)
           window.addEventListener('DOMMouseScroll', event => {
             document.documentElement.scrollTop > 50 ? this.isShow = true : this.isShow = false
           })

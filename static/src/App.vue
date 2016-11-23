@@ -28,6 +28,7 @@
 </script>
 
 <style lang="scss">
+  @import './assets/style/normalize.scss';
   html {
     height: 100%;
     min-width: 1260px;

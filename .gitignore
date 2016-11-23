@@ -1,5 +1,4 @@
 node_modules/
-dist/
 npm-debug.*
 md2html/201*-*
 md2html/getmd.js

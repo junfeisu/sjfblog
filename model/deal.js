@@ -17,14 +17,6 @@ var deal = {
       })
     }
   },
-  build: function () {
-    exec('cnpm i && npm run build',
-       {'cwd': '/home/www/sjfblog/static'},
-       function (err, stdout, stderr) {
-         err ? deal.addLog('cnpm i && npm run build error is ' + JSON.stringify(err), null) : 
-          res.json('stdout and stderr is ' + JSON.stringify(stdout) + ' ' + JSON.stringify(stderr))
-    })
-  },
   install: function () {
     exec('cnpm i', 
       {'cwd': '/home/www/sjfblog'},

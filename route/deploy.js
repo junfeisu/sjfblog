@@ -4,30 +4,12 @@ var deal = require('./../model/deal')
 var exec = require('child_process').exec
 
 var judge = {
-  // 重新build静态资源
-  build: function (result) {
-    var staticReg = /^static/
-    result.forEach(value => {
-      if (staticReg.test(value.path)) {
-        deal.build()
-      }
-    })
-    judge.blog(result)
-  },
   // 对博客的操作
   blog: function (result) {
     var mdReg = /^md2html\/source\//
     result.forEach(value => {
       if (mdReg.test(value.path)) {
         deal[value.tag + 'Blog'](value.path)
-      }
-    })
-  },
-  install: function (result) {
-    var insReg = /^package.json$/
-    result.forEach(value => {
-      if (insReg.test(value.path)) {
-        deal.install()
       }
     })
   }
