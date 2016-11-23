@@ -134,10 +134,9 @@
       setHeight () {
         let blog = document.querySelector('.blog')
         blog.style.height = window.screen.availHeight - 80 + 'px'
-        let dHeight = document.documentElement.clientHeight
-        let sHeight = document.scrollingElement.clientHeight
+        let dHeight = document.documentElement.scrollHeight
         let bHeight = document.body.scrollHeight
-        let height = Math.max(dHeight, sHeight, bHeight)
+        let height = Math.max(dHeight, bHeight)
         blog.style.height = height - 80 + 'px'
       },
       // 监测页码变化

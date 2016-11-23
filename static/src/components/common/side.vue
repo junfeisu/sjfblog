@@ -9,15 +9,19 @@
     name: 'sideOperate',
     data () {
       return {
-        isShow: false
+        isShow: false,
+        isFirefox: true
       }
     },
     methods: {
+      judge () {
+        navigator.userAgent.toLowerCase().indexOf('firefox') >= 0 ? this.isFirefox = true : this.isFirefox = false
+      },
       watchScroll () {
-        if (navigator.userAgent.toLowerCase().indexOf('firefox') >= 0) {
-          console.log('firefox')
+        if (this.isFirefox) {
+          console.log(document.documentElement.scrollTop)
           window.addEventListener('DOMMouseScroll', event => {
-            document.body.scrollTop > 50 ? this.isShow = true : this.isShow = false
+            document.documentElement.scrollTop > 50 ? this.isShow = true : this.isShow = false
           })
         } else {
           window.onmousewheel = event => {
@@ -26,10 +30,11 @@
         }
       },
       backUp () {
-        let time = setInterval(() => {
+        const time = setInterval(() => {
           let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
           let speed = Math.ceil(scrollTop / 5)
-          document.body.scrollTop = scrollTop - speed
+          let position = scrollTop - speed
+          this.isFirefox ? document.documentElement.scrollTop = position : document.body.scrollTop = position
           if (scrollTop === 0) {
             clearInterval(time)
             this.isShow = false
@@ -38,6 +43,7 @@
       }
     },
     ready () {
+      this.judge()
       this.watchScroll()
     }
   }
