@@ -98,6 +98,7 @@ route.get('/blogtype', function(req, res) {
           res.status(500).json(err)
         } else {
           result.times = times
+          res.set('Accept-Encoding', 'compress,gzip')
           res.json(result)
         }
       })

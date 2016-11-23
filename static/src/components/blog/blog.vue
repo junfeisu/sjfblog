@@ -126,6 +126,8 @@
           .then(data => {
             this.tags = data.tags
             this.times = data.times
+            window.sessionStorage.setItem('tags', JSON.stringify(data.tags))
+            window.sessionStorage.setItem('times', JSON.stringify(data.times))
           })
           .catch(error => {
             console.log(error)
@@ -152,7 +154,14 @@
       }
     },
     ready () {
-      this.getTags()
+      let tags = JSON.parse(window.sessionStorage.getItem('tags'))
+      let times = JSON.parse(window.sessionStorage.getItem('times'))
+      if (tags && times) {
+        this.times = times
+        this.tags = tags
+      } else {
+        this.getTags()
+      }
     }
   }
 </script>
