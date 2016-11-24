@@ -8,6 +8,7 @@
         <h3>文章标签</h3>
         <div class="tags" @click="blogByTag($event)">
           <span v-for="tag in tags" class="tag-specifc">{{tag._id}}({{tag.value}})</span>
+          <span>所有</span>
           <div class="clear"></div>
         </div>
       </div>
@@ -15,6 +16,7 @@
         <h3>文章归档</h3>
         <div class="tags" @click="blogByTag($event)">
           <span class="time-specifc" v-for="time in times">{{time._id | format_year_month}}({{time.value}})</span>
+          <span>所有</span>
           <div class="clear"></div>
         </div>
       </div>
@@ -122,6 +124,9 @@
         } else if (target.className === 'time-specifc') {
           this.listParam.create_date = target.innerHTML.split('(')[0]
           this.listParam.tags = null
+        } else {
+          this.listParam.tags = null
+          this.listParam.create_date = null
         }
         this.getList()
       },

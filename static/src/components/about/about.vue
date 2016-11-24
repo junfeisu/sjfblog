@@ -77,7 +77,7 @@
     right: 0px;
     bottom: 0px;
     opacity: 0.3;
-    background: url('./../../assets/img/about.png');
+    background: url('http://7xrp7o.com1.z0.glb.clouddn.com/about.jpg');
     background-size: cover;
     z-index: 1;
   }
