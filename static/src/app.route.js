@@ -1,8 +1,5 @@
 import blog from './components/blog/blog.vue'
 import blogList from './components/blog/list.vue'
-import blogDetail from './components/blog/detail.vue'
-import About from './components/about/about.vue'
-import Demo from './components/demo/demo.vue'
 
 export default function configRouter (router) {
   router.map({
@@ -17,18 +14,30 @@ export default function configRouter (router) {
         },
         '/detail/:id': {
           name: 'blogDetail',
-          component: blogDetail
+          component: resolve => {
+            require.ensure(['./components/blog/detail.vue'], () => {
+              resolve(require('./components/blog/detail.vue'))
+            })
+          }
         }
       }
     },
     '/about': {
       name: 'about',
-      component: About,
+      component: resolve => {
+        require.ensure(['./components/about/about.vue'], () => {
+          resolve(require('./components/about/about.vue'))
+        })
+      },
       docTitle: 'about'
     },
     '/demo': {
       name: 'demo',
-      component: Demo,
+      component: resolve => {
+        require.ensure(['./components/demo/demo.vue'], () => {
+          resolve(require('./components/demo/demo.vue'))
+        })
+      },
       docTitle: 'Demo'
     }
   })
