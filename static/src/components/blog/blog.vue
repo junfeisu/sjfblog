@@ -131,21 +131,20 @@
         this.getList()
       },
       // 获取博客列表
-      getList () {
-        res.blog.get_bloglist(this.listParam)
-          .then(data => {
-            this.$router.go({path: '/'})
-            this.$children[1].dealData(data)
-            this.$children[1].total = Math.ceil(data.total / 10)
-            this.$children[1].blogs = data.blogs
-            this.$children[1].total === 1 ? this.$children[1].next = false : ''
-            setTimeout(() => {
-              this.setHeight()
-            })
+      async getList () {
+        try {
+          let data = await res.blog.get_bloglist(this.listParam)
+          this.$router.go({path: '/'})
+          this.$children[1].dealData(data)
+          this.$children[1].total = Math.ceil(data.total / 10)
+          this.$children[1].blogs = data.blogs
+          this.$children[1].total === 1 ? this.$children[1].next = false : ''
+          setTimeout(() => {
+            this.setHeight()
           })
-          .catch(error => {
-            this.$root.add({msg: JSON.stringify(error), type: 'error'})
-          })
+        } catch (e) {
+          this.$root.add({msg: JSON.stringify(e), type: 'error'})
+        }
       },
       getTags () {
         res.blog.get_blogtype()

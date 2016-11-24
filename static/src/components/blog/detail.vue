@@ -110,42 +110,61 @@
       dealData (data) {
         let content = document.getElementsByClassName('article_content')[0]
         content.innerHTML = data.content
-        setTimeout(() => {
-          let ele = content.querySelectorAll('pre code')
-          let img = content.querySelectorAll('p img')
-          for (let i = 0; i < ele.length; i++) {
-            hljs.highlightBlock(ele[i])
-          }
-          for (let j = 0; j < img.length; j++) {
-            hljs.highlightBlock(img[j])
-          }
-          this.$parent.setHeight()
+        let ele = content.querySelectorAll('pre code')
+        let img = content.querySelectorAll('p img')
+        Array.prototype.forEach.call(ele, value => {
+          hljs.highlightBlock(value)
         })
+        Array.prototype.forEach.call(img, value => {
+          hljs.highlightBlock(value)
+        })
+        this.$parent.setHeight()
       },
       getBlog (id) {
         typeof id === 'undefined' ? this.$route.params.id : id
-        res.blog.post_blogbyid({_id: id})
-          .then(data => {
-            this.cursor = data.create_date
-            this.dealData(data)
-            this.currentBlog = data
-            this.getNearBlog()
-          })
-          .catch(error => {
-            this.$root.add({type: 'error', msg: JSON.stringify(error)})
-          })
+        let blog = JSON.parse(window.sessionStorage.getItem('blog' + id))
+        if (blog) {
+          this.cursor = blog.currentBlog.create_date
+          this.dealData(blog.currentBlog)
+          this.currentBlog = blog.currentBlog
+          this.prevBlog = blog.prevBlog
+          this.nextBlog = blog.nextBlog
+        } else {
+          res.blog.post_blogbyid({_id: id})
+            .then(data => {
+              this.cursor = data.create_date
+              this.dealData(data)
+              this.currentBlog = data
+              this.getNearBlog(id)
+            })
+            .catch(error => {
+              this.$root.add({type: 'error', msg: JSON.stringify(error)})
+            })
+        }
       },
-      getNearBlog () {
-        res.blog.get_nearblog({cursor: this.cursor})
-          .then(data => {
-            this.prevBlog = data.prevBlog
-            this.prevBlog.hasOwnProperty('_id') ? this.prev = true : this.prev = false
-            this.nextBlog = data.nextBlog
-            this.nextBlog.hasOwnProperty('_id') ? this.next = true : this.next = false
-          })
-          .catch(error => {
-            this.$root.add({type: 'error', msg: JSON.stringify(error)})
-          })
+      async getNearBlog (id) {
+        try {
+          let data = await res.blog.get_nearblog({cursor: this.cursor})
+          this.prevBlog = data.prevBlog
+          this.nextBlog = data.nextBlog
+          window.sessionStorage.setItem('blog' + id, JSON.stringify({
+            currentBlog: this.currentBlog,
+            prevBlog: this.prevBlog,
+            nextBlog: this.nextBlog
+          }))
+        } catch (e) {
+          this.$root.add({type: 'error', msg: JSON.stringify(e)})
+        }
+      },
+      watchFun () {
+        this.prevBlog.hasOwnProperty('_id') ? this.prev = true : this.prev = false
+        this.nextBlog.hasOwnProperty('_id') ? this.next = true : this.next = false
+      }
+    },
+    watch: {
+      'prevBlog': {
+        handler: 'watchFun',
+        deep: true
       }
     },
     ready () {
