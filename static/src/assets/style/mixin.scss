@@ -13,12 +13,10 @@ $largeSize: 18px;
 }
 
 @mixin archiveSpan {
-  float: left;
-  display: block;
-  margin-bottom: 10px;
   width: 46%;
   height: 25px;
   line-height: 25px;
+  margin-bottom: 10px;
   color: #fff;
   padding: 0px 3px;
   background: #d9534f;

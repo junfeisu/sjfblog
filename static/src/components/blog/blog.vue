@@ -19,9 +19,15 @@
         </div>
       </div>
       <div class="tag-class">
+        <h3>联系我</h3>
+        <div><img width="100%" src="http://7xrp7o.com1.z0.glb.clouddn.com/wechat.png" alt=""></div>
+      </div>
+      <div class="tag-class">
         <h3>作者简介</h3>
-        <div class="author-description">
-          苏俊飞，南昌大学，网络工程2014级，大学一直在南昌大学家园工作室学习前端开发
+        <div>苏俊飞，南昌大学，网络工程2014级，大学一直在南昌大学家园工作室学习前端开发，开发过一些工作室内的项目和自己的个人项目。</div>
+        <div class="link">
+          <a href="https://github.com/junfeisu">Github</a>
+          <a href="https://www.zhihu.com/people/su-jun-fei-87">知乎</a>
         </div>
       </div>
     </div>
@@ -44,29 +50,44 @@
   }
 
   .blog-right {
+    display: flex;
     float: right;
     width: 25%;
+    justify-content: center;
+    flex-wrap: wrap;
     background: #fff;
     border-radius: 3px;
     .tag-class {
-      width: 96%;
-      margin: 0 auto;
-      margin-top: 10px;
-      h3 {
-        text-align: center;
-        margin-bottom: 10px;
-      }
+      width: 86%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
       .tags {
-        width: 90%;
-        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
         span {
           @include archiveSpan
         }
       }
-    }
-    .author-description {
-      padding: 10px;
-      line-height: 1.6;
+      .link {
+        width: 50%;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      a {
+        color: #2c3e50;
+        &:hover {
+          transform: scale(1.5, 1.5);
+          transform-origin: left;
+          @include transition($time: 0.3s)
+        }
+      }
+      .tel {
+        width: 100%;
+        text-align: center;
+      }
     }
   }
   .clear {

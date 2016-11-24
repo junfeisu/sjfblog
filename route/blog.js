@@ -9,7 +9,6 @@ route.get('/', function(req, res) {
 })
 
 route.get('/bloglist', function(req, res) {
-  // var result = validate.checkResult(req)
   var matchMessage = {}
   var newResult = { blogs: [], total: ''}
   var message = [
@@ -21,7 +20,6 @@ route.get('/bloglist', function(req, res) {
 
   for (var i in req.query) {
     if (req.query.hasOwnProperty(i)) {
-      console.log(typeof i)
       if (req.query[i] !== '') {
         if (i === 'create_date') {
           matchMessage['create_date'] = new RegExp("^" + req.query[i] + ".+")
@@ -33,14 +31,14 @@ route.get('/bloglist', function(req, res) {
     delete matchMessage.page_size
   }
 
-  console.log('message is ' + JSON.stringify(message))
+  console.log('message is ' + JSON.stringify(matchMessage))
 
   mongo.aggregate(model.Blog, message, function(err, blog) {
     if (err) {
       res.status(500).json(err)
     } else {
       newResult.blogs = blog
-      mongo.search(model.Blog, {}, function(err, count){
+      mongo.search(model.Blog, matchMessage, function(err, count){
         newResult.total = count.length
         res.json(newResult)
       })

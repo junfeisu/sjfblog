@@ -1,13 +1,13 @@
 <template>
-  <div class="blog_list">
-    <div class="blog_specifc" v-for="blog in blogs">
-      <div class="blog_top">
+  <div class="blog-list">
+    <div class="blog-specifc" v-for="blog in blogs">
+      <div class="blog-top">
         <a v-link="{name: 'blogDetail', params: {id: blog._id}}" v-text="blog.title"></a>
       </div>
-      <div class="blog_content">
-        <p class="blog_body"></p>
+      <div class="blog-content">
+        <p class="blog-body"></p>
         <div class="tag">
-          <div class="tag_left" @click="getBlogByTag($event)">
+          <div class="tag-left" @click="getBlogByTag($event)">
             <span>Tags:</span>
             <span class="tag-specifc" v-for="tag in blog.tags" v-text="tag"></span>
           </div>
@@ -26,10 +26,11 @@
 
 <style lang="scss" scoped>
   @import './../../assets/style/mixin.scss';
-  .blog_list {
+  .blog-list {
     width: 100%;
     margin: 0px auto;
-    .blog_specifc {
+    min-height: 500px;
+    .blog-specifc {
       background: #fff;
       border: 1px solid $lightColor;
       border-radius: 5px;
@@ -37,7 +38,7 @@
       margin-top: 20px;
       opacity: 0.7;
       transition: 0.8s;
-      .blog_top {
+      .blog-top {
         margin-bottom: 30px;
         a {
           text-decoration: none;
@@ -50,7 +51,7 @@
           }
         }
       }
-      .blog_body {
+      .blog-body {
         margin-bottom: 30px;
         overflow : hidden;
         text-overflow: ellipsis;
@@ -85,7 +86,7 @@
         }
       }
       .tag {
-        .tag_left {
+        .tag-left {
           float: left;
         }
         .time {
@@ -152,7 +153,7 @@
       // 处理博客内容
       dealData (data) {
         setTimeout(() => {
-          let blogBody = document.querySelectorAll('.blog_body')
+          let blogBody = document.querySelectorAll('.blog-body')
           data.blogs.forEach((value, index) => {
             value.content = value.content.replace(/<[^>]+>/g, '')
             blogBody[index].innerHTML = value.content
