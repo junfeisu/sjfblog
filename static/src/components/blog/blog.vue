@@ -165,6 +165,7 @@
         let bHeight = document.body.scrollHeight
         let height = Math.max(dHeight, bHeight)
         blog.style.height = height - 80 + 'px'
+        console.log('set-parent')
       },
       // 监测页码变化
       watchFun () {

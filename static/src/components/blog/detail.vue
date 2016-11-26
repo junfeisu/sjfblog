@@ -108,6 +108,7 @@
         this.getBlog(id)
       },
       dealData (data) {
+        let self = this
         let content = document.getElementsByClassName('article_content')[0]
         content.innerHTML = data.content
         let ele = content.querySelectorAll('pre code')
@@ -117,8 +118,11 @@
         })
         Array.prototype.forEach.call(img, value => {
           hljs.highlightBlock(value)
+          value.onload = () => {
+            self.$parent.setHeight()
+          }
         })
-        this.$parent.setHeight()
+        self.$parent.setHeight()
       },
       getBlog (id) {
         typeof id === 'undefined' ? this.$route.params.id : id
