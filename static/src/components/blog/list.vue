@@ -160,6 +160,13 @@
           })
         })
       },
+      getBlogByTag (event) {
+        if (event.target.classList.contains('tag-specifc')) {
+          this.$parent.listParam.tags = event.target.innerHTML
+          this.$parent.listParam.create_date = null
+          this.$parent.getList()
+        }
+      },
       // 前一篇博客
       prevBlog () {
         let activeNum = document.querySelector('.active')
