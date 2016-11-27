@@ -17,14 +17,6 @@ var deal = {
       })
     }
   },
-  install: function () {
-    exec('cnpm i', 
-      {'cwd': '/home/www/sjfblog'},
-      function (err, stdout, stderr) {
-        err ? deal.addLog('cnpm i error is ' + JSON.stringify(err), null) : 
-          res.json('stdout and stderr is ' + JSON.stringify(stdout) + ' ' + JSON.stringify(stderr))
-      })
-  },
   getContent: function (value) {
     var result = fs.readFileSync('/home/www/sjfblog/' + value, 'utf-8')
     if (result) {

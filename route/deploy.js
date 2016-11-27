@@ -37,7 +37,7 @@ route.post('/', function (req, res) {
           result.push({tag: 'update', path: value})
         })
       }
-      judge.build(result)
+      judge.blog(result)
     }
   })
 })
