@@ -161,8 +161,8 @@
         }
       },
       watchFun () {
-        this.prevBlog.hasOwnProperty('_id') ? this.prev = true : this.prev = false
-        this.nextBlog.hasOwnProperty('_id') ? this.next = true : this.next = false
+        this.prev = !!(this.prevBlog.hasOwnProperty('_id'))
+        this.next = !!(this.nextBlog.hasOwnProperty('_id'))
       }
     },
     watch: {

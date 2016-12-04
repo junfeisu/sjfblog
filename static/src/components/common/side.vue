@@ -15,7 +15,7 @@
     },
     methods: {
       judge () {
-        navigator.userAgent.toLowerCase().indexOf('firefox') >= 0 ? this.isFirefox = true : this.isFirefox = false
+        this.isFirefox = !!(navigator.userAgent.toLowerCase().indexOf('firefox') >= 0)
         this.watchScroll()
       },
       watchScroll () {
@@ -24,11 +24,11 @@
         let boundary = blogRightBottom + 10 - document.documentElement.clientHeight
         if (this.isFirefox) {
           window.addEventListener('DOMMouseScroll', event => {
-            document.documentElement.scrollTop > boundary + 40 ? this.isShow = true : this.isShow = false
+            this.isShow = !!(document.documentElement.scrollTop > boundary + 40)
           })
         } else {
           window.onmousewheel = event => {
-            document.body.scrollTop > boundary + 40 ? this.isShow = true : this.isShow = false
+            this.isShow = !!(document.body.scrollTop > boundary + 40)
           }
         }
       },

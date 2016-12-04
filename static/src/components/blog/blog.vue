@@ -174,8 +174,8 @@
       },
       // 监测页码变化
       watchFun () {
-        this.$children[1].prev = this.listParam.page_size !== 1
-        this.$children[1].next = this.listParam.page_size !== this.$children[1].total
+        this.$children[1].prev = !!(this.listParam.page_size !== 1)
+        this.$children[1].next = !!(this.listParam.page_size !== this.$children[1].total)
       }
     },
     watch: {
