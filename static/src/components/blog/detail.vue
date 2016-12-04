@@ -149,7 +149,6 @@
       async getNearBlog (id) {
         try {
           let data = await res.blog.get_nearblog({cursor: this.cursor})
-          console.log('data is ' + data)
           this.prevBlog = data.prevBlog
           this.nextBlog = data.nextBlog
           window.sessionStorage.setItem('blog' + id, JSON.stringify({

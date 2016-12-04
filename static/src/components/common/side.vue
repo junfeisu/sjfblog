@@ -22,7 +22,6 @@
         let blogRihgt = document.querySelector('.blog-right')
         let blogRightBottom = blogRihgt.offsetTop + blogRihgt.offsetHeight
         let boundary = blogRightBottom + 10 - document.documentElement.clientHeight
-        console.log(boundary)
         if (this.isFirefox) {
           window.addEventListener('DOMMouseScroll', event => {
             document.documentElement.scrollTop > boundary + 40 ? this.isShow = true : this.isShow = false
