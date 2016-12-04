@@ -16,15 +16,20 @@
     methods: {
       judge () {
         navigator.userAgent.toLowerCase().indexOf('firefox') >= 0 ? this.isFirefox = true : this.isFirefox = false
+        this.watchScroll()
       },
       watchScroll () {
+        let blogRihgt = document.querySelector('.blog-right')
+        let blogRightBottom = blogRihgt.offsetTop + blogRihgt.offsetHeight
+        let boundary = blogRightBottom + 10 - document.documentElement.clientHeight
+        console.log(boundary)
         if (this.isFirefox) {
           window.addEventListener('DOMMouseScroll', event => {
-            document.documentElement.scrollTop > 50 ? this.isShow = true : this.isShow = false
+            document.documentElement.scrollTop > boundary + 40 ? this.isShow = true : this.isShow = false
           })
         } else {
           window.onmousewheel = event => {
-            document.body.scrollTop > 50 ? this.isShow = true : this.isShow = false
+            document.body.scrollTop > boundary + 40 ? this.isShow = true : this.isShow = false
           }
         }
       },
@@ -43,7 +48,6 @@
     },
     ready () {
       this.judge()
-      this.watchScroll()
     }
   }
 </script>
@@ -52,9 +56,10 @@
   @import './../../assets/style/mixin.scss';
   .side-operate {
     position: fixed;
-    bottom: 20px;
-    right: 100px;
+    bottom: 10px;
+    right: 5%;
     width: 50px;
+    border-radius: 3px;
     background-color: #f5f5f5;
   }
   .backup {

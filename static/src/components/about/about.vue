@@ -120,7 +120,7 @@
         @include transition($time: .9s);
         border-radius: 50px;
         &:hover {
-          border-radius: 0px;
+          border-radius: 8px;
         }
       }
       span {

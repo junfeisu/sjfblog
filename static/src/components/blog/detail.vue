@@ -1,5 +1,5 @@
 <template>
-  <div class="detail_main">
+  <div class="detail-main">
     <article>
       <h2>{{currentBlog.title}}</h2>
       <div class="time">
@@ -7,10 +7,10 @@
         <span>{{currentBlog.create_date | format_year_month}}</span>
       </div>
       <div class="clear"></div>
-      <div class="article_content"></div>
+      <div class="article-content"></div>
     </article>
     <div class="comment"></div>
-    <div class="main_bottom">
+    <div class="main-bottom">
       <span v-show="prev" @click="changeBlog(prevBlog._id)">&lt;&lt;{{prevBlog.title}}</span>
       <span v-show="next" @click="changeBlog(nextBlog._id)">{{nextBlog.title}}&gt;&gt;</span>
     </div>
@@ -20,11 +20,11 @@
 <style lang="scss" scoped>
   @import './../../assets/style/mixin.scss';
   @import './../../assets/style/atom-one-dark.css';
-  .detail_main {
+  .detail-main {
     padding: 10px;
     background: #fff;
     border-radius: 3px;
-    .main_bottom {
+    .main-bottom {
       width: 98%;
       margin: 0 auto;
       height: 40px;
@@ -78,7 +78,7 @@
           font-size: $smallSize;
         }
       }
-      .article_content {
+      .article-content {
         margin-top: 10px;
       }
     }
@@ -109,7 +109,7 @@
       },
       dealData (data) {
         let self = this
-        let content = document.getElementsByClassName('article_content')[0]
+        let content = document.querySelector('.article-content')
         content.innerHTML = data.content
         let ele = content.querySelectorAll('pre code')
         let img = content.querySelectorAll('p img')
@@ -149,6 +149,7 @@
       async getNearBlog (id) {
         try {
           let data = await res.blog.get_nearblog({cursor: this.cursor})
+          console.log('data is ' + data)
           this.prevBlog = data.prevBlog
           this.nextBlog = data.nextBlog
           window.sessionStorage.setItem('blog' + id, JSON.stringify({

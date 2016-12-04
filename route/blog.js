@@ -14,8 +14,8 @@ route.get('/bloglist', function(req, res) {
   var message = [
     { $match: matchMessage },
     { $sort: { create_date: -1 } },
-    { $skip: 10 * (req.query.page_size - 1) },
-    { $limit: 10 }
+    { $skip: 5 * (req.query.page_size - 1) },
+    { $limit: 5 }
   ]
 
   for (var i in req.query) {

@@ -8,9 +8,9 @@
     <div class="clear"></div>
     <div class="top-main">
       <div id="nav">
-        <li v-link="{name: 'blog'}">Home</li>
-        <li v-link="{name: 'demo'}">Demos</li>
-        <li v-link="{name: 'about'}">About</li>
+        <li v-link="{name: 'blog'}" :class="{'nav-selected': ($route.name === 'blogList' || $route.name === 'blogDetail')}">Home</li>
+        <li v-link="{name: 'demo', activeClass: 'nav-selected'}">Demos</li>
+        <li v-link="{name: 'about', activeClass: 'nav-selected'}">About</li>
         <li><a href="https://github.com/junfeisu" title="">Github</a></li>
         <div class="clear"></div>
       </div>
@@ -42,9 +42,9 @@
       background-image: url('http://7xrp7o.com1.z0.glb.clouddn.com/baby.png');
       background-size: 48px 48px;
       border-radius: 24px;
-      @include transition($time: 2s);
+      @include transition($time: 1s);
       &:hover {
-        border-radius: 0px
+        border-radius: 8px
       }
     }
     h3 {
@@ -75,13 +75,22 @@
         float: left;
         cursor: pointer;
         text-align: center;
+        opacity: 0.5;
         @include transition;
         &:hover {
           margin-top: 5px;
+          opacity: 0.8;
         }
         a {
           text-decoration: none;
           color: #fff
+        }
+      }
+      .nav-selected {
+        opacity: 1;
+        &:hover {
+          margin-top: 0px;
+          opacity:1;
         }
       }
     }

@@ -5,10 +5,9 @@
         <a v-link="{name: 'blogDetail', params: {id: blog._id}}" v-text="blog.title"></a>
       </div>
       <div class="blog-content">
-        <p class="blog-body"></p>
+        <p class="blog-body" v-link="{name: 'blogDetail', params: {id: blog._id}}"></p>
         <div class="tag">
           <div class="tag-left" @click="getBlogByTag($event)">
-            <span>Tags:</span>
             <span class="tag-specifc" v-for="tag in blog.tags" v-text="tag"></span>
           </div>
           <div class="time" v-text="blog.create_date"></div>
@@ -19,7 +18,7 @@
   </div>
   <div class="page" @click="changeNum($event)" v-show="total > 1">
     <button v-show="prev" @click="prevBlog()">&lt;&lt;</button>
-    <button class="num" v-for="i in total" :class="$index === 0 ? 'active' : ''">{{i + 1}}</button>
+    <button class="num" v-for="i in total" :class="i === currentSize? 'active' : ''">{{i + 1}}</button>
     <button v-show="next" @click="nextBlog()">&gt;&gt;</button>
   </div>
 </template>
@@ -35,7 +34,7 @@
       border: 1px solid $lightColor;
       border-radius: 5px;
       padding: 5px 2%;
-      margin-top: 20px;
+      margin-bottom: 20px;
       opacity: 0.7;
       transition: 0.8s;
       .blog-top {
@@ -44,7 +43,7 @@
           text-decoration: none;
           cursor: pointer;
           font-size: $largeSize;
-          @include transition($time: .8s);
+          @include transition($time: .6s);
           color: #111;
           &:hover {
             margin-left: 10px
@@ -52,6 +51,7 @@
         }
       }
       .blog-body {
+        cursor: pointer;
         margin-bottom: 30px;
         overflow : hidden;
         text-overflow: ellipsis;
@@ -62,40 +62,48 @@
         -webkit-box-orient: vertical;
       }
       span {
-        display: block;
         float: left;
-        margin-right: 20px;
+        margin-right: 25px;
         height: 20px;
         line-height: 20px;
-        font-size: $middleSize;
-        color: #0a0a0a;
+        padding: 0px 10px;
+        position: relative;
+        font-size: $smallSize;
+        background: #6d6d6d;
+        color: #fff;
+        cursor: pointer;
         &:hover {
-          margin-top: 2px;
-          color: $color;
-          cursor: pointer
+          opacity: 0.7;
         }
-        ;
-        &:first-child {
-          margin-right: 2px;
-          cursor: default;
-          &:hover {
-            margin-top: 0px;
-            color: #0a0a0a;
-            cursor: default
-          }
+        &:before {
+          content: "";
+          width: 0px;
+          height: 0px;
+          border: 10px solid transparent;
+          border-right-color: #6d6d6d;
+          position: absolute;
+          left: -20px;
+        }
+        &:after {
+          content: "";
+          width: 6px;
+          height: 6px;
+          border-radius: 3px;
+          background: #fff;
+          position: absolute;
+          left: 0px;
+          top: 7px;
         }
       }
       .tag {
         .tag-left {
           float: left;
+          margin-left: 10px;
         }
         .time {
           float: right;
           color: $strongColor
         }
-      }
-      &:first-child {
-        margin-top: 0px
       }
       &:hover {
         opacity: 1;
@@ -131,6 +139,7 @@
     data () {
       return {
         blogs: [],
+        currentSize: 1,
         next: true,
         prev: false,
         total: null
@@ -140,7 +149,7 @@
       // 页码改变
       changeNum (event) {
         let target = event.target
-        let activeNum = document.getElementsByClassName('active')[0]
+        let activeNum = document.querySelector('.active')
         if (!target.classList.contains('active')) {
           if (target.classList.contains('num')) {
             this.$parent.listParam.page_size = +target.innerHTML
