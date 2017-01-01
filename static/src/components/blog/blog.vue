@@ -128,7 +128,7 @@
         if (matchResults.length > 1) {
           typeReg.test(matchResults[0]) ? this.listParam.create_date = matchResults[0]
             : this.listParam.tags = matchResults[0]
-          Math.ceil(matchResults[1] / 5) < this.listParam.page_size
+          Math.ceil(matchResults[1] / 7) < this.listParam.page_size
             ? this.listParam.page_size = 1 : ''
         }
         this.$children[0].currentSize = this.listParam.page_size
@@ -140,7 +140,7 @@
           let data = await res.blog.get_bloglist(this.listParam)
           this.$router.go({path: '/'})
           this.$children[1].dealData(data)
-          this.$children[1].total = Math.ceil(data.total / 5)
+          this.$children[1].total = Math.ceil(data.total / 7)
           this.$children[1].blogs = data.blogs
           this.$children[1].total === 1 ? this.$children[1].next = false : ''
           setTimeout(() => {
