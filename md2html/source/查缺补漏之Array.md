@@ -93,4 +93,3 @@ date: 2016-11-27
 生成数组的核心模块就是这一部分![](http://7xrp7o.com1.z0.glb.clouddn.com/generateArray.png)
 
 从把类数组的值一个个添加到对应的位置，然后把数组的长度设置为len 
-    
