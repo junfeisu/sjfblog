@@ -5,7 +5,7 @@ date: 2017-02-22
 ---
 > ### position的四大常用属性介绍
   
-  1. #####定义及特性:
+  1. ##### 定义及特性:
   
     * **static**: 这个是position属性的默认值，就是元素遵从普通文档流的位置布局
 
@@ -15,7 +15,7 @@ date: 2017-02-22
 
     * **fixed**: 相对于**浏览器屏幕视窗定位，不会随着屏幕的滚动而改变位置**，会脱离普通文档流，在普通文档流不占据空间
 
-  2. #####造成的影响以及一些具体特点：
+  2. ##### 造成的影响以及一些具体特点：
 
     * 对display属性的影响：
           1. **display**: relative**不会改变**元素的display属性，但是**fixed和absolute会改变**元素的display属性，**行内元素**的display会被改成block属性，当然如果**行内元素**的display属性设置了**block，inline-block， table**等值的话，就**不会改变元素的display属性**，这里插播一句float也会改变display属性，和absolute差不多，具体测试的话可以自己通过**widnow.getComputedStyle()**这个API来得到计算后的各个属性的值
