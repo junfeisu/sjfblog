@@ -60,6 +60,7 @@ var deal = {
     }
   },
   addLog: function (err, data) {
+    console.log('addBlog')
     var fileName = new Date().getFullYear() + '-' + (new Date().getMonth() + 1)
     fs.open(`./blogLog/${fileName}.log`, 'a', err, function (e, fd) {
       if (e) {
