@@ -1,7 +1,6 @@
 var mongo = require('../model/mongo.js').mongoUse
 var markdown = require('../node_modules/markdown').markdown
 var model = require('../model/schema').models
-var exec = require('child_process').exec
 var fs = require('fs')
 
 var path = 'https://github.com'
@@ -60,7 +59,6 @@ var deal = {
     }
   },
   addLog: function (err, data) {
-    console.log('addBlog')
     var fileName = new Date().getFullYear() + '-' + (new Date().getMonth() + 1)
     fs.open(`./blogLog/${fileName}.log`, 'a', err, function (e, fd) {
       if (e) {
