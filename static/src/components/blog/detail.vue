@@ -80,6 +80,11 @@
       }
       .article-content {
         margin-top: 10px;
+        blockquote {
+          color: #777;
+          padding: 0 5px;
+          border-left: 2px solid #ddd
+        }
       }
     }
   }
