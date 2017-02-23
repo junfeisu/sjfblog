@@ -48,6 +48,7 @@ var deal = {
     })
   },
   updateBlog: function (value) {
+    console.log('updateBlog')
     var mes = deal.getContent(value)
     if (mes !== null) {
       mongo.update(model.Blog, 
