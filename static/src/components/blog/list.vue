@@ -139,7 +139,7 @@
     data () {
       return {
         blogs: [],
-        currentSize: 1,
+        currentSize: 0,
         next: true,
         prev: false,
         total: null
