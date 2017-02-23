@@ -77,4 +77,5 @@ date: 2017-02-22
           <div class="child"></div>
         </div>
 
-    结果是这样![](http://7xrp7o.com1.z0.glb.clouddn.com/relative.png),从这张图可以看出float相对父元素浮动时是相对父元素的content进行浮动的，也就是说不包括margin, border, padding
+    结果是这样![](http://7xrp7o.com1.z0.glb.clouddn.com/relative.png),
+    从这张图可以看出float相对父元素浮动时是相对父元素的content进行浮动的，也就是说不包括margin, border, padding
