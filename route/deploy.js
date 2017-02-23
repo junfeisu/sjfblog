@@ -16,7 +16,7 @@ var judge = {
 }
 
 route.post('/', function (req, res) {
-  exec('git pull', {'cwd': '/home/www/sjfblog'}, function (err, stdout, stderr) {
+  exec('git pull --rebase origin master', {'cwd': '/home/www/sjfblog'}, function (err, stdout, stderr) {
     if (err !== null) {
       res.json('err is ' + JSON.stringify(err))
     } else {
