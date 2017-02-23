@@ -83,7 +83,7 @@
         blockquote {
           color: #777;
           padding: 0 5px;
-          border-left: 2px solid #ddd
+          border-left: 2px solid #ddd;
         }
       }
     }
