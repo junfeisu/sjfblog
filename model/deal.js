@@ -35,7 +35,7 @@ var deal = {
         headerInfo[2].split(' ').forEach(function(value) {
           blogMes.tags.push(value)
         })
-        blogMes.content = markdown.toHTML(slice[2])
+        blogMes.content = markdown.toHTML(result)
         return blogMes
       }
     } else {
