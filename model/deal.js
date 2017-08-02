@@ -19,22 +19,25 @@ var deal = {
   getContent: function (value) {
     var result = fs.readFileSync('/home/www/sjfblog/' + value, 'utf-8')
     if (result) {
-      var slice = result.split('---')
-      var blogMes = {tags: []}
-      // 去除换行符
-      var message = slice[1].replace(/\n/g, '')
-      var re = /^title: |tags: |date: /g
-      // change the (title: 123tag: 2434 fsdfsdate: 2016-09-25) to (,123,2434 fsdfs,2016-09-25)
-      // split the (,123,2434 fsdfs,2016-09-25) to ['', '123', '2434 fsdfs', '2016-09-25']
-      message = message.replace(re, ",").split(',')
-      blogMes.title = message[1]
-      blogMes.create_date = message[3]
-      message[2].split(' ').forEach(function(value) {
-        blogMes.tags.push(value)
-      })
-      blogMes.content = markdown.toHTML(slice[2])
-      console.log('blogmes.title is ' + blogMes.title)
-      return blogMes
+      var reg = /^---\n(.+\n){3}---\n/g
+      headerInfo = result.match(reg)
+      result = result.replace(reg, '')
+      if (headerInfo.length) {
+        headerInfo = headerInfo.replace(/---|\n/g, '')
+        var blogMes = {tags: []}
+        // 去除换行符
+        var re = /^title: |tags: |date: /g
+        // change the (title: 123tag: 2434 fsdfsdate: 2016-09-25) to (,123,2434 fsdfs,2016-09-25)
+        // split the (,123,2434 fsdfs,2016-09-25) to ['', '123', '2434 fsdfs', '2016-09-25']
+        headerInfo = headerInfo.replace(re, ",").split(',')
+        blogMes.title = headerInfo[1]
+        blogMes.create_date = headerInfo[3]
+        headerInfo[2].split(' ').forEach(function(value) {
+          blogMes.tags.push(value)
+        })
+        blogMes.content = markdown.toHTML(slice[2])
+        return blogMes
+      }
     } else {
       return null
     }
