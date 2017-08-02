@@ -23,7 +23,7 @@ var deal = {
       headerInfo = result.match(reg)
       result = result.replace(reg, '')
       if (headerInfo.length) {
-        headerInfo = headerInfo.replace(/---|\n/g, '')
+        headerInfo = headerInfo[0].replace(/---|\n/g, '')
         var blogMes = {tags: []}
         // 去除换行符
         var re = /^title: |tags: |date: /g
