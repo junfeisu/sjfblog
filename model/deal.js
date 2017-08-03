@@ -1,5 +1,5 @@
 var mongo = require('../model/mongo.js').mongoUse
-var markdown = require('../node_modules/markdown').markdown
+var marked = require('marked')
 var model = require('../model/schema').models
 var fs = require('fs')
 
@@ -35,7 +35,7 @@ var deal = {
         headerInfo[2].split(' ').forEach(function(value) {
           blogMes.tags.push(value)
         })
-        blogMes.content = markdown.toHTML(result)
+        blogMes.content = marked(result)
         return blogMes
       }
     } else {
