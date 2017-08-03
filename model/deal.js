@@ -46,7 +46,6 @@ var deal = {
     var blogTitle = value.replace(/.+source\/(.+)\.md/, function (match, p1) {
       return p1
     })
-    console.log('blogTitle is', blogTitle)
     mongo.remove(model.Blog, 
       {title: blogTitle}, 
       function (err, blog) {
@@ -55,7 +54,6 @@ var deal = {
     })
   },
   updateBlog: function (value) {
-    console.log('updateBlog')
     var mes = deal.getContent(value)
     if (mes !== null) {
       mongo.update(model.Blog, 
