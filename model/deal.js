@@ -43,11 +43,15 @@ var deal = {
     }
   },
   removeBlog: function (value) {
+    var blogTitle = value.replace(/.+source\/(.+)\.md/, function (match, p1) {
+      return p1
+    })
+    console.log('blogTitle is', blogTitle)
     mongo.remove(model.Blog, 
-      {title: value.split('source/')[1].split('.md')[0]}, 
+      {title: blogTitle}, 
       function (err, blog) {
-        err ? deal.addLog('remove ' + value.split('source/')[1].split('.md')[0] + ' err is ' + JSON.stringify(err), null) : 
-          deal.addLog(null, 'remove ' + value.split('source/')[1].split('.md')[0] + ' is ' + JSON.stringify(blog.n))
+        err ? deal.addLog('remove ' + blogTitle + ' err is ' + JSON.stringify(err), null) : 
+          deal.addLog(null, 'remove ' + blogTitle + ' is ' + JSON.stringify(blog.n))
     })
   },
   updateBlog: function (value) {
