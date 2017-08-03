@@ -43,7 +43,7 @@ var deal = {
     }
   },
   removeBlog: function (value) {
-    var blogTitle = value.replace(/.+source\/(.+)\.md/, function (match, p1) {
+    var blogTitle = value.replace(/.+source\/(.+)\.(?=md)/, function (match, p1) {
       return p1
     })
     console.log('blogTitle is', blogTitle)
