@@ -1,4 +1,4 @@
-var mongo = require('../model/mongo.js').mongoUse
+var mongo = require('../model/mongoOperate').mongoUse
 var marked = require('marked')
 var model = require('../model/schema').models
 var fs = require('fs')
