@@ -37,7 +37,7 @@ var searchIndex = function(searchObj) {
     result.update = updateIndex
   }
 
-  Object.keys(result).length ? return null : return result
+  return Object.keys(result).length ? null : result
 }
 
 route.post('/', function (req, res) {
@@ -69,7 +69,7 @@ route.post('/', function (req, res) {
               result.splice(sameFileIndex.add, 1)
             } else if (sameFileIndex.add && !sameFileIndex.update) {
               result.splice(sameFileIndex.add, 1)
-            } else (sameFileIndex.update && !sameFileIndex.add) {
+            } else {
               result.splice(sameFileIndex.update)
               result.push({tag: 'remove', path: value})
             }
