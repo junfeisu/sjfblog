@@ -19,19 +19,15 @@ route.get('/bloglist', function(req, res) {
   ]
 
   for (var i in req.query) {
-    if (req.query.hasOwnProperty(i)) {
-      if (req.query[i] !== '') {
-        if (i === 'create_date') {
-          matchMessage['create_date'] = new RegExp("^" + req.query[i] + ".+")
-        } else {
-          matchMessage[i] = req.query[i]
-        }
+    if (req.query.hasOwnProperty(i) && req.query[i]) {
+      if (i === 'create_date') {
+        matchMessage['create_date'] = new RegExp("^" + req.query[i] + ".+")
+      } else {
+        matchMessage[i] = req.query[i]
       }
     }
     delete matchMessage.page_size
   }
-
-  console.log('message is ' + JSON.stringify(matchMessage))
 
   mongo.aggregate(model.Blog, message, function(err, blog) {
     if (err) {
@@ -63,7 +59,7 @@ route.delete('/delblog', function(req, res) {
 route.get('/blogtype', function(req, res) {
   var tag = {}
   var result = {}
-  var time = {}
+  
   tag.map = function() {
     if (!this.tags) {
       return
@@ -79,6 +75,20 @@ route.get('/blogtype', function(req, res) {
     }
     return count
   }
+  
+  mongo.mapReduce(model.Blog, tag, function(err, tags) {
+    if (err) {
+      res.status(500).json(err)
+    } else {
+      res.set('Accept-Encoding', 'compress,gzip')
+      res.json(tags)
+    }
+  })
+})
+
+route.get('/blogdate', function (req, res) {
+  var time = {}
+
   time.map = function() {
     var tmp = this.create_date.split(':')[0]
     emit(tmp.split('-')[0] + '-' + tmp.split('-')[1], 1)
@@ -86,20 +96,13 @@ route.get('/blogtype', function(req, res) {
   time.reduce = function(key, values) {
     return Array.sum(values)
   }
-  mongo.mapReduce(model.Blog, tag, function(err, tags) {
+
+  mongo.mapReduce(model.Blog, time, function(err, times) {
     if (err) {
       res.status(500).json(err)
     } else {
-      result.tags = tags
-      mongo.mapReduce(model.Blog, time, function(err, times) {
-        if (err) {
-          res.status(500).json(err)
-        } else {
-          result.times = times
-          res.set('Accept-Encoding', 'compress,gzip')
-          res.json(result)
-        }
-      })
+      res.set('Accept-Encoding', 'compress,gzip')
+      res.json(times)
     }
   })
 })
