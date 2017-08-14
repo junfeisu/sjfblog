@@ -1,9 +1,11 @@
 var express = require('express')
 var route = express.Router()
 var mongo = require('../model/mongoOperate').mongoUse
-// var validate = require('../model/validate')
 var model = require('../model/schema').models
 var fs = require('fs')
+var EventEmitter = require('events')
+var emitter = new EventEmitter()
+
 route.get('/', function(req, res) {
   res.send('This is blog Api')
 })
@@ -55,11 +57,34 @@ route.delete('/delblog', function(req, res) {
   })
 })
 
+var getDate = function (options) {
+  var time = {}
+
+  time.map = function() {
+    var tmp = this.create_date.split(':')[0]
+    emit(tmp.split('-')[0] + '-' + tmp.split('-')[1], 1)
+  }
+  time.reduce = function(key, values) {
+    return Array.sum(values)
+  }
+
+  mongo.mapReduce(model.Blog, time, function(err, times) {
+    if (err) {
+      options.res.status(500).json(err)
+    } else {
+      options.result.times = times
+      res.set('Accept-Encoding', 'compress,gzip')
+      res.json(options.result)
+    }
+  })
+}
+
+emitter.on('date', getDate)
+
 // get the whole blog tags and the timestamp
 route.get('/blogtype', function(req, res) {
   var tag = {}
-  var result = {}
-  
+
   tag.map = function() {
     if (!this.tags) {
       return
@@ -80,51 +105,44 @@ route.get('/blogtype', function(req, res) {
     if (err) {
       res.status(500).json(err)
     } else {
-      res.set('Accept-Encoding', 'compress,gzip')
-      res.json(tags)
+      result.tags = tags
+      emitter.emit('date', {
+        res: res,
+        result: result
+      })
     }
   })
 })
 
-route.get('/blogdate', function (req, res) {
-  var time = {}
+var getPrevBlog = function (options) {
+  model.Blog.find({ create_date: { $lt: options.cursor } },
+    function(err, prevBlog) {
+      if (err) {
+        options.res.status(500).json(err)
+      } else {
+        options.result.prevBlog = (prevBlog.length ? {} : prevBlog[0])
+        options.res.json(options.result)
+      }
+    }).sort({ create_date: -1 }).limit(1)
+}
 
-  time.map = function() {
-    var tmp = this.create_date.split(':')[0]
-    emit(tmp.split('-')[0] + '-' + tmp.split('-')[1], 1)
-  }
-  time.reduce = function(key, values) {
-    return Array.sum(values)
-  }
-
-  mongo.mapReduce(model.Blog, time, function(err, times) {
-    if (err) {
-      res.status(500).json(err)
-    } else {
-      res.set('Accept-Encoding', 'compress,gzip')
-      res.json(times)
-    }
-  })
-})
+emitter.on('prevBlog', getPrevBlog)
 
 // get the prev blog and next blog
 route.get('/nearblog', function(req, res) {
   var result = {}
-  model.Blog.find({ create_date: { $gt: req.query.cursor } },
+  var cursor = req.query.cursor
+  model.Blog.find({ create_date: { $gt: cursor } },
     function(err, nextBlog) {
       if (err) {
         res.status(500).json(err)
       } else {
         result.nextBlog = (JSON.stringify(nextBlog) === '[]' ? {} : nextBlog[0])
-        model.Blog.find({ create_date: { $lt: req.query.cursor } },
-          function(err, prevBlog) {
-            if (err) {
-              res.status(500).json(err)
-            } else {
-              result.prevBlog = (JSON.stringify(prevBlog) === '[]' ? {} : prevBlog[0])
-              res.json(result)
-            }
-          }).sort({ create_date: -1 }).limit(1)
+        emitter.emit('prevBlog', {
+          res: res,
+          result: result,
+          cursor: cursor
+        })
       }
     }).sort({ create_date: 1 }).limit(1)
 })
