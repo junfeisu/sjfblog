@@ -74,8 +74,8 @@ var getDate = function (options) {
       options.res.status(500).json(err)
     } else {
       options.result.times = times
-      res.set('Accept-Encoding', 'compress,gzip')
-      res.json(options.result)
+      options.res.set('Accept-Encoding', 'compress,gzip')
+      options.res.json(options.result)
     }
   })
 }
