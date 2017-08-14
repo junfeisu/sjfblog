@@ -1,6 +1,6 @@
 var express = require('express')
 var route = express.Router()
-var mongo = require('../model/mongo').mongoUse
+var mongo = require('../model/mongoOperate').mongoUse
 // var validate = require('../model/validate')
 var model = require('../model/schema').models
 var fs = require('fs')
@@ -86,12 +86,12 @@ route.get('/blogtype', function(req, res) {
   time.reduce = function(key, values) {
     return Array.sum(values)
   }
-  mongo.mapreduce(model.Blog, tag, function(err, tags) {
+  mongo.mapReduce(model.Blog, tag, function(err, tags) {
     if (err) {
       res.status(500).json(err)
     } else {
       result.tags = tags
-      mongo.mapreduce(model.Blog, time, function(err, times) {
+      mongo.mapReduce(model.Blog, time, function(err, times) {
         if (err) {
           res.status(500).json(err)
         } else {

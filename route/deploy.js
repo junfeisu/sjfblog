@@ -1,6 +1,6 @@
 var express = require('express')
 var route = express.Router()
-var deal = require('./../model/deal')
+var deal = require('./../model/blogOperate')
 var exec = require('child_process').exec
 
 var judge = {
