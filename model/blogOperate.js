@@ -3,9 +3,6 @@ var marked = require('marked')
 var model = require('../model/schema').models
 var fs = require('fs')
 
-var path = 'https://github.com'
-var rawPath = 'https://raw.githubusercontent.com'
-
 var deal = {
   addBlog: function (value) {
     var mes = deal.getContent(value)
