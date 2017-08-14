@@ -1,6 +1,6 @@
 var express = require('express')
 var route = express.Router()
-var mongo=require('../model/mongo').mongoUse
+var mongo=require('../model/mongoOperate').mongoUse
 var model= require('../model/schema').models
 
 route.get('/', function(req,res,next){
