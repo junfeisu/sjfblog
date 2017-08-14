@@ -1,7 +1,5 @@
-var mongoose = require('../node_modules/mongoose'),
-  ObjectId = mongoose.Schema.Types.ObjectId,
-  Schema = mongoose.Schema;
-mongoose.connect('mongodb://localhost/test')
+var mongoose = require('mongoose'),
+  Schema = mongoose.Schema
 
 var schemas = {
   blogSchema: new Schema({
@@ -79,7 +77,7 @@ var schemas = {
       default: Date.now 
     }
   }, { versionKey: false })
-};
+}
 
 schemas.userSchema.virtual('userId').get(function() {
   return this._id
@@ -87,11 +85,12 @@ schemas.userSchema.virtual('userId').get(function() {
 
 schemas.userSchema.statics.findByName = function(name, cb) {
   return this.find({ username: new RegExp(name, 'i'), cb })
-};
+}
 
 exports.models = {
   User: mongoose.model('User', schemas.userSchema),
   Blog: mongoose.model('Blog', schemas.blogSchema)
-};
+}
 
 exports.schemas
+

@@ -1,5 +1,6 @@
 var express = require('express')
 var route = express.Router()
+var connect = require('../model/mongodbUtil').connect
 var mongo = require('../model/mongoOperate').mongoUse
 var model = require('../model/schema').models
 var fs = require('fs')
