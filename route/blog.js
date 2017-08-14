@@ -85,6 +85,7 @@ emitter.on('date', getDate)
 // get the whole blog tags and the timestamp
 route.get('/blogtype', function(req, res) {
   var tag = {}
+  var result = {}
 
   tag.map = function() {
     if (!this.tags) {
