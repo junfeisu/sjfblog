@@ -1,6 +1,6 @@
 var express = require('express')
 var route = express.Router()
-var deal = require('./../model/blogOperate')
+var deal = require('../model/blogOperate')
 var exec = require('child_process').exec
 
 var judge = {
@@ -15,28 +15,70 @@ var judge = {
   }
 }
 
+var searchIndex = function(searchObj) {
+  let addIndex = -1
+  let updateIndex = -1
+  let result = {}
+
+  result.forEach((val, index) => {
+    if (val.path === value) {
+      if (val.tag === 'add') {
+        addIndex = index
+      } else if (val.tag === 'update') {
+        update = index
+      }
+    }
+  })
+
+  if (addIndex !== -1) {
+    result.add = addIndex
+  }
+  if (updateIndex !== -1) {
+    result.update = updateIndex
+  }
+
+  Object.keys(result).length ? return null : return result
+}
+
 route.post('/', function (req, res) {
   exec('git pull --rebase origin master', {'cwd': '/home/www/sjfblog'}, function (err, stdout, stderr) {
-    if (err !== null) {
-      res.json('err is ' + JSON.stringify(err))
+    if (err) {
+      res.status(500).json('err is ' + JSON.stringify(err))
     } else {
-      var commits = req.body.commits[0]
+      var commits = req.body.commits
       var result = []
-      if (commits.removed.length !== 0) {
-        commits.removed.forEach(value => {
-          result.push({tag: 'remove', path: value})
-        })
-      }
-      if (commits.added.length !== 0) {
-        commits.added.forEach(value => {
+
+      commits.forEach(commit => {
+        commit.added.forEach(value => {
           result.push({tag: 'add', path: value})
         })
-      }
-      if (commits.modified.length !== 0) {
-        commits.modified.forEach(value => {
+        commit.modified.forEach(value => {
           result.push({tag: 'update', path: value})
         })
-      }
+        commit.removed.forEach(value => {
+          let sameFileIndex = searchIndex(result)
+
+          if (sameFileAddIndex) {
+            /* 
+             * 当添加并同时修改该文件之后又删除该文件，那么这些操作就都不执行
+             * 当添加该文件之后又删除该文件，那么取消对这个文件的操作
+             * 当修改了一个文件之后又删除该文件，那么修改的操作可以去掉
+             */
+            if (sameFileIndex.add && sameFileIndex.update) {
+              result.splice(sameFileIndex.update, 1)
+              result.splice(sameFileIndex.add, 1)
+            } else if (sameFileIndex.add && !sameFileIndex.update) {
+              result.splice(sameFileIndex.add, 1)
+            } else (sameFileIndex.update && !sameFileIndex.add) {
+              result.splice(sameFileIndex.update)
+              result.push({tag: 'remove', path: value})
+            }
+          } else {
+            result.push({tag: 'remove', path: value})
+          }
+        })
+      })
+
       judge.blog(result)
     }
   })
