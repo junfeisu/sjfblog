@@ -20,7 +20,7 @@
           <div class="clear"></div>
         </div>
       </div>
-      <div class="tag-class">
+      <div class="tag-class contact">
         <h3>联系我</h3>
         <div><img width="100%" src="http://7xrp7o.com1.z0.glb.clouddn.com/wechat.png" alt=""></div>
       </div>
@@ -90,6 +90,10 @@
         width: 100%;
         text-align: center;
       }
+    }
+    .contact {
+      display: block;
+      text-align: center;
     }
   }
   .clear {
