@@ -122,7 +122,7 @@ var getPrevBlog = function (options) {
       if (err) {
         options.res.status(500).json(err)
       } else {
-        options.result.prevBlog = (prevBlog.length ? {} : prevBlog[0])
+        options.result.prevBlog = (JSON.stringify(prevBlog) === '[]' ? {} : prevBlog[0])
         options.res.json(options.result)
       }
     }).sort({ create_date: -1 }).limit(1)
