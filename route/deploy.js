@@ -56,7 +56,7 @@ route.post('/', function (req, res) {
           result.push({tag: 'update', path: value})
         })
         commit.removed.forEach(value => {
-          let sameFileIndex = searchIndex(result, val)
+          let sameFileIndex = searchIndex(result, value)
 
           if (sameFileAddIndex) {
             /* 
