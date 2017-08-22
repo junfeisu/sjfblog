@@ -58,7 +58,7 @@ route.post('/', function (req, res) {
         commit.removed.forEach(value => {
           let sameFileIndex = searchIndex(result, value)
 
-          if (sameFileAddIndex) {
+          if (sameFileIndex) {
             /* 
              * 当添加并同时修改该文件之后又删除该文件，那么这些操作就都不执行
              * 当添加该文件之后又删除该文件，那么取消对这个文件的操作
