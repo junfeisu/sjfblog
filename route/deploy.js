@@ -15,12 +15,12 @@ var judge = {
   }
 }
 
-var searchIndex = function(searchObj) {
+var searchIndex = function(searchObj, path) {
   let addIndex = -1
   let updateIndex = -1
   let result = {}
 
-  result.forEach((val, index) => {
+  searchObj.forEach((val, index) => {
     if (val.path === value) {
       if (val.tag === 'add') {
         addIndex = index
@@ -56,7 +56,7 @@ route.post('/', function (req, res) {
           result.push({tag: 'update', path: value})
         })
         commit.removed.forEach(value => {
-          let sameFileIndex = searchIndex(result)
+          let sameFileIndex = searchIndex(result, val)
 
           if (sameFileAddIndex) {
             /* 
