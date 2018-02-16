@@ -4,3 +4,5 @@ npm-debug.*
 md2html/201*-*
 md2html/getmd.js
 blogLog/*
+yarn.lock
+static/yarn.lock

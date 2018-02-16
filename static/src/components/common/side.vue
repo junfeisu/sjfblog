@@ -28,16 +28,16 @@
           })
         } else {
           window.onmousewheel = event => {
-            this.isShow = !!(document.body.scrollTop > boundary + 40)
+            this.isShow = !!(document.documentElement.scrollTop > boundary + 40)
           }
         }
       },
       backUp () {
         const time = setInterval(() => {
-          let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+          let scrollTop = document.documentElement.scrollTop
           let speed = Math.ceil(scrollTop / 5)
           let position = scrollTop - speed
-          this.isFirefox ? document.documentElement.scrollTop = position : document.body.scrollTop = position
+          document.documentElement.scrollTop = position
           if (scrollTop === 0) {
             clearInterval(time)
             this.isShow = false
