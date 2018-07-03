@@ -1,13 +1,22 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var blog = require('./route/blog');
-var user = require('./route/user');
-var doc = require('./route/meta');
-var webhook = require('./route/deploy');
-var cons = require('consolidate');
+// var express = require('express');
+// var path = require('path');
+// var logger = require('morgan');
+// var cookieParser = require('cookie-parser');
+// var bodyParser = require('body-parser');
+// var blog = require('./route/blog');
+// var doc = require('./route/meta');
+// var webhook = require('./route/deploy');
+// var cons = require('consolidate');
+
+import express from 'express'
+import path from 'path'
+import logger from 'morgan'
+import cookieParser from 'cookir-parser'
+import bodyParser from 'body-parser'
+import cons from 'consolidate'
+import blogRoute from './route/blog'
+import docRoute from './route/meta'
+import webhookRoute from './route/deploy'
 
 var app = express();
 app.use(logger('dev'));
@@ -18,7 +27,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/static/dist')))
 
 app.use('/api/blog', blog);
-app.use('/api/user', user);
 app.use('/api/doc', doc);
 app.use('/api/webhook', webhook);
 
