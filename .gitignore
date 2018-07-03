@@ -3,11 +3,8 @@
 
 # node_modules
 node_modules/*
-static/node_modules/*
+src/static/node_modules/*
 
 # npm or yarn log file
 npm-debug.*
 yarn-error.*
-
-# blogLog file
-blogLog/*
