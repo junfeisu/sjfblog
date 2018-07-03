@@ -4,11 +4,7 @@
   "description": "sjfblog base on angular & es6",
   "main": "main.js",
   "scripts": {
-    "start": "node app",
-    "build": "webpack --config webpack.build.js --bail -p",
-    "dev": "node node_modules/.bin/webpack-dev-server --history-api-fallback --hot --inline --progress",
-    "test": "karma start",
-    "test:live": "karma start --auto-watch --no-single-run"
+    "start": "node app"
   },
   "keywords": [
     "blog",
@@ -29,6 +25,7 @@
     "morgan": "^1.7.0"
   },
   "dependencies": {
+    "@types/node": "^10.5.1",
     "cheerio": "^0.20.0",
     "consolidate": "^0.14.1",
     "cookie-parser": "^1.4.3",

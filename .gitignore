@@ -1,8 +1,13 @@
+# system file
 .DS_Store
-node_modules/
+
+# node_modules
+node_modules/*
+static/node_modules/*
+
+# npm or yarn log file
 npm-debug.*
-md2html/201*-*
-md2html/getmd.js
+yarn-error.*
+
+# blogLog file
 blogLog/*
-yarn.lock
-static/yarn.lock
