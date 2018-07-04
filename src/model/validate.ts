@@ -1,50 +1,51 @@
-var route = {
+const route = {
   '/blogbyid': { _id: 'string' },
   '/bloglist': { cursor: 'string'}
 }
-var getPropertyName = function(obj) {
-  return Object.keys(obj)
+
+const propertyUtils = {
+  getName (obj) {
+    return Object.keys(obj)
+  },
+  getValue (obj) {
+    var val: any [] = []
+    var pro = Object.keys(obj)
+    pro.forEach(function(value: string): void {
+      val.push(obj[value])
+    })
+    return val
+  }
 }
-var getPropertyVal = function(obj) {
-  var val = []
-  var pro = Object.keys(obj)
-  pro.forEach(function(value) {
-    val.push(obj[value])
-  })
-  return val
-}
+
 var checkMes = function(check) {
   check.pathname = '/' + check.pathname.split('/')[1]
-  var checkName = getPropertyName(route[check.pathname])
-  var checkVal = getPropertyVal(route[check.pathname])
-  var result = ''
+  var checkName = propertyUtils.getName(route[check.pathname])
+  var checkVal = propertyUtils.getValue(route[check.pathname])
+  var result = {}
   var checkDeal = {
     Lack: function() {
-      console.log('lack is run')
       for (var i = 0, len = checkName.length; i < len; i++) {
         if (!check.data.hasOwnProperty(checkName[i])) {
           result = { status: true, msg: 'The property of ' + checkName[i] + ' can not be lack' }
-          break;
+          break
         }
       }
-      checkDeal['Null']();
+      checkDeal['Null']()
     },
     Null: function() {
-      console.log('null is run')
       for (var i = 0, len = checkName.length; i < len; i++) {
         if (check.data[checkName[i]] === '' || check.data[checkName[i]] === null) {
           result = { status: true, msg: 'The val of ' + checkName[i] + ' can not be null' }
           break;
         }
       }
-      checkDeal['Type']();
+      checkDeal['Type']()
     },
     Type: function() {
-      console.log('type is run')
       for (var i = 0, len = checkName.length; i < len; i++) {
         if (typeof(check.data[checkName[i]]) !== checkVal[i]) {
           result = { status: true, msg: 'The ' + checkName[i] + ' val should be ' + checkVal[i] };
-          break;
+          break
         }
       }
       result = { status: false, msg: '' }
@@ -55,8 +56,6 @@ var checkMes = function(check) {
 };
 
 exports.checkResult = function(req) {
-  console.log('req.query is ' + JSON.stringify(req.query))
-  var result = checkMes({ pathname: req.url, data: req.query });
-  console.log('result is ' + JSON.stringify(result))
+  var result = checkMes({ pathname: req.url, data: req.query })
   return result;
 }

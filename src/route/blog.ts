@@ -1,13 +1,15 @@
-var express = require('express')
-var route = express.Router()
-var connect = require('../model/mongodbUtil').connect
-var mongo = require('../model/mongoOperate').mongoUse
-var model = require('../model/schema').models
-var fs = require('fs')
-var EventEmitter = require('events')
-var emitter = new EventEmitter()
+import express from 'express'
+import fs from 'fs'
+import blogModel from '../model/schema'
+import mongoose from 'mongoose'
+import EventEmitter from 'events'
 
-route.get('/', function(req, res) {
+const route = express.Router()
+const emitter = new EventEmitter()
+
+declare function emit(k, v)
+
+route.get('/', function(req, res): void {
   res.send('This is blog Api')
 })
 
@@ -29,15 +31,15 @@ route.get('/bloglist', function(req, res) {
         matchMessage[i] = req.query[i]
       }
     }
-    delete matchMessage.page_size
+    delete matchMessage['page_size']
   }
 
-  mongo.aggregate(model.Blog, message, function(err, blog) {
+  blogModel.aggregate(message, function(err, blog) {
     if (err) {
       res.status(500).json(err)
     } else {
       newResult.blogs = blog
-      mongo.search(model.Blog, matchMessage, function(err, count){
+      blogModel.find(matchMessage, function(err, count) {
         newResult.total = count.length
         res.json(newResult)
       })
@@ -46,30 +48,26 @@ route.get('/bloglist', function(req, res) {
 })
 
 route.post('/blogbyid', function(req, res) {
-  mongo.search(model.Blog, req.body, function(err, blog) {
+  blogModel.find(req.body, function(err, blog) {
     err ? res.status(500).json(err) : res.json(blog[0])
   })
 })
 
-// delete the blog
-route.delete('/delblog', function(req, res) {
-  mongo.remove(model.Blog, message, function(err, blog) {
-    err ? res.status(500).json(err) : res.json(blog)
-  })
-})
-
 var getDate = function (options) {
-  var time = {}
+  var time = {
+    map: () => {},
+    reduce: (key: any, values: any) => Array
+  }
 
   time.map = function() {
-    var tmp = this.create_date.split(':')[0]
+    var tmp = this['create_date'].split(':')[0]
     emit(tmp.split('-')[0] + '-' + tmp.split('-')[1], 1)
   }
   time.reduce = function(key, values) {
-    return Array.sum(values)
+    return mongoose.Array.sum(values)
   }
 
-  mongo.mapReduce(model.Blog, time, function(err, times) {
+  blogModel.mapReduce(time, function(err, times) {
     if (err) {
       options.res.status(500).json(err)
     } else {
@@ -84,30 +82,33 @@ emitter.on('date', getDate)
 
 // get the whole blog tags and the timestamp
 route.get('/blogtype', function(req, res) {
-  var tag = {}
+  var tag = {
+    map: () => {},
+    reduce: (key: any, values: any) => {}
+  }
   var result = {}
 
   tag.map = function() {
-    if (!this.tags) {
+    if (!this['tags']) {
       return
     }
-    for (index in this.tags) {
-      emit(this.tags[index], 1)
+    for (var index in this['tags']) {
+      emit(this['tags'][index], 1)
     }
   }
   tag.reduce = function(key, values) {
     var count = 0
-    for (index in values) {
+    for (var index in values) {
       count += values[index]
     }
     return count
   }
   
-  mongo.mapReduce(model.Blog, tag, function(err, tags) {
+  blogModel.mapReduce(tag, function(err, tags) {
     if (err) {
       res.status(500).json(err)
     } else {
-      result.tags = tags
+      result['tags'] = tags
       emitter.emit('date', {
         res: res,
         result: result
@@ -117,7 +118,7 @@ route.get('/blogtype', function(req, res) {
 })
 
 var getPrevBlog = function (options) {
-  model.Blog.find({ create_date: { $lt: options.cursor } },
+  blogModel.find({ create_date: { $lt: options.cursor } },
     function(err, prevBlog) {
       if (err) {
         options.res.status(500).json(err)
@@ -134,12 +135,12 @@ emitter.on('prevBlog', getPrevBlog)
 route.get('/nearblog', function(req, res) {
   var result = {}
   var cursor = req.query.cursor
-  model.Blog.find({ create_date: { $gt: cursor } },
+  blogModel.find({ create_date: { $gt: cursor } },
     function(err, nextBlog) {
       if (err) {
         res.status(500).json(err)
       } else {
-        result.nextBlog = (JSON.stringify(nextBlog) === '[]' ? {} : nextBlog[0])
+        result['nextBlog'] = (JSON.stringify(nextBlog) === '[]' ? {} : nextBlog[0])
         emitter.emit('prevBlog', {
           res: res,
           result: result,
@@ -149,4 +150,4 @@ route.get('/nearblog', function(req, res) {
     }).sort({ create_date: 1 }).limit(1)
 })
 
-module.exports = route;
+export default route

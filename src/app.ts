@@ -4,11 +4,13 @@ import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import cons from 'consolidate'
+import mongoConnect from './model/mongodbUtil'
 import blogRoute from './route/blog'
 import docRoute from './route/meta'
 import webhookRoute from './route/deploy'
 
 var app = express()
+mongoConnect()
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

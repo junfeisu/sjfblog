@@ -1,5 +1,5 @@
-var express = require('express')
-var route = express.Router()
+import express from 'express'
+const route = express.Router
 
 route.get('/', function(req, res) {
     res.json({
@@ -26,4 +26,4 @@ route.get('/', function(req, res) {
     })
 })
 
-module.exports = route
+export default route

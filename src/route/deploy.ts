@@ -1,31 +1,37 @@
-var express = require('express')
-var route = express.Router()
-var deal = require('../model/blogOperate')
-var exec = require('child_process').exec
+import express from 'express'
+import blogUtils from '../model/blogUtils'
+import { exec } from 'child_process'
 
-var judge = {
-  // 对博客的操作
-  blog: function (result) {
-    var mdReg = /^md2html\/source\//
-    result.forEach(value => {
-      if (mdReg.test(value.path)) {
-        deal[value.tag + 'Blog'](value.path)
-      }
-    })
-  }
+interface searchResult {
+  add: number,
+  update: number
+}
+
+const route = express.Router() 
+
+const judgeBlog = (result: Array<Object>): void => {
+  var mdReg = /^markdowns/
+  result.forEach(value => {
+    if (mdReg.test(value['path'])) {
+      blogUtils[value['tag'] + 'Blog'](value['path'])
+    }
+  })
 }
 
 var searchIndex = function(searchObj, path) {
   let addIndex = -1
   let updateIndex = -1
-  let result = {}
+  let result: searchResult = {
+    add: 0,
+    update: 0
+  }
 
   searchObj.forEach((val, index) => {
-    if (val.path === value) {
+    if (val.path === path) {
       if (val.tag === 'add') {
         addIndex = index
       } else if (val.tag === 'update') {
-        update = index
+        updateIndex = index
       }
     }
   })
@@ -46,7 +52,7 @@ route.post('/', function (req, res) {
       res.status(500).json('err is ' + JSON.stringify(err))
     } else {
       var commits = req.body.commits
-      var result = []
+      var result: Object[] = []
 
       commits.forEach(commit => {
         commit.added.forEach(value => {
@@ -79,9 +85,9 @@ route.post('/', function (req, res) {
         })
       })
 
-      judge.blog(result)
+      judgeBlog(result)
     }
   })
 })
 
-module.exports = route
+export default route

@@ -8,3 +8,6 @@ src/static/node_modules/*
 # npm or yarn log file
 npm-debug.*
 yarn-error.*
+
+# build
+build/*
