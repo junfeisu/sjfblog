@@ -1,4 +1,4 @@
-import express from 'express'
+import * as express from 'express'
 import blogUtils from '../model/blogUtils'
 import { exec } from 'child_process'
 

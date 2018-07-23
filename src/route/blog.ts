@@ -1,4 +1,4 @@
-import express from 'express'
+import * as express from 'express'
 import fs from 'fs'
 import blogModel from '../model/schema'
 import mongoose from 'mongoose'
