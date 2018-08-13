@@ -4,11 +4,7 @@
   "description": "sjfblog base on angular & es6",
   "main": "main.js",
   "scripts": {
-    "start": "node app",
-    "build": "webpack --config webpack.build.js --bail -p",
-    "dev": "node node_modules/.bin/webpack-dev-server --history-api-fallback --hot --inline --progress",
-    "test": "karma start",
-    "test:live": "karma start --auto-watch --no-single-run"
+    "start": "node app"
   },
   "keywords": [
     "blog",
@@ -17,10 +13,8 @@
   "author": "sujunfei",
   "devDependencies": {
     "body-parser": "^1.15.2",
-    "child_process": "^1.0.2",
     "core-js": "^1.2.5",
     "express": "^4.14.0",
-    "extract-text-webpack-plugin": "^0.9.0",
     "husky": "^0.10.1",
     "jest-cli": "^0.6.1",
     "json-mock-kuitos": "^1.0.3",
@@ -29,13 +23,11 @@
     "morgan": "^1.7.0"
   },
   "dependencies": {
-    "cheerio": "^0.20.0",
     "consolidate": "^0.14.1",
     "cookie-parser": "^1.4.3",
     "cron": "^1.1.0",
     "immutable": "^3.7.5",
     "keymirror": "^0.1.1",
-    "loaders.css": "^0.1.1",
-    "superagent": "^2.1.0"
+    "loaders.css": "^0.1.1"
   }
 }
