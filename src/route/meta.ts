@@ -1,4 +1,4 @@
-import * as express from 'express'
+import express from 'express'
 const route = express.Router()
 
 route.get('/', function(req, res) {
