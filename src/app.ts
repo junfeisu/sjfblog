@@ -1,5 +1,5 @@
 import express from 'express'
-import * as path from 'path'
+import path from 'path'
 import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
@@ -50,8 +50,10 @@ app.use(function(err, req, res, next):void {
   })
 })
 
-const server = app.listen(4000, function() {
-  console.log('Server start at 127.0.0.1:4000')
-})
+if (!module.parent) {
+  app.listen(4000, function() {
+    console.log('Server start at 127.0.0.1:4000')
+  })
+}
 
-export default server
+export default app

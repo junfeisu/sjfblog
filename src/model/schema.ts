@@ -21,4 +21,4 @@ const blogSchema = new Schema({
   }
 }, { versionKey: false })
 
-export default mongoose.model('Blog', blogSchema)
+export default mongoose.model('blog', blogSchema)
