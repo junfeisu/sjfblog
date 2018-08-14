@@ -10,6 +10,7 @@ const emitter = new EventEmitter()
 declare function emit(k, v)
 
 route.get('/', function(req, res): void {
+  console.log('test')
   res.send('This is blog Api')
 })
 

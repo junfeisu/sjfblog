@@ -5,7 +5,10 @@
   "main": "main.js",
   "scripts": {
     "compile": "tsc --watch",
-    "start": "node build/app.js"
+    "start": "node build/app.js",
+    "unit": "mocha build --recursive",
+    "report": "istanbul cover node_modules/mocha/bin/_mocha",
+    "coverage": "cat ./coverage/lcov.info | coveralls"
   },
   "keywords": [
     "blog",
@@ -13,8 +16,8 @@
   ],
   "author": "sujunfei",
   "devDependencies": {
-    "@types/node": "^10.5.1",
     "@types/express": "^4.16.0",
+    "@types/node": "^10.5.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
@@ -25,19 +28,22 @@
     "core-js": "^1.2.5",
     "extract-text-webpack-plugin": "^0.9.0",
     "husky": "^0.10.1",
-    "json-mock-kuitos": "^1.0.3"
+    "istanbul": "^0.4.5",
+    "json-mock-kuitos": "^1.0.3",
+    "mocha": "^5.2.0",
+    "supertest": "^3.1.0"
   },
   "dependencies": {
-    "express": "^4.16.3",
-    "mongoose": "^4.5.4",
-    "morgan": "^1.7.0",
-    "marked": "^0.3.6",
+    "body-parser": "^1.15.2",
     "child_process": "^1.0.2",
     "consolidate": "^0.14.1",
-    "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
     "immutable": "^3.7.5",
     "keymirror": "^0.1.1",
-    "loaders.css": "^0.1.1"
+    "loaders.css": "^0.1.1",
+    "marked": "^0.3.6",
+    "mongoose": "^4.5.4",
+    "morgan": "^1.7.0"
   }
 }

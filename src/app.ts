@@ -50,6 +50,8 @@ app.use(function(err, req, res, next):void {
   })
 })
 
-app.listen(4000, function() {
+const server = app.listen(4000, function() {
   console.log('Server start at 127.0.0.1:4000')
 })
+
+export default server
