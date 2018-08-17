@@ -20,7 +20,6 @@ describe('blog API test', () => {
       .post('/blogbyid')
       .send({blogid: '5b729d34e3de0116f1c428d5'})
       .set('Content-type', 'application/json')
-      .set('Accept', 'application/json')
       .expect(200)
       .expect(res => {
         res.body.title = 'NodeJs学习笔记之系统初识'

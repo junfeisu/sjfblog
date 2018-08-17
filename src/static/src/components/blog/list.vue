@@ -53,12 +53,13 @@
       .blog-body {
         cursor: pointer;
         margin-bottom: 30px;
-        overflow : hidden;
+        overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -moz-line-clamp: 3;
-        max-height: 56px;
+        max-height: 54px;
+        line-height: 18px;
         -webkit-box-orient: vertical;
       }
       span {

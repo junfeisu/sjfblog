@@ -15,7 +15,7 @@ route.get('/', function(req, res): void {
 
 route.get('/bloglist', function(req, res) {
   var matchMessage = {}
-  var newResult = { blogs: [], total: ''}
+  var newResult = { blogs: [], total: 0}
   var message = [
     { $match: matchMessage },
     { $sort: { create_date: -1 } },
@@ -49,6 +49,7 @@ route.get('/bloglist', function(req, res) {
 
 route.post('/blogbyid', function(req, res) {
   blogModel.find(req.body, function(err, blog) {
+    console.log('get blog')
     err ? res.status(500).json(err) : res.json(blog[0])
   })
 })
@@ -56,7 +57,7 @@ route.post('/blogbyid', function(req, res) {
 var getDate = function (options) {
   var time = {
     map: () => {},
-    reduce: (key: any, values: any) => Array
+    reduce: (key: any, values: any) => {}
   }
 
   time.map = function() {
@@ -64,7 +65,7 @@ var getDate = function (options) {
     emit(tmp.split('-')[0] + '-' + tmp.split('-')[1], 1)
   }
   time.reduce = function(key, values) {
-    return mongoose.Array.sum(values)
+    return Array.sum(values)
   }
 
   blogModel.mapReduce(time, function(err, times) {

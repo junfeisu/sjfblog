@@ -27,7 +27,7 @@ var blogUtils = {
     var mes: blogInfo = blogUtils.getContent(value)
     new blogModel(mes).save(function (err, blog) {
       err ? addLog('add ' + mes.title + ' error is ' + JSON.stringify(err), null) : 
-        addLog(null, 'add blog ' + mes.title + ' is ' + JSON.stringify(blog.n))
+        addLog(null, 'add blog ' + mes.title + 'success')
     })
   },
   getContent: function (value) {
@@ -61,9 +61,9 @@ var blogUtils = {
     var blogTitle = value.replace(/.+source\/(.+)\.md/, (match, title) => {
       return title
     })
-    blogModel.remove({title: blogTitle}, (err, blog) => {
+    blogModel.remove({title: blogTitle}, (err) => {
         err ? addLog('remove ' + blogTitle + ' err is ' + JSON.stringify(err), null) : 
-          addLog(null, 'remove ' + blogTitle + ' is ' + JSON.stringify(blog.n))
+          addLog(null, 'remove ' + blogTitle + ' is ' + JSON.stringify(1))
     })
   },
   updateBlog: function (value) {
